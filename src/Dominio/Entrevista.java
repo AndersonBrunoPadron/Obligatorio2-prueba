@@ -7,7 +7,7 @@ public class Entrevista {
     private Postulante postulante;
     private int puntaje;
     private String comentarios;
-    private int numCorrelativo;
+    private int idEntrevista;
 
     //=================Sets y Gets=============================================
     
@@ -35,15 +35,21 @@ public class Entrevista {
         this.comentarios = comentarios;
     }
 
-    public int getNumCorrelativo() {
-        return numCorrelativo;
+    public int getIdEntrevista() {
+        return idEntrevista;
     }
 
-    public void setNumCorrelativo(int numCorrelativo) {
-        this.numCorrelativo = numCorrelativo;
+    public void setIdEntrevista(int unId) {
+        this.idEntrevista = unId;
     }
         
+    
+        public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
     //=================Metodos=============================================
+
+
     
     
 }

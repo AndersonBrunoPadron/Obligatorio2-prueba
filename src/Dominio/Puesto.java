@@ -7,33 +7,40 @@ import java.util.ArrayList;
 public class Puesto {
     private String nombre;
     private String tipo;
-    private ArrayList<String> temasRequeridos;
+    private ArrayList<Tematica> temasRequeridos;
 
     //=================Sets y Gets=============================================
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
+        public Puesto(String nombre, String tipo, ArrayList<Tematica> temasRequeridos) {
         this.nombre = nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public ArrayList<String> getTemasRequeridos() {
-        return temasRequeridos;
-    }
-
-    public void setTemasRequeridos(ArrayList<String> temasRequeridos) {
         this.temasRequeridos = temasRequeridos;
     }
+        
+        
+    public String getNombre() {
+    return nombre;
+}
+
+public void setNombre(String nombre) {
+    this.nombre = nombre;
+}
+
+public String getTipo() {
+    return tipo;
+}
+
+public void setTipo(String tipo) {
+    this.tipo = tipo;
+}
+
+public ArrayList<Tematica> getTemasRequeridos() {
+    return temasRequeridos;
+}
+
+public void setTemasRequeridos(ArrayList<Tematica> temasRequeridos) {
+    this.temasRequeridos = temasRequeridos;
+}
+
         
     //=================Metodos=============================================
     

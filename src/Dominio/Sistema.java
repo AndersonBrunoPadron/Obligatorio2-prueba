@@ -96,6 +96,10 @@ public class Sistema {
     public void agregarTema(Tema tema) {
         listaTemas.add(tema);
     }
+    
+        public void agregarPuesto(Puesto puesto) {
+        listaPuestos.add(puesto);
+    }
 
     public Postulante obtenerUltimoPostulante() {
         Postulante ultimoPostulante = null; // Inicializa como null

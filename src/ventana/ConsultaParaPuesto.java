@@ -41,11 +41,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         getContentPane().add(labelPostulantes);
         labelPostulantes.setBounds(30, 240, 80, 20);
 
-        listaPostulantes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaPostulantes);
 
         getContentPane().add(jScrollPane1);
@@ -63,11 +58,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         getContentPane().add(btnCancelar);
         btnCancelar.setBounds(30, 400, 120, 23);
 
-        listaPuestos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(listaPuestos);
 
         getContentPane().add(jScrollPane2);
@@ -93,7 +83,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         getContentPane().add(btnExportar);
         btnExportar.setBounds(260, 400, 120, 23);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(30, 220, 350, 10);
+        jSeparator1.setBounds(30, 220, 350, 3);
 
         setSize(new java.awt.Dimension(429, 473));
         setLocationRelativeTo(null);
