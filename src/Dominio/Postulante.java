@@ -3,30 +3,26 @@ package Dominio;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+public class Postulante extends Persona implements Serializable {
 
-
-public class Postulante extends Persona implements Serializable{
     private int telefono;
     private String correo;
     private String linkedin;
     private String tipo;
     private ArrayList<ExperienciaPostulante> temas;
 
-@Override
-public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Nombre: ").append(getNombre()).append("\n");
-    sb.append("Cédula: ").append(getCedula()).append("\n");
-    sb.append("Tipo: ").append(tipo).append("\n");
-    sb.append("Experiencias:\n");
-    for (ExperienciaPostulante experiencia : temas) {
-        sb.append("- ").append(experiencia).append("\n");
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(getNombre()).append("\n");
+        sb.append("Cédula: ").append(getCedula()).append("\n");
+        sb.append("Tipo: ").append(tipo).append("\n");
+        sb.append("Experiencias:\n");
+        for (ExperienciaPostulante experiencia : temas) {
+            sb.append("- ").append(experiencia).append("\n");
+        }
+        return sb.toString();
     }
-    return sb.toString();
-}
-
-    
-    
 
     public Postulante(String nombre, int cedula, String direccion, int telefono, String correo, String linkedin, String tipo, ArrayList<ExperienciaPostulante> temas) {
         super(nombre, cedula, direccion);
@@ -80,30 +76,16 @@ public String toString() {
     public void agregarTemas(ArrayList<ExperienciaPostulante> temasNuevos) {
         temas.addAll(temasNuevos);
     }
-    
-    public boolean haTenidoEntrevista() {
-    Sistema sistema = Sistema.getInstance(); // Obtén una instancia del sistema
-    ArrayList<Entrevista> entrevistas = sistema.getListaEntrevistas();
 
-    for (Entrevista entrevista : entrevistas) {
-        if (entrevista.getPostulante().equals(this)) {
-            // Si la entrevista está asociada a este postulante, significa que ha tenido al menos una entrevista
-            return true;
-        }
-    }
-
-    // Si no se encuentra ninguna entrevista asociada a este postulante, retorna false
-    return false;
-}
 
     public int obtenerNivelTema(String temaBuscado) {
-        int res =0;
+        int res = 0;
         for (ExperienciaPostulante experiencia : temas) {
             if (experiencia.getTema().equalsIgnoreCase(temaBuscado)) {
                 res = experiencia.getNivel();
             }
         }
-        return res; // Si no se encuentra el tema, devuelve 0 o el valor que desees por defecto.
+        return res; // Si no se encuentra el tema, devuelve 0.
     }
 
 }

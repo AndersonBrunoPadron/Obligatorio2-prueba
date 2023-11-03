@@ -202,4 +202,35 @@ public class Sistema implements Serializable {
         return postulantesConEntrevistas;
     }
 
+public ArrayList<Postulante> obtenerPostulantesPorTematicaNivel(ArrayList<Postulante> postulantes, ArrayList<Tematica> tematicasRequeridas, int nivelRequerido) {
+    ArrayList<Postulante> postulantesCumplenConRequisitos = new ArrayList<>();
+
+    for (Postulante postulante : postulantes) {
+        boolean cumpleRequisitos = false;
+        for (ExperienciaPostulante experiencia : postulante.getTemas()) {
+            for (Tematica tematicaRequerida : tematicasRequeridas) {
+                if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
+                    cumpleRequisitos = true;
+                }
+            }
+        }
+        if (cumpleRequisitos) {
+            postulantesCumplenConRequisitos.add(postulante);
+        }
+    }
+    return postulantesCumplenConRequisitos;
+}
+
+
+
+    
+    public Tematica buscarTematicaPorNombre(String nombre) {
+    for (Tematica tematica : listaTematicas) {
+        if (tematica.getNombre().equalsIgnoreCase(nombre)) {
+            return tematica;
+        }
+    }
+    return null; // Devuelve null si no se encuentra la temática con el nombre especificado
+}
+
 }
