@@ -238,4 +238,39 @@ public class Sistema implements Serializable {
         return tematicaEncontrada; // Devuelve null si no se encuentra la temática con el nombre especificado
     }
 
+    public int contarPostulantesConNivelSuperiorA5EnTematica(Tematica tematica) {
+        int cantidadPostulantes = 0;
+
+        for (Postulante postulante : listaPostulantes) {
+            boolean cumpleRequisitos = false;
+            for (ExperienciaPostulante experiencia : postulante.getTemas()) {
+                if (experiencia.getTema().equalsIgnoreCase(tematica.getNombre()) && experiencia.getNivel() > 5) {
+                    cumpleRequisitos = true;
+                }
+            }
+            if (cumpleRequisitos) {
+                cantidadPostulantes++;
+            }
+        }
+        System.out.println(cantidadPostulantes);
+        return cantidadPostulantes;
+    }
+
+        public int cuantosPuestosTienenTematica(Tematica tematica) {
+        int cantidadPuestos = 0;
+
+        for (Puesto puesto : listaPuestos) {
+            boolean cumpleRequisitos = false;
+            for (Tematica tema : puesto.getTemasRequeridos()) {
+                if (tema.getNombre().equalsIgnoreCase(tematica.getNombre())) {
+                    cumpleRequisitos = true;
+                }
+            }
+            if (cumpleRequisitos) {
+                cantidadPuestos++;
+            }
+        }
+        System.out.println(cantidadPuestos);
+        return cantidadPuestos;
+    }
 }
