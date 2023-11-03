@@ -91,7 +91,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelCantPuestos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidad de puestos que buscan que requieran conocimiento:"/>
+        <Property name="text" type="java.lang.String" value="                                           Selecione una tem&#xe1;tica"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -100,9 +100,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="labelCantPostulantes">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidad de postulantes que tiene un nivel mayor a 5:"/>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="30" y="240" width="420" height="20"/>

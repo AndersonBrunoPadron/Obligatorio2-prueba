@@ -50,13 +50,31 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
         Tematica tematicaSeleccionada = obtenerTematicaSeleccionadaEnPantalla();
         int cantidadPostulantes = Sistema.getInstance().contarPostulantesConNivelSuperiorA5EnTematica(tematicaSeleccionada);
         int cantidadPuestos = Sistema.getInstance().cuantosPuestosTienenTematica(tematicaSeleccionada);
-        actualizarEstadisticas(cantidadPuestos, cantidadPostulantes);
+        actualizarEstadisticas(cantidadPuestos, cantidadPostulantes, tematicaSeleccionada);
 
     }
 
-    private void actualizarEstadisticas(int cantidadPuestos, int cantidadPostulantes) {
-        labelCantPuestos.setText("Cantidad de puestos que buscan que requieran conocimiento: " + cantidadPuestos);
-        labelCantPostulantes.setText("Cantidad de postulantes que tiene un nivel mayor a 5: " + cantidadPostulantes);
+    private void actualizarEstadisticas(int cantidadPuestos, int cantidadPostulantes, Tematica tematicaSeleccionada) {
+        if (cantidadPuestos == 0) {
+            labelCantPuestos.setText("Aún no existen puestos que buscan conocimiento en " + tematicaSeleccionada.getNombre());
+        }
+        if (cantidadPuestos == 1) {
+            labelCantPuestos.setText("Existe " + cantidadPuestos + " puesto que busca conocimiento en " + tematicaSeleccionada.getNombre());
+        }
+        if (cantidadPuestos > 1) {
+            labelCantPuestos.setText("Existen " + cantidadPuestos + " puestos que buscan conocimiento en " + tematicaSeleccionada.getNombre());
+        }
+
+        if (cantidadPostulantes == 0) {
+            labelCantPostulantes.setText("Aún no existen postulantes con un nivel mayor a 5 en " + tematicaSeleccionada.getNombre());
+        }
+        if (cantidadPostulantes == 1) {
+            labelCantPostulantes.setText("Existe " + cantidadPostulantes + " postulante que tiene un nivel mayor a 5 en " + tematicaSeleccionada.getNombre());
+        }
+        if (cantidadPostulantes > 1) {
+            labelCantPostulantes.setText("Existen " + cantidadPostulantes + " postulantes que tiene un nivel mayor a 5 en " + tematicaSeleccionada.getNombre());
+        }
+
     }
 
     private Tematica obtenerTematicaSeleccionadaEnPantalla() {
@@ -116,11 +134,9 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
         getContentPane().add(labelTitulo1);
         labelTitulo1.setBounds(180, 170, 80, 30);
 
-        labelCantPuestos.setText("Cantidad de puestos que buscan que requieran conocimiento:");
+        labelCantPuestos.setText("                                           Selecione una temática");
         getContentPane().add(labelCantPuestos);
         labelCantPuestos.setBounds(30, 210, 420, 20);
-
-        labelCantPostulantes.setText("Cantidad de postulantes que tiene un nivel mayor a 5:");
         getContentPane().add(labelCantPostulantes);
         labelCantPostulantes.setBounds(30, 240, 420, 20);
 

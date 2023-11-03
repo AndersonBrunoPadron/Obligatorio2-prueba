@@ -122,14 +122,12 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
         Sistema sistema = Sistema.getInstance();
         int nivelRequerido = (int) spinnerNivel.getValue();
-
         // Obtiene el puesto seleccionado en la lista de puestos en pantalla
         Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
 
         if (puestoSeleccionado != null) {
             // Obtén la lista de postulantes con al menos una entrevista
             ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
-
             // Filtra los postulantes que cumplen con las condiciones
             ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
 
@@ -139,10 +137,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
                 String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
                 nombresPostulantesFiltrados.add(nombreCedula);
             }
-
             // Convierte la lista de nombres a un arreglo de String
             String[] nombresArray = nombresPostulantesFiltrados.toArray(new String[nombresPostulantesFiltrados.size()]);
-
             // Asigna el arreglo de nombres al JList listaPostulantes
             listaPostulantes.setListData(nombresArray);
         } else {
