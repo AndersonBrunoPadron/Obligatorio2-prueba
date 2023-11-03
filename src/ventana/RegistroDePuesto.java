@@ -196,47 +196,44 @@ public class RegistroDePuesto extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         String nombrePuesto = txtNombre.getText().trim(); // Obtener el nombre del puesto y eliminar espacios en blanco
 
-    if (nombrePuesto.isEmpty()) {
-        // Mostrar un mensaje de error si el nombre del puesto está vacío
-        JOptionPane.showMessageDialog(this, "El nombre del puesto no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Salir del método para evitar la creación de un puesto inválido
-    }
+        if (nombrePuesto.isEmpty()) {
+            // Mostrar un mensaje de error si el nombre del puesto está vacío
+            JOptionPane.showMessageDialog(this, "El nombre del puesto no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String tipoPuesto = "";
+            if (btnRemoto.isSelected()) {
+                tipoPuesto = "Remoto";
+            } else if (btnPresencial.isSelected()) {
+                tipoPuesto = "Presencial";
+            } else if (btnMixto.isSelected()) {
+                tipoPuesto = "Mixto";
+            } else {
+                // Mostrar un mensaje de error si no se ha seleccionado ningún tipo de puesto
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de puesto.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
-    String tipoPuesto = "";
-    if (btnRemoto.isSelected()) {
-        tipoPuesto = "Remoto";
-    } else if (btnPresencial.isSelected()) {
-        tipoPuesto = "Presencial";
-    } else if (btnMixto.isSelected()) {
-        tipoPuesto = "Mixto";
-    } else {
-        // Mostrar un mensaje de error si no se ha seleccionado ningún tipo de puesto
-        JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de puesto.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Salir del método para evitar la creación de un puesto inválido
-    }
+            // Validar que al menos se haya seleccionado una temática
+            if (temasRequeridos.isEmpty()) {
+                // Mostrar un mensaje de error si no se han seleccionado temas requeridos
+                JOptionPane.showMessageDialog(this, "Debe seleccionar al menos una temática requerida.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Crear una lista de temas requeridos a partir de los temas seleccionados
+                ArrayList<Tematica> temasRequeridosPuesto = new ArrayList<>();
+                for (Tematica tematica : temasRequeridos) {
+                    temasRequeridosPuesto.add(tematica);
+                }
 
-    // Validar que al menos se haya seleccionado una temática
-    if (temasRequeridos.isEmpty()) {
-        // Mostrar un mensaje de error si no se han seleccionado temas requeridos
-        JOptionPane.showMessageDialog(this, "Debe seleccionar al menos una temática requerida.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Salir del método para evitar la creación de un puesto sin temas requeridos
-    }
+                // Crear una instancia de Puesto y asignar los valores
+                Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
+                Sistema.getInstance().agregarPuesto(nuevoPuesto);
+                System.out.println(Sistema.getInstance().getListaPuestos().size());
 
-    // Crear una lista de temas requeridos a partir de los temas seleccionados
-    ArrayList<Tematica> temasRequeridosPuesto = new ArrayList<>();
-    for (Tematica tematica : temasRequeridos) {
-        temasRequeridosPuesto.add(tematica);
-    }
+                limpiarPantalla();
 
-    // Crear una instancia de Puesto y asignar los valores
-    Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
-    Sistema.getInstance().agregarPuesto(nuevoPuesto);
-    System.out.println(Sistema.getInstance().getListaPuestos().size());
-
-    limpiarPantalla();
-
-    // Mostrar un mensaje de éxito
-    JOptionPane.showMessageDialog(this, "El puesto ha sido registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                // Mostrar un mensaje de éxito
+                JOptionPane.showMessageDialog(this, "El puesto ha sido registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void listaTemasRequeridosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaTemasRequeridosValueChanged
@@ -282,14 +279,14 @@ public class RegistroDePuesto extends javax.swing.JFrame {
             actualizarListaTemasRequeridos();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-private void limpiarPantalla() {
-    txtNombre.setText("");
-    btnRemoto.setSelected(false);
-    btnPresencial.setSelected(false);
-    btnMixto.setSelected(false);
-    temasRequeridos.clear(); // Elimina todos los elementos de la lista temasRequeridos
-    actualizarListaTemasRequeridos();
-}
+    private void limpiarPantalla() {
+        txtNombre.setText("");
+        btnRemoto.setSelected(false);
+        btnPresencial.setSelected(false);
+        btnMixto.setSelected(false);
+        temasRequeridos.clear(); // Elimina todos los elementos de la lista temasRequeridos
+        actualizarListaTemasRequeridos();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

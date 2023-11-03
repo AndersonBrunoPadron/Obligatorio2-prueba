@@ -1,4 +1,3 @@
-
 package ventana;
 
 import Dominio.Postulante;
@@ -8,14 +7,13 @@ import Dominio.Tematica;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
 public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     public ConsultaParaPuesto() {
         initComponents();
-        objetoAPantalla() ;
+        objetoAPantalla();
     }
- 
+
     private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
         // Obtén la lista de postulantes
@@ -30,7 +28,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         // Asigna el arreglo de nombres de postulantes a la listaDePostulantes
         listaPantallaPuestos.setListData(nombresPuestosArray);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -117,55 +115,55 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        
+
 
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
- // Obtén el valor del nivel requerido del spinner
-         // Obtén el sistema
+        // Obtén el valor del nivel requerido del spinner
+        // Obtén el sistema
         Sistema sistema = Sistema.getInstance();
-    int nivelRequerido = (int) spinnerNivel.getValue();
+        int nivelRequerido = (int) spinnerNivel.getValue();
 
-    // Obtiene el puesto seleccionado en la lista de puestos en pantalla
-    Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
+        // Obtiene el puesto seleccionado en la lista de puestos en pantalla
+        Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
 
-    if (puestoSeleccionado != null) {
-        // Obtén la lista de postulantes con al menos una entrevista
-        ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
+        if (puestoSeleccionado != null) {
+            // Obtén la lista de postulantes con al menos una entrevista
+            ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
 
-        // Filtra los postulantes que cumplen con las condiciones
-        ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido);
+            // Filtra los postulantes que cumplen con las condiciones
+            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido);
 
-        // Crea una lista de nombres de postulantes que cumplen con las condiciones
-        ArrayList<String> nombresPostulantesFiltrados = new ArrayList<>();
-        for (Postulante postulante : postulantesFiltrados) {
-            String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
-            nombresPostulantesFiltrados.add(nombreCedula);
+            // Crea una lista de nombres de postulantes que cumplen con las condiciones
+            ArrayList<String> nombresPostulantesFiltrados = new ArrayList<>();
+            for (Postulante postulante : postulantesFiltrados) {
+                String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
+                nombresPostulantesFiltrados.add(nombreCedula);
+            }
+
+            // Convierte la lista de nombres a un arreglo de String
+            String[] nombresArray = nombresPostulantesFiltrados.toArray(new String[nombresPostulantesFiltrados.size()]);
+
+            // Asigna el arreglo de nombres al JList listaPostulantes
+            listaPostulantes.setListData(nombresArray);
+        } else {
+            // Si no se ha seleccionado un puesto, muestra un mensaje de error
+            JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Convierte la lista de nombres a un arreglo de String
-        String[] nombresArray = nombresPostulantesFiltrados.toArray(new String[nombresPostulantesFiltrados.size()]);
-
-        // Asigna el arreglo de nombres al JList listaPostulantes
-        listaPostulantes.setListData(nombresArray);
-    } else {
-        // Si no se ha seleccionado un puesto, muestra un mensaje de error
-        JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
-private Puesto obtenerPuestoSeleccionadoEnPantalla() {
-    int indicePuestoSeleccionado = listaPantallaPuestos.getSelectedIndex();
-    if (indicePuestoSeleccionado >= 0) {
-        Sistema sistema = Sistema.getInstance();
-        ArrayList<Puesto> puestos = sistema.getListaPuestos();
-        if (indicePuestoSeleccionado < puestos.size()) {
-            return puestos.get(indicePuestoSeleccionado);
+    private Puesto obtenerPuestoSeleccionadoEnPantalla() {
+        int indicePuestoSeleccionado = listaPantallaPuestos.getSelectedIndex();
+        if (indicePuestoSeleccionado >= 0) {
+            Sistema sistema = Sistema.getInstance();
+            ArrayList<Puesto> puestos = sistema.getListaPuestos();
+            if (indicePuestoSeleccionado < puestos.size()) {
+                return puestos.get(indicePuestoSeleccionado);
+            }
         }
+        return null;
     }
-    return null;
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

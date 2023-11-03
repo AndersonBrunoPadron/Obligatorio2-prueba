@@ -202,35 +202,40 @@ public class Sistema implements Serializable {
         return postulantesConEntrevistas;
     }
 
-public ArrayList<Postulante> obtenerPostulantesPorTematicaNivel(ArrayList<Postulante> postulantes, ArrayList<Tematica> tematicasRequeridas, int nivelRequerido) {
-    ArrayList<Postulante> postulantesCumplenConRequisitos = new ArrayList<>();
+    public ArrayList<Postulante> obtenerPostulantesPorTematicaNivel(ArrayList<Postulante> postulantes, ArrayList<Tematica> tematicasRequeridas, int nivelRequerido) {
+        ArrayList<Postulante> postulantesCumplenConRequisitos = new ArrayList<>();
+        int cont = 0;
+        
+        for (Postulante postulante : postulantes) {
+            boolean cumpleRequisitos = false;
+                            cont =0;
+            for (ExperienciaPostulante experiencia : postulante.getTemas()) {
 
-    for (Postulante postulante : postulantes) {
-        boolean cumpleRequisitos = false;
-        for (ExperienciaPostulante experiencia : postulante.getTemas()) {
-            for (Tematica tematicaRequerida : tematicasRequeridas) {
-                if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
-                    cumpleRequisitos = true;
+                for (Tematica tematicaRequerida : tematicasRequeridas) {
+                    if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
+                        
+                        cont++;
+                        System.out.println("cantidad tema de postulante "+postulante.getNombre()+" "+postulante.getTemas().size());
+                        System.out.println("cantidad temas requeridos "+tematicasRequeridas.size());
+                        System.out.println("datos tema de postulante "+postulante.getTemas().toString());
+                        cumpleRequisitos = true;
+                    }
                 }
             }
+            if (cumpleRequisitos && cont == tematicasRequeridas.size() ) {
+                postulantesCumplenConRequisitos.add(postulante);
+            }
         }
-        if (cumpleRequisitos) {
-            postulantesCumplenConRequisitos.add(postulante);
-        }
+        return postulantesCumplenConRequisitos;
     }
-    return postulantesCumplenConRequisitos;
-}
 
-
-
-    
     public Tematica buscarTematicaPorNombre(String nombre) {
-    for (Tematica tematica : listaTematicas) {
-        if (tematica.getNombre().equalsIgnoreCase(nombre)) {
-            return tematica;
+        for (Tematica tematica : listaTematicas) {
+            if (tematica.getNombre().equalsIgnoreCase(nombre)) {
+                return tematica;
+            }
         }
+        return null; // Devuelve null si no se encuentra la temática con el nombre especificado
     }
-    return null; // Devuelve null si no se encuentra la temática con el nombre especificado
-}
 
 }
