@@ -1,14 +1,34 @@
 
 package ventana;
 
+import Dominio.Postulante;
+import Dominio.Puesto;
+import Dominio.Sistema;
+import java.util.ArrayList;
+
 
 public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     public ConsultaParaPuesto() {
         initComponents();
+        objetoAPantalla() ;
     }
  
-
+    private void objetoAPantalla() {
+        Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
+        // Obtén la lista de postulantes
+        ArrayList<Puesto> puestos = sistema.getListaPuestos();
+        // Crea una lista de nombres de postulantes
+        ArrayList<String> nombresPuestos = new ArrayList<>();
+        for (Puesto puesto : puestos) {
+            nombresPuestos.add(puesto.getNombre());
+        }
+        // Convierte la lista de nombres de postulantes a un arreglo de String
+        String[] nombresPuestosArray = nombresPuestos.toArray(new String[nombresPuestos.size()]);
+        // Asigna el arreglo de nombres de postulantes a la listaDePostulantes
+        listaPantallaPuestos.setListData(nombresPuestosArray);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -21,13 +41,13 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         spinnerNivel = new javax.swing.JSpinner();
         btnCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaPuestos = new javax.swing.JList<>();
+        listaPantallaPuestos = new javax.swing.JList<>();
         labelNivel = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta para puesto");
         getContentPane().setLayout(null);
 
@@ -58,7 +78,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         getContentPane().add(btnCancelar);
         btnCancelar.setBounds(30, 400, 120, 23);
 
-        jScrollPane2.setViewportView(listaPuestos);
+        jScrollPane2.setViewportView(listaPantallaPuestos);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(30, 60, 350, 110);
@@ -70,6 +90,11 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
         btnConsultar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnConsultar);
         btnConsultar.setBounds(260, 180, 120, 23);
 
@@ -91,8 +116,26 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         
-        
+
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+    Sistema sistema = Sistema.getInstance();
+    ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
+    
+    // Crea una lista de nombres de postulantes con al menos una entrevista
+    ArrayList<String> nombresPostulantesConEntrevistas = new ArrayList<>();
+    for (Postulante postulante : postulantesConEntrevistas) {
+        String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
+        nombresPostulantesConEntrevistas.add(nombreCedula);
+    }
+    
+    // Convierte la lista de nombres a un arreglo de String
+    String[] nombresArray = nombresPostulantesConEntrevistas.toArray(new String[nombresPostulantesConEntrevistas.size()]);
+    
+    // Asigna el arreglo de nombres al JList listaPostulantes
+    listaPostulantes.setListData(nombresArray);
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
 
 
@@ -107,8 +150,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     private javax.swing.JLabel labelPostulantes;
     private javax.swing.JLabel labelPuestos;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JList<String> listaPantallaPuestos;
     private javax.swing.JList<String> listaPostulantes;
-    private javax.swing.JList<String> listaPuestos;
     private javax.swing.JSpinner spinnerNivel;
     // End of variables declaration//GEN-END:variables
 }

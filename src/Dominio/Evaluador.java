@@ -1,8 +1,10 @@
 
 package Dominio;
 
+import java.io.Serializable;
 
-public class Evaluador extends Persona {
+
+public class Evaluador extends Persona implements Serializable{
     private String fechaIngreso;
 
     public Evaluador(String nombre, int cedula, String direccion, String fechaIngreso) {

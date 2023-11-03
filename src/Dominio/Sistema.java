@@ -1,8 +1,14 @@
 package Dominio;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Sistema {
+public class Sistema implements Serializable {
 
     private ArrayList<Postulante> listaPostulantes;
     private ArrayList<Evaluador> listaEvaluadores;
@@ -11,16 +17,37 @@ public class Sistema {
     private ArrayList<Puesto> listaPuestos;
     private ArrayList<Tematica> listaTematicas;
 
-    public static Sistema instance ;
-    
-    public static Sistema getInstance(){
-        if (instance == null){
+    public static Sistema instance;
+
+    public void serializarSistema() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+            objectOutputStream.writeObject(this);
+            System.out.println("Sistema serializado con éxito.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al serializar el sistema.");
+        }
+    }
+
+    public static Sistema deserializarSistema() {
+        Sistema sistema = null;
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+            sistema = (Sistema) objectInputStream.readObject();
+            System.out.println("Sistema deserializado con éxito.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.err.println("Error al deserializar el sistema.");
+        }
+        return sistema;
+    }
+
+    public static Sistema getInstance() {
+        if (instance == null) {
             instance = new Sistema();
         }
         return instance;
     }
-    
-    
+
     public Sistema() {
         listaTematicas = new ArrayList<Tematica>(); // Inicializa el ArrayList de Tematica en el constructor.
         listaEvaluadores = new ArrayList<Evaluador>();
@@ -28,8 +55,7 @@ public class Sistema {
         listaEntrevistas = new ArrayList<Entrevista>();
         listaTemas = new ArrayList<Tema>();
         listaPuestos = new ArrayList<Puesto>();
-        
-        
+
     }
 
     public ArrayList<Postulante> getListaPostulantes() {
@@ -80,7 +106,6 @@ public class Sistema {
         return listaTematicas;
     }
 
-
     public void agregarTematica(Tematica tematica) {
         listaTematicas.add(tematica);
     }
@@ -96,8 +121,8 @@ public class Sistema {
     public void agregarTema(Tema tema) {
         listaTemas.add(tema);
     }
-    
-        public void agregarPuesto(Puesto puesto) {
+
+    public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
     }
 
@@ -131,7 +156,6 @@ public class Sistema {
         return encontro;
     }
 
-
     public void sobrescribirTemasDePostulante(int posicionPostulante, ArrayList<ExperienciaPostulante> nuevosTemas) {
         if (posicionPostulante >= 0 && posicionPostulante < listaPostulantes.size()) {
             Postulante postulante = listaPostulantes.get(posicionPostulante);
@@ -156,13 +180,26 @@ public class Sistema {
         }
         return nombres;
     }
-    
+
     public ArrayList<String> obtenerNombresEvaluadores() {
         ArrayList<String> nombres = new ArrayList<>();
         for (Evaluador evaluador : listaEvaluadores) {
             nombres.add(evaluador.getNombre());
         }
         return nombres;
+    }
+
+    public ArrayList<Postulante> obtenerPostulantesConEntrevistas() {
+        ArrayList<Postulante> postulantesConEntrevistas = new ArrayList<>();
+
+        for (Entrevista entrevista : listaEntrevistas) {
+            Postulante postulante = entrevista.getPostulante();
+            if (postulante != null && !postulantesConEntrevistas.contains(postulante)) {
+                postulantesConEntrevistas.add(postulante);
+            }
+        }
+
+        return postulantesConEntrevistas;
     }
 
 }

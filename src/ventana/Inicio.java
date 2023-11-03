@@ -1,12 +1,26 @@
 
 package ventana;
 
+import Dominio.Sistema;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 public class Inicio extends javax.swing.JFrame {
 
 
     public Inicio() {
         initComponents();
+        
+                // Agrega un WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Sistema sistema = Sistema.getInstance();
+                sistema.serializarSistema(); // Llama al método de serialización
+                System.exit(0); // Cierra la aplicación
+            }
+        });
     }
 
 
@@ -20,6 +34,7 @@ public class Inicio extends javax.swing.JFrame {
         btnRegistroEvaluador = new javax.swing.JButton();
         btnRegistroPuesto = new javax.swing.JButton();
         btnIngresoDeEntrevista = new javax.swing.JButton();
+        btnConsultaParaPuesto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -84,6 +99,16 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().add(btnIngresoDeEntrevista);
         btnIngresoDeEntrevista.setBounds(450, 120, 160, 50);
 
+        btnConsultaParaPuesto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConsultaParaPuesto.setText("Consulta para puesto");
+        btnConsultaParaPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaParaPuestoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnConsultaParaPuesto);
+        btnConsultaParaPuesto.setBounds(50, 200, 160, 50);
+
         setSize(new java.awt.Dimension(671, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -112,11 +137,16 @@ public class Inicio extends javax.swing.JFrame {
         new IngresoDeEntrevista().setVisible(true);
     }//GEN-LAST:event_btnIngresoDeEntrevistaActionPerformed
 
+    private void btnConsultaParaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaParaPuestoActionPerformed
+        new ConsultaParaPuesto().setVisible(true);
+    }//GEN-LAST:event_btnConsultaParaPuestoActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaPostulante;
     private javax.swing.JButton btnBajaPostulante;
+    private javax.swing.JButton btnConsultaParaPuesto;
     private javax.swing.JButton btnIngresoDeEntrevista;
     private javax.swing.JButton btnRegistroEvaluador;
     private javax.swing.JButton btnRegistroPuesto;
