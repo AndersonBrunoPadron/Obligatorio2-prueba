@@ -1,17 +1,16 @@
 package ventana;
 
-import Dominio.Postulante;
-import Dominio.Puesto;
-import Dominio.Sistema;
-import Dominio.Tematica;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import Dominio.*;
+import java.util.*;
+import javax.swing.*;
 
 public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     public ConsultaParaPuesto() {
         initComponents();
         objetoAPantalla();
+        SpinnerModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
+        spinnerNivel.setModel(spinnerModel);
     }
 
     private void objetoAPantalla() {
@@ -120,8 +119,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // Obtén el valor del nivel requerido del spinner
-        // Obtén el sistema
+
         Sistema sistema = Sistema.getInstance();
         int nivelRequerido = (int) spinnerNivel.getValue();
 
@@ -133,7 +131,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
             ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
 
             // Filtra los postulantes que cumplen con las condiciones
-            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido);
+            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
 
             // Crea una lista de nombres de postulantes que cumplen con las condiciones
             ArrayList<String> nombresPostulantesFiltrados = new ArrayList<>();
@@ -154,15 +152,16 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private Puesto obtenerPuestoSeleccionadoEnPantalla() {
+        Puesto puestoSeleccionado = null;
         int indicePuestoSeleccionado = listaPantallaPuestos.getSelectedIndex();
         if (indicePuestoSeleccionado >= 0) {
             Sistema sistema = Sistema.getInstance();
             ArrayList<Puesto> puestos = sistema.getListaPuestos();
             if (indicePuestoSeleccionado < puestos.size()) {
-                return puestos.get(indicePuestoSeleccionado);
+                puestoSeleccionado = puestos.get(indicePuestoSeleccionado);
             }
         }
-        return null;
+        return puestoSeleccionado;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
