@@ -32,6 +32,7 @@ public class Inicio extends javax.swing.JFrame {
         btnIngresoDeEntrevista = new javax.swing.JButton();
         btnConsultaParaPuesto = new javax.swing.JButton();
         btnConsultaParaPuesto1 = new javax.swing.JButton();
+        btnConsultaParaPuesto2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -116,6 +117,16 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().add(btnConsultaParaPuesto1);
         btnConsultaParaPuesto1.setBounds(250, 210, 160, 50);
 
+        btnConsultaParaPuesto2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConsultaParaPuesto2.setText("Historial de postulante");
+        btnConsultaParaPuesto2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaParaPuesto2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnConsultaParaPuesto2);
+        btnConsultaParaPuesto2.setBounds(450, 210, 160, 50);
+
         setSize(new java.awt.Dimension(671, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -152,12 +163,17 @@ public class Inicio extends javax.swing.JFrame {
         new ConsultaPorTematica().setVisible(true);
     }//GEN-LAST:event_btnConsultaParaPuesto1ActionPerformed
 
+    private void btnConsultaParaPuesto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaParaPuesto2ActionPerformed
+        new HistorialDePostulante().setVisible(true);
+    }//GEN-LAST:event_btnConsultaParaPuesto2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaPostulante;
     private javax.swing.JButton btnBajaPostulante;
     private javax.swing.JButton btnConsultaParaPuesto;
     private javax.swing.JButton btnConsultaParaPuesto1;
+    private javax.swing.JButton btnConsultaParaPuesto2;
     private javax.swing.JButton btnIngresoDeEntrevista;
     private javax.swing.JButton btnRegistroEvaluador;
     private javax.swing.JButton btnRegistroPuesto;
