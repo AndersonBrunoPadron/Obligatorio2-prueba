@@ -1,10 +1,9 @@
-
 package Dominio;
 
 import java.io.Serializable;
 
+public class Entrevista implements Serializable {
 
-public class Entrevista implements Serializable{
     private Evaluador evaluador;
     private Postulante postulante;
     private int puntaje;
@@ -12,7 +11,6 @@ public class Entrevista implements Serializable{
     private int idEntrevista;
 
     //=================Sets y Gets=============================================
-    
     public Evaluador getEvaluador() {
         return evaluador;
     }
@@ -44,14 +42,14 @@ public class Entrevista implements Serializable{
     public void setIdEntrevista(int unId) {
         this.idEntrevista = unId;
     }
-        
-    
-        public void setPuntaje(int puntaje) {
+
+    public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
+    }
+    
+    public int getPuntaje() {
+        return puntaje;
     }
     //=================Metodos=============================================
 
-
-    
-    
 }

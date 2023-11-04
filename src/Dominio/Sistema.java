@@ -256,7 +256,7 @@ public class Sistema implements Serializable {
         return cantidadPostulantes;
     }
 
-        public int cuantosPuestosTienenTematica(Tematica tematica) {
+    public int cuantosPuestosTienenTematica(Tematica tematica) {
         int cantidadPuestos = 0;
 
         for (Puesto puesto : listaPuestos) {
@@ -273,4 +273,17 @@ public class Sistema implements Serializable {
         System.out.println(cantidadPuestos);
         return cantidadPuestos;
     }
+
+    public ArrayList<ExperienciaPostulante> obtenerExperienciasPorCedula(int cedula) {
+        ArrayList<ExperienciaPostulante> experienciasDelPostulante = new ArrayList<>();
+
+        for (Postulante postulante : listaPostulantes) {
+            if (postulante.getCedula() == cedula) {
+                experienciasDelPostulante = postulante.getTemas();
+            }
+        }
+
+        return experienciasDelPostulante;
+    }
+
 }

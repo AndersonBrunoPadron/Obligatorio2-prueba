@@ -1,21 +1,151 @@
-
 package ventana;
 
+import Dominio.Entrevista;
+import Dominio.Evaluador;
+import Dominio.ExperienciaPostulante;
+import Dominio.Postulante;
+import Dominio.Sistema;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class HistorialDePostulante extends javax.swing.JFrame {
 
+    private Postulante postulanteSeleccionado;
 
     public HistorialDePostulante() {
         initComponents();
+        objetoAPantalla();
+
+        listaPantallaPostulantes.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    datosAPantalla();
+                }
+            }
+        });
     }
 
+    private void objetoAPantalla() {
+        Sistema sistema = Sistema.getInstance();
+        ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        listaPantallaPostulantes.setModel(modelo);
+
+        for (Postulante postulante : postulantes) {
+            modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
+        }
+    }
+
+    private void datosAPantalla() {
+        postulanteSeleccionado = obtenerPostulanteSeleccionadoEnPantalla();
+        if (postulanteSeleccionado != null) {
+            labelTxtNombre.setText(postulanteSeleccionado.getNombre());
+            labelTxtCedula.setText("" + postulanteSeleccionado.getCedula());
+            labelTxtDireccion.setText(postulanteSeleccionado.getDireccion());
+            labelTxtTelefono.setText("" + postulanteSeleccionado.getTelefono());
+            labelTxtMail.setText(postulanteSeleccionado.getCorreo());
+            labelTxtLinkedin.setText(postulanteSeleccionado.getLinkedin());
+            labelTxtFormato.setText(postulanteSeleccionado.getTipo());
+        }
+
+        ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionado.getCedula());
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        listaPantallaExperiencias.setModel(modelo);
+
+        for (ExperienciaPostulante experiencia : experiencias) {
+            modelo.addElement(experiencia.getTema());
+        }
+        cargarEntrevistasDelPostulante(postulanteSeleccionado);
+    }
+
+private void cargarEntrevistasDelPostulante(Postulante postulante) {
+    // Obtén el sistema
+    Sistema sistema = Sistema.getInstance();
+
+    // Obten una referencia al modelo de tabla
+    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+
+    // Limpia la tabla si ya contiene datos
+    modelo.setRowCount(0);
+
+    // Obtén las entrevistas del postulante
+    ArrayList<Entrevista> entrevistas = new ArrayList<>();
+
+    for (Entrevista entrevista : sistema.getListaEntrevistas()) {
+        if (entrevista.getPostulante() == postulante) {
+            entrevistas.add(entrevista);
+        }
+    }
+
+    // Inicializa un contador
+    int contador = 1;
+
+    // Agrega las entrevistas al modelo de la tabla
+    for (Entrevista entrevista : entrevistas) {
+        modelo.addRow(new Object[]{
+            contador, // Utiliza el contador en lugar de la posición
+            entrevista.getEvaluador().getNombre(),
+            entrevista.getPuntaje(),
+            entrevista.getComentarios()
+        });
+
+        // Incrementa el contador para la próxima entrevista
+        contador++;
+    }
+
+    // Notifica a la tabla que los datos han cambiado
+    modelo.fireTableDataChanged();
+}
+
+
+    private Postulante obtenerPostulanteSeleccionadoEnPantalla() {
+        String nombrePostulanteSeleccionado = listaPantallaPostulantes.getSelectedValue();
+        String numerosSeleccionados = obtenerNumerosDeSeleccion(nombrePostulanteSeleccionado);
+        Postulante postulanteSeleccionado = null;
+
+        if (!numerosSeleccionados.isEmpty()) {
+            // Utiliza los números obtenidos para buscar al Postulante
+            int cedula = Integer.parseInt(numerosSeleccionados);
+            Sistema sistema = Sistema.getInstance();
+            ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+
+            for (Postulante postulante : postulantes) {
+                if (postulante.getCedula() == cedula) {
+                    postulanteSeleccionado = postulante;
+                }
+            }
+        }
+        return postulanteSeleccionado;
+    }
+
+    private String obtenerNumerosDeSeleccion(String nombrePostulanteSeleccionado) {
+        String numeros = "";
+
+        if (nombrePostulanteSeleccionado != null) {
+            // Utiliza una expresión regular para buscar números dentro de paréntesis
+            Pattern pattern = Pattern.compile("\\((\\d+)\\)");
+            Matcher matcher = pattern.matcher(nombrePostulanteSeleccionado);
+
+            if (matcher.find()) {
+                numeros = matcher.group(1); // El primer grupo capturado contiene los números
+            }
+        }
+        return numeros;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPantalla = new javax.swing.JTable();
         labelTitulo = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         labelBuscar = new javax.swing.JLabel();
@@ -23,11 +153,11 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        labelTematicas = new javax.swing.JLabel();
+        labelPostulantes = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaPantallaTematica = new javax.swing.JList<>();
+        listaPantallaPostulantes = new javax.swing.JList<>();
         labelTematicas1 = new javax.swing.JLabel();
-        labelTematicas2 = new javax.swing.JLabel();
+        labelNombre = new javax.swing.JLabel();
         labelTematicas3 = new javax.swing.JLabel();
         labelTematicas4 = new javax.swing.JLabel();
         labelTematicas5 = new javax.swing.JLabel();
@@ -35,12 +165,19 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         labelTematicas7 = new javax.swing.JLabel();
         labelTematicas8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaPantallaPuestos = new javax.swing.JList<>();
+        listaPantallaExperiencias = new javax.swing.JList<>();
+        labelTxtFormato = new javax.swing.JLabel();
+        labelTxtNombre = new javax.swing.JLabel();
+        labelTxtCedula = new javax.swing.JLabel();
+        labelTxtDireccion = new javax.swing.JLabel();
+        labelTxtTelefono = new javax.swing.JLabel();
+        labelTxtMail = new javax.swing.JLabel();
+        labelTxtLinkedin = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPantalla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -59,23 +196,23 @@ public class HistorialDePostulante extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(233);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(233);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(550);
+        jScrollPane1.setViewportView(tablaPantalla);
+        if (tablaPantalla.getColumnModel().getColumnCount() > 0) {
+            tablaPantalla.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tablaPantalla.getColumnModel().getColumn(1).setMinWidth(233);
+            tablaPantalla.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tablaPantalla.getColumnModel().getColumn(1).setMaxWidth(233);
+            tablaPantalla.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tablaPantalla.getColumnModel().getColumn(3).setPreferredWidth(550);
         }
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 430, 910, 240);
 
-        labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelTitulo.setText("Historial postulante");
         getContentPane().add(labelTitulo);
-        labelTitulo.setBounds(370, 10, 150, 30);
+        labelTitulo.setBounds(370, 0, 230, 30);
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalir.setText("Salir");
@@ -116,12 +253,12 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(20, 380, 910, 10);
 
-        labelTematicas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelTematicas.setText("Postulantes:");
-        getContentPane().add(labelTematicas);
-        labelTematicas.setBounds(30, 40, 80, 30);
+        labelPostulantes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelPostulantes.setText("Postulantes:");
+        getContentPane().add(labelPostulantes);
+        labelPostulantes.setBounds(30, 40, 80, 30);
 
-        jScrollPane2.setViewportView(listaPantallaTematica);
+        jScrollPane2.setViewportView(listaPantallaPostulantes);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(30, 70, 300, 240);
@@ -131,10 +268,10 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         getContentPane().add(labelTematicas1);
         labelTematicas1.setBounds(440, 260, 80, 20);
 
-        labelTematicas2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelTematicas2.setText("Nombre:");
-        getContentPane().add(labelTematicas2);
-        labelTematicas2.setBounds(440, 50, 80, 20);
+        labelNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelNombre.setText("Nombre:");
+        getContentPane().add(labelNombre);
+        labelNombre.setBounds(440, 50, 80, 20);
 
         labelTematicas3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelTematicas3.setText("Cédula:");
@@ -166,10 +303,38 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         getContentPane().add(labelTematicas8);
         labelTematicas8.setBounds(440, 230, 80, 20);
 
-        jScrollPane3.setViewportView(listaPantallaPuestos);
+        jScrollPane3.setViewportView(listaPantallaExperiencias);
 
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(540, 270, 230, 100);
+
+        labelTxtFormato.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtFormato);
+        labelTxtFormato.setBounds(540, 230, 380, 20);
+
+        labelTxtNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtNombre);
+        labelTxtNombre.setBounds(540, 50, 380, 20);
+
+        labelTxtCedula.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtCedula);
+        labelTxtCedula.setBounds(540, 80, 380, 20);
+
+        labelTxtDireccion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtDireccion);
+        labelTxtDireccion.setBounds(540, 110, 380, 20);
+
+        labelTxtTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtTelefono);
+        labelTxtTelefono.setBounds(540, 140, 380, 20);
+
+        labelTxtMail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtMail);
+        labelTxtMail.setBounds(540, 170, 380, 20);
+
+        labelTxtLinkedin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(labelTxtLinkedin);
+        labelTxtLinkedin.setBounds(540, 200, 380, 20);
 
         setSize(new java.awt.Dimension(970, 769));
         setLocationRelativeTo(null);
@@ -177,23 +342,18 @@ public class HistorialDePostulante extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
 
-   
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-  
 
-  
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
- 
 
-   
     }//GEN-LAST:event_btnCancelarActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,11 +364,10 @@ public class HistorialDePostulante extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelBuscar;
-    private javax.swing.JLabel labelTematicas;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelPostulantes;
     private javax.swing.JLabel labelTematicas1;
-    private javax.swing.JLabel labelTematicas2;
     private javax.swing.JLabel labelTematicas3;
     private javax.swing.JLabel labelTematicas4;
     private javax.swing.JLabel labelTematicas5;
@@ -216,8 +375,16 @@ public class HistorialDePostulante extends javax.swing.JFrame {
     private javax.swing.JLabel labelTematicas7;
     private javax.swing.JLabel labelTematicas8;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JList<String> listaPantallaPuestos;
-    private javax.swing.JList<String> listaPantallaTematica;
+    private javax.swing.JLabel labelTxtCedula;
+    private javax.swing.JLabel labelTxtDireccion;
+    private javax.swing.JLabel labelTxtFormato;
+    private javax.swing.JLabel labelTxtLinkedin;
+    private javax.swing.JLabel labelTxtMail;
+    private javax.swing.JLabel labelTxtNombre;
+    private javax.swing.JLabel labelTxtTelefono;
+    private javax.swing.JList<String> listaPantallaExperiencias;
+    private javax.swing.JList<String> listaPantallaPostulantes;
+    private javax.swing.JTable tablaPantalla;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

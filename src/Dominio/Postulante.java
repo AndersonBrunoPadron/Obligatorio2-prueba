@@ -23,7 +23,9 @@ public class Postulante extends Persona implements Serializable {
         }
         return sb.toString();
     }
-
+public String retornaNombreYCi(){
+    return this.getNombre()+" "+this.getCedula();
+}
     public Postulante(String nombre, int cedula, String direccion, int telefono, String correo, String linkedin, String tipo, ArrayList<ExperienciaPostulante> temas) {
         super(nombre, cedula, direccion);
         this.telefono = telefono;
