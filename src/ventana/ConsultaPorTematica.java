@@ -110,6 +110,7 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
         labelTitulo1 = new javax.swing.JLabel();
         labelCantPuestos = new javax.swing.JLabel();
         labelCantPostulantes = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -140,12 +141,28 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
         getContentPane().add(labelCantPostulantes);
         labelCantPostulantes.setBounds(30, 240, 420, 20);
 
-        setSize(new java.awt.Dimension(473, 360));
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVolver);
+        btnVolver.setBounds(30, 293, 100, 30);
+
+        setSize(new java.awt.Dimension(473, 372));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelCantPostulantes;
     private javax.swing.JLabel labelCantPuestos;

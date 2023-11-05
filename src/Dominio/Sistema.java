@@ -155,6 +155,17 @@ public class Sistema implements Serializable {
         }
         return encontro;
     }
+    
+        public boolean existeEvaluadorConCedula(int cedula) {
+        boolean encontro = false;
+        for (int i = 0; i < listaEvaluadores.size() && !encontro; i++) {
+            Evaluador evaluador = listaEvaluadores.get(i);
+            if (evaluador.getCedula() == cedula) {
+                encontro = true;
+            }
+        }
+        return encontro;
+    }
 
     public void sobrescribirTemasDePostulante(int posicionPostulante, ArrayList<ExperienciaPostulante> nuevosTemas) {
         if (posicionPostulante >= 0 && posicionPostulante < listaPostulantes.size()) {

@@ -123,7 +123,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -174,8 +174,12 @@ public class IngresoDeEntrevista extends javax.swing.JFrame {
         String mensaje = "Entrevista registrada con éxito:\n"
                 + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
                 + "Evaluador: " + selectedEvaluador.getNombre() +
-                "Id entrevista: " + Sistema.getInstance().getListaEntrevistas().size();
+                " Id entrevista: " + Sistema.getInstance().getListaEntrevistas().size();
         JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
+        
+            txtComentario.setText(""); 
+            txtPuntaje.setText("");
+    
     } else {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante y un evaluador.", "Error", JOptionPane.ERROR_MESSAGE);
     }

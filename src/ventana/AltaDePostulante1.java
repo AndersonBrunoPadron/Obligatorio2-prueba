@@ -81,6 +81,11 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCancelar);
         btnCancelar.setBounds(20, 270, 100, 23);
 
@@ -167,7 +172,7 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
 
             if (continuar) {
                 // Verificar si la cédula ya existe en el sistema
-                if (Sistema.getInstance().existePostulanteConCedula(cedula)) {
+                if (Sistema.getInstance().existePostulanteConCedula(cedula) || Sistema.getInstance().existeEvaluadorConCedula(cedula)) {
                     JOptionPane.showMessageDialog(this, "La cédula ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Crea el Postulante con un ArrayList vacío para temas
@@ -193,6 +198,10 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnPresencialActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

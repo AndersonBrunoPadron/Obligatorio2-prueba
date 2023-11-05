@@ -73,6 +73,11 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCancelar);
         btnCancelar.setBounds(30, 400, 120, 23);
 
@@ -119,7 +124,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-Sistema sistema = Sistema.getInstance();
+ Sistema sistema = Sistema.getInstance();
     int nivelRequerido = (int) spinnerNivel.getValue();
     Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
 
@@ -152,12 +157,20 @@ Sistema sistema = Sistema.getInstance();
 
         // Asignar el DefaultListModel ordenado al JList listaPostulantes
         listaPostulantes.setModel(listaModelo);
+
+        if (listaModelo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron resultados.", "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
+        }
     } else {
         // Si no se ha seleccionado un puesto, muestra un mensaje de error
         JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private Puesto obtenerPuestoSeleccionadoEnPantalla() {
         Puesto puestoSeleccionado = null;

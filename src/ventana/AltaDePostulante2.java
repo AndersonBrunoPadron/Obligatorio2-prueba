@@ -5,15 +5,17 @@ import Dominio.Sistema;
 import Dominio.ExperienciaPostulante;
 import Dominio.Tematica;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 public class AltaDePostulante2 extends javax.swing.JFrame {
 
     private Postulante postulante;
-    private ArrayList<ExperienciaPostulante> experiencias = new  ArrayList<ExperienciaPostulante>();
+    private ArrayList<ExperienciaPostulante> experiencias = new ArrayList<ExperienciaPostulante>();
 
     public AltaDePostulante2(Postulante postulante1) {
-      //  sistema = new Sistema();
+        //  sistema = new Sistema();
         initComponents();
         this.postulante = postulante1;
 
@@ -31,13 +33,15 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
             comboBoxTema.addItem(tematica.getNombre());
         }
     }
-    
+
     private void actualizarListaExperiencias() {
-        String[] experienciaStrings = new String[experiencias.size()];
-        for (int i = 0; i < experiencias.size(); i++) {
-            experienciaStrings[i] = experiencias.get(i).toString();
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+        for (ExperienciaPostulante experiencia : experiencias) {
+            modeloLista.addElement(experiencia.toString());
         }
-        listaExperiencias.setListData(experienciaStrings);
+
+        listaExperiencias.setModel(modeloLista);
     }
 
     @SuppressWarnings("unchecked")
@@ -144,11 +148,15 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-    // Obtener la lista de experiencias
-    postulante.agregarTemas(experiencias);
 
-    System.out.println(Sistema.getInstance().getListaPostulantes());
-    this.dispose();
+        if (experiencias.isEmpty()) {
+            // Mostrar un mensaje de error si no se han seleccionado temas requeridos
+            JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Obtener la lista de experiencias
+            postulante.agregarTemas(experiencias);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -160,7 +168,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void listaExperienciasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaExperienciasValueChanged
@@ -199,7 +207,6 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     private void comboBoxTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTemaActionPerformed
 
     }//GEN-LAST:event_comboBoxTemaActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

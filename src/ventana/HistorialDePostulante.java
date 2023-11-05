@@ -29,22 +29,20 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         });
     }
 
-private void objetoAPantalla() {
-    Sistema sistema = Sistema.getInstance();
-    ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+    private void objetoAPantalla() {
+        Sistema sistema = Sistema.getInstance();
+        ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
 
-    // Ordena la lista de postulantes por número de cédula de forma creciente
-    postulantes.sort((postulante1, postulante2) -> Integer.compare(postulante1.getCedula(), postulante2.getCedula()));
+        // Ordena la lista de postulantes por número de cédula de forma creciente
+        postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
 
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    listaPantallaPostulantes.setModel(modelo);
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        listaPantallaPostulantes.setModel(modelo);
 
-    for (Postulante postulante : postulantes) {
-        modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
+        for (Postulante postulante : postulantes) {
+            modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
+        }
     }
-}
-
-
 
     private void datosAPantalla() {
         postulanteSeleccionado = obtenerPostulanteSeleccionadoEnPantalla();
@@ -63,7 +61,7 @@ private void objetoAPantalla() {
         listaPantallaExperiencias.setModel(modelo);
 
         for (ExperienciaPostulante experiencia : experiencias) {
-            modelo.addElement(experiencia.getTema()+" ("+experiencia.getNivel()+")");
+            modelo.addElement(experiencia.getTema() + " (" + experiencia.getNivel() + ")");
         }
 
         cargarEntrevistasDelPostulante(postulanteSeleccionado);
@@ -184,7 +182,7 @@ private void objetoAPantalla() {
         labelBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnResetear = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         labelPostulantes = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -274,15 +272,15 @@ private void objetoAPantalla() {
         getContentPane().add(btnBuscar);
         btnBuscar.setBounds(340, 400, 90, 20);
 
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnResetear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnResetear.setText("Resetear");
+        btnResetear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnResetearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(440, 400, 90, 20);
+        getContentPane().add(btnResetear);
+        btnResetear.setBounds(440, 400, 90, 20);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(20, 380, 910, 10);
 
@@ -374,16 +372,20 @@ private void objetoAPantalla() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
+        dispose();
 
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    // Obtener la palabra clave de txtBuscar
-    String palabraClave = txtBuscar.getText().trim();
+        // Obtener la palabra clave de txtBuscar
+        String palabraClave = txtBuscar.getText().trim();
 
-    // Comprobar si la palabra clave está vacía
-    if (!palabraClave.isEmpty()) {
+        // Verificar si se ha seleccionado un postulante
+        if (listaPantallaPostulantes.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Sal de la función si no se ha seleccionado un postulante.
+        }
+
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
         int columnComentarios = 3; // Columna de comentarios en la tabla
 
@@ -403,23 +405,19 @@ private void objetoAPantalla() {
 
         // Refrescar la tabla para aplicar el formato HTML
         tablaPantalla.repaint();
-    } else {
-        // Si la palabra clave está vacía, restablecer el renderizador y la tabla
-        tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
-        tablaPantalla.repaint();
-    }
+
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
+        txtBuscar.setText("");
 
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnResetearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnResetear;
     private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

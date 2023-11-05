@@ -1,20 +1,18 @@
-
 package ventana;
 
 import Dominio.Evaluador;
+import Dominio.ExperienciaPostulante;
+import Dominio.Postulante;
 import Dominio.Sistema;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 
 public class RegistroDeEvaluador extends javax.swing.JFrame {
 
- 
-    
     public RegistroDeEvaluador() {
 
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,42 +89,50 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // Obtener los valores de los campos de texto
- String nombre = txtNombre.getText();
-    String cedulaStr = txtCedula.getText();
-    String ingreso = txtIngreso.getText();
-    String direccion = txtDireccion.getText();
+        String nombre = txtNombre.getText();
+        String cedulaStr = txtCedula.getText();
+        String ingreso = txtIngreso.getText();
+        String direccion = txtDireccion.getText();
 
-    if (nombre.isEmpty() || cedulaStr.isEmpty() || ingreso.isEmpty() || direccion.isEmpty()) {
-        // Si algún campo está vacío, muestra un mensaje de error
-        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        try {
-            int cedula = Integer.parseInt(cedulaStr); // Intenta convertir la cédula a entero
-            // Si los campos están llenos y la conversión de cédula fue exitosa, procede con el registro
-            Evaluador nuevoEvaluador = new Evaluador(nombre, cedula, direccion, ingreso );
+        if (nombre.isEmpty() || cedulaStr.isEmpty() || ingreso.isEmpty() || direccion.isEmpty()) {
+            // Si algún campo está vacío, muestra un mensaje de error
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                int cedula = Integer.parseInt(cedulaStr); // Intenta convertir la cédula a entero
+                // Si los campos están llenos y la conversión de cédula fue exitosa, procede con el registro
 
-               System.out.println(nuevoEvaluador.getNombre()+" "+ nuevoEvaluador.getCedula()+" "+ nuevoEvaluador.getDireccion()+" "+ nuevoEvaluador.getFechaIngreso());
-            Sistema.getInstance().agregarEvaluador(nuevoEvaluador);
-            JOptionPane.showMessageDialog(this, "El evaluador se ha registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                // Verificar si la cédula ya existe en el sistema
+                if (Sistema.getInstance().existePostulanteConCedula(cedula) || Sistema.getInstance().existeEvaluadorConCedula(cedula)) {
+                    JOptionPane.showMessageDialog(this, "La cédula ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
 
-            txtNombre.setText("");
-            txtCedula.setText("");
-            txtIngreso.setText("");
-            txtDireccion.setText("");
-        } catch (NumberFormatException e) {
-            // Si la conversión de cédula falla, muestra un mensaje de error
-            JOptionPane.showMessageDialog(this, "El valor de cédula no es un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    Evaluador nuevoEvaluador = new Evaluador(nombre, cedula, direccion, ingreso);
+
+                    System.out.println(nuevoEvaluador.getNombre() + " " + nuevoEvaluador.getCedula() + " " + nuevoEvaluador.getDireccion() + " " + nuevoEvaluador.getFechaIngreso());
+                    Sistema.getInstance().agregarEvaluador(nuevoEvaluador);
+                    JOptionPane.showMessageDialog(this, "El evaluador se ha registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    txtNombre.setText("");
+                    txtCedula.setText("");
+                    txtIngreso.setText("");
+                    txtDireccion.setText("");
+
+                }
+
+            } catch (NumberFormatException e) {
+                // Si la conversión de cédula falla, muestra un mensaje de error
+                JOptionPane.showMessageDialog(this, "El valor de cédula no es un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
-    System.out.println(Sistema.getInstance().getListaEvaluadores().size());
+        System.out.println(Sistema.getInstance().getListaEvaluadores().size());
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
