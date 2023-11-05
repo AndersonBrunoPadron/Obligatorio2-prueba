@@ -1,28 +1,15 @@
 package ventana;
 
-import Dominio.Entrevista;
-import Dominio.Evaluador;
-import Dominio.ExperienciaPostulante;
-import Dominio.Postulante;
-import Dominio.Sistema;
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import Dominio.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.DefaultListModel;
-import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+import java.net.*;
+import java.util.*;
+import java.util.regex.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.table.*;
 
 public class HistorialDePostulante extends javax.swing.JFrame {
 
@@ -42,17 +29,22 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         });
     }
 
-    private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance();
-        ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+private void objetoAPantalla() {
+    Sistema sistema = Sistema.getInstance();
+    ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
 
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        listaPantallaPostulantes.setModel(modelo);
+    // Ordena la lista de postulantes por número de cédula de forma creciente
+    postulantes.sort((postulante1, postulante2) -> Integer.compare(postulante1.getCedula(), postulante2.getCedula()));
 
-        for (Postulante postulante : postulantes) {
-            modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
-        }
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    listaPantallaPostulantes.setModel(modelo);
+
+    for (Postulante postulante : postulantes) {
+        modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
     }
+}
+
+
 
     private void datosAPantalla() {
         postulanteSeleccionado = obtenerPostulanteSeleccionadoEnPantalla();
@@ -99,7 +91,7 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         });
     }
 
-// Método para verificar si una cadena es una URL válida
+    // Método para verificar si una cadena es una URL válida
     private boolean isURL(String str) {
         boolean res = false;
         try {

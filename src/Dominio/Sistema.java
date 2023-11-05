@@ -285,5 +285,22 @@ public class Sistema implements Serializable {
 
         return experienciasDelPostulante;
     }
+    
+    public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
+    Entrevista ultimaEntrevista = null; // Inicializa como null
+
+    for (Entrevista entrevista : listaEntrevistas) {
+        if (entrevista.getPostulante() == postulante) {
+            // Si la entrevista está asociada al postulante
+            if (ultimaEntrevista == null) {
+                // Si no se ha encontrado una última entrevista o esta es más reciente
+                ultimaEntrevista = entrevista; // Actualiza la última entrevista
+            }
+        }
+    }
+
+    return ultimaEntrevista;
+}
+
 
 }

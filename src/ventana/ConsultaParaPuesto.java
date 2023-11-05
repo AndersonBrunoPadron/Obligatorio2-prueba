@@ -15,17 +15,16 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
-        // Obtén la lista de postulantes
+        // Obtén la lista de puestos
         ArrayList<Puesto> puestos = sistema.getListaPuestos();
-        // Crea una lista de nombres de postulantes
-        ArrayList<String> nombresPuestos = new ArrayList<>();
+
+        // Crea un DefaultListModel para almacenar los nombres de puestos
+        DefaultListModel<String> listaModelo = new DefaultListModel<>();
         for (Puesto puesto : puestos) {
-            nombresPuestos.add(puesto.getNombre());
+            listaModelo.addElement(puesto.getNombre());
         }
-        // Convierte la lista de nombres de postulantes a un arreglo de String
-        String[] nombresPuestosArray = nombresPuestos.toArray(new String[nombresPuestos.size()]);
-        // Asigna el arreglo de nombres de postulantes a la listaDePostulantes
-        listaPantallaPuestos.setListData(nombresPuestosArray);
+        // Asigna el DefaultListModel al JList listaPantallaPuestos
+        listaPantallaPuestos.setModel(listaModelo);
     }
 
     @SuppressWarnings("unchecked")
@@ -120,31 +119,44 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-        Sistema sistema = Sistema.getInstance();
-        int nivelRequerido = (int) spinnerNivel.getValue();
-        // Obtiene el puesto seleccionado en la lista de puestos en pantalla
-        Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
+Sistema sistema = Sistema.getInstance();
+    int nivelRequerido = (int) spinnerNivel.getValue();
+    Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
 
-        if (puestoSeleccionado != null) {
-            // Obtén la lista de postulantes con al menos una entrevista
-            ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
-            // Filtra los postulantes que cumplen con las condiciones
-            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
+    if (puestoSeleccionado != null) {
+        // Obtén la lista de postulantes con al menos una entrevista
+        ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
+        // Filtra los postulantes que cumplen con las condiciones
+        ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
 
-            // Crea una lista de nombres de postulantes que cumplen con las condiciones
-            ArrayList<String> nombresPostulantesFiltrados = new ArrayList<>();
-            for (Postulante postulante : postulantesFiltrados) {
-                String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
-                nombresPostulantesFiltrados.add(nombreCedula);
+        // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
+        Map<Postulante, Integer> puntajesUltimaEntrevista = new HashMap<>();
+        for (Postulante postulante : postulantesFiltrados) {
+            Entrevista ultimaEntrevista = sistema.obtenerUltimaEntrevista(postulante);
+            if (ultimaEntrevista != null) {
+                puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
+            } else {
+                puntajesUltimaEntrevista.put(postulante, 0); // Puntaje por defecto si no hay entrevistas
             }
-            // Convierte la lista de nombres a un arreglo de String
-            String[] nombresArray = nombresPostulantesFiltrados.toArray(new String[nombresPostulantesFiltrados.size()]);
-            // Asigna el arreglo de nombres al JList listaPostulantes
-            listaPostulantes.setListData(nombresArray);
-        } else {
-            // Si no se ha seleccionado un puesto, muestra un mensaje de error
-            JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        // Ordenar la lista de postulantes en función del puntaje de la última entrevista, en orden decreciente
+        postulantesFiltrados.sort((postulante1, postulante2) -> Integer.compare(puntajesUltimaEntrevista.get(postulante2), puntajesUltimaEntrevista.get(postulante1)));
+
+        // Crear un DefaultListModel para almacenar los nombres de postulantes ordenados por puntaje
+        DefaultListModel<String> listaModelo = new DefaultListModel<>();
+        for (Postulante postulante : postulantesFiltrados) {
+            String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
+            listaModelo.addElement(nombreCedula);
+        }
+
+        // Asignar el DefaultListModel ordenado al JList listaPostulantes
+        listaPostulantes.setModel(listaModelo);
+    } else {
+        // Si no se ha seleccionado un puesto, muestra un mensaje de error
+        JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private Puesto obtenerPuestoSeleccionadoEnPantalla() {
