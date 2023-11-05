@@ -5,12 +5,23 @@ import Dominio.Evaluador;
 import Dominio.ExperienciaPostulante;
 import Dominio.Postulante;
 import Dominio.Sistema;
+import java.awt.Component;
+import java.awt.Desktop;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class HistorialDePostulante extends javax.swing.JFrame {
@@ -60,50 +71,80 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         listaPantallaExperiencias.setModel(modelo);
 
         for (ExperienciaPostulante experiencia : experiencias) {
-            modelo.addElement(experiencia.getTema());
+            modelo.addElement(experiencia.getTema()+" ("+experiencia.getNivel()+")");
         }
+
         cargarEntrevistasDelPostulante(postulanteSeleccionado);
-    }
 
-private void cargarEntrevistasDelPostulante(Postulante postulante) {
-    // Obtén el sistema
-    Sistema sistema = Sistema.getInstance();
+        // Agregar el MouseListener al labelTxtLinkedin
+        labelTxtLinkedin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                String linkedinURL = labelTxtLinkedin.getText();
 
-    // Obten una referencia al modelo de tabla
-    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-
-    // Limpia la tabla si ya contiene datos
-    modelo.setRowCount(0);
-
-    // Obtén las entrevistas del postulante
-    ArrayList<Entrevista> entrevistas = new ArrayList<>();
-
-    for (Entrevista entrevista : sistema.getListaEntrevistas()) {
-        if (entrevista.getPostulante() == postulante) {
-            entrevistas.add(entrevista);
-        }
-    }
-
-    // Inicializa un contador
-    int contador = 1;
-
-    // Agrega las entrevistas al modelo de la tabla
-    for (Entrevista entrevista : entrevistas) {
-        modelo.addRow(new Object[]{
-            contador, // Utiliza el contador en lugar de la posición
-            entrevista.getEvaluador().getNombre(),
-            entrevista.getPuntaje(),
-            entrevista.getComentarios()
+                if (isURL(linkedinURL)) {
+                    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        try {
+                            URI uri = new URI(linkedinURL);
+                            Desktop.getDesktop().browse(uri);
+                        } catch (IOException | URISyntaxException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                } else {
+                    System.out.println("No es una URL válida: " + linkedinURL);
+                }
+            }
         });
-
-        // Incrementa el contador para la próxima entrevista
-        contador++;
     }
 
-    // Notifica a la tabla que los datos han cambiado
-    modelo.fireTableDataChanged();
-}
+// Método para verificar si una cadena es una URL válida
+    private boolean isURL(String str) {
+        boolean res = false;
+        try {
+            new URL(str).toURI();
+            res = true;
+        } catch (MalformedURLException | URISyntaxException e) {
+            res = false;
+        }
+        return res;
+    }
 
+    private void cargarEntrevistasDelPostulante(Postulante postulante) {
+        // Obtén el sistema
+        Sistema sistema = Sistema.getInstance();
+
+        // Obten una referencia al modelo de tabla
+        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+
+        // Limpia la tabla si ya contiene datos
+        modelo.setRowCount(0);
+
+        // Obtén las entrevistas del postulante
+        ArrayList<Entrevista> entrevistas = new ArrayList<>();
+
+        for (Entrevista entrevista : sistema.getListaEntrevistas()) {
+            if (entrevista.getPostulante() == postulante) {
+                entrevistas.add(entrevista);
+            }
+        }
+        // Inicializa un contador
+        int contador = 1;
+        // Agrega las entrevistas al modelo de la tabla
+        for (Entrevista entrevista : entrevistas) {
+            modelo.addRow(new Object[]{
+                contador, // Utiliza el contador en lugar de la posición
+                entrevista.getEvaluador().getNombre(),
+                entrevista.getPuntaje(),
+                entrevista.getComentarios()
+            });
+            // Incrementa el contador para la próxima entrevista
+            contador++;
+        }
+        // Notifica a la tabla que los datos han cambiado
+        modelo.fireTableDataChanged();
+    }
 
     private Postulante obtenerPostulanteSeleccionadoEnPantalla() {
         String nombrePostulanteSeleccionado = listaPantallaPostulantes.getSelectedValue();
@@ -346,7 +387,35 @@ private void cargarEntrevistasDelPostulante(Postulante postulante) {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    // Obtener la palabra clave de txtBuscar
+    String palabraClave = txtBuscar.getText().trim();
 
+    // Comprobar si la palabra clave está vacía
+    if (!palabraClave.isEmpty()) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+        int columnComentarios = 3; // Columna de comentarios en la tabla
+
+        // Restablecer el renderizador de la tabla para usar HTML
+        tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == columnComentarios) {
+                    String comentario = value.toString();
+                    String comentarioResaltado = comentario.replaceAll(palabraClave, "<font color='red'>" + palabraClave + "</font>");
+                    setText("<html>" + comentarioResaltado + "</html>");
+                }
+                return c;
+            }
+        });
+
+        // Refrescar la tabla para aplicar el formato HTML
+        tablaPantalla.repaint();
+    } else {
+        // Si la palabra clave está vacía, restablecer el renderizador y la tabla
+        tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+        tablaPantalla.repaint();
+    }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
