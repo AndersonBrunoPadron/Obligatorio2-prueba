@@ -29,23 +29,19 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         });
     }
 
-    private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance();
-        ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+private void objetoAPantalla() {
+    Sistema sistema = Sistema.getInstance();
+    ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
 
-        // Ordena la lista de postulantes por número de cédula de forma creciente
-        postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
+    // Ordena la lista de postulantes por número de cédula de forma creciente
+    postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
 
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        listaPantallaPostulantes.setModel(modelo);
+    listaPantallaPostulantes.setListData(postulantes.toArray());
+}
 
-        for (Postulante postulante : postulantes) {
-            modelo.addElement(postulante.getNombre() + " (" + postulante.getCedula() + ")");
-        }
-    }
 
     private void datosAPantalla() {
-        postulanteSeleccionado = obtenerPostulanteSeleccionadoEnPantalla();
+           Postulante postulanteSeleccionado = (Postulante) listaPantallaPostulantes.getSelectedValue();
         if (postulanteSeleccionado != null) {
             labelTxtNombre.setText(postulanteSeleccionado.getNombre());
             labelTxtCedula.setText("" + postulanteSeleccionado.getCedula());
@@ -102,12 +98,10 @@ public class HistorialDePostulante extends javax.swing.JFrame {
     }
 
     private void cargarEntrevistasDelPostulante(Postulante postulante) {
-        // Obtén el sistema
+        
         Sistema sistema = Sistema.getInstance();
-
         // Obten una referencia al modelo de tabla
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-
         // Limpia la tabla si ya contiene datos
         modelo.setRowCount(0);
 
@@ -136,41 +130,6 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         modelo.fireTableDataChanged();
     }
 
-    private Postulante obtenerPostulanteSeleccionadoEnPantalla() {
-        String nombrePostulanteSeleccionado = listaPantallaPostulantes.getSelectedValue();
-        String numerosSeleccionados = obtenerNumerosDeSeleccion(nombrePostulanteSeleccionado);
-        Postulante postulanteSeleccionado = null;
-
-        if (!numerosSeleccionados.isEmpty()) {
-            // Utiliza los números obtenidos para buscar al Postulante
-            int cedula = Integer.parseInt(numerosSeleccionados);
-            Sistema sistema = Sistema.getInstance();
-            ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
-
-            for (Postulante postulante : postulantes) {
-                if (postulante.getCedula() == cedula) {
-                    postulanteSeleccionado = postulante;
-                }
-            }
-        }
-        return postulanteSeleccionado;
-    }
-
-    private String obtenerNumerosDeSeleccion(String nombrePostulanteSeleccionado) {
-        String numeros = "";
-
-        if (nombrePostulanteSeleccionado != null) {
-            // Utiliza una expresión regular para buscar números dentro de paréntesis
-            Pattern pattern = Pattern.compile("\\((\\d+)\\)");
-            Matcher matcher = pattern.matcher(nombrePostulanteSeleccionado);
-
-            if (matcher.find()) {
-                numeros = matcher.group(1); // El primer grupo capturado contiene los números
-            }
-        }
-        return numeros;
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -186,7 +145,7 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         labelPostulantes = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaPantallaPostulantes = new javax.swing.JList<>();
+        listaPantallaPostulantes = new javax.swing.JList();
         labelTematicas1 = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         labelTematicas3 = new javax.swing.JLabel();
@@ -383,7 +342,7 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         // Verificar si se ha seleccionado un postulante
         if (listaPantallaPostulantes.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Sal de la función si no se ha seleccionado un postulante.
+            return; // Sale de la función si no se ha seleccionado un postulante.
         }
 
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
@@ -402,7 +361,6 @@ public class HistorialDePostulante extends javax.swing.JFrame {
                 return c;
             }
         });
-
         // Refrescar la tabla para aplicar el formato HTML
         tablaPantalla.repaint();
 
@@ -442,7 +400,7 @@ public class HistorialDePostulante extends javax.swing.JFrame {
     private javax.swing.JLabel labelTxtNombre;
     private javax.swing.JLabel labelTxtTelefono;
     private javax.swing.JList<String> listaPantallaExperiencias;
-    private javax.swing.JList<String> listaPantallaPostulantes;
+    private javax.swing.JList listaPantallaPostulantes;
     private javax.swing.JTable tablaPantalla;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

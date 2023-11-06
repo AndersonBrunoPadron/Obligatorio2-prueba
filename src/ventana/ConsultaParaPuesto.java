@@ -14,17 +14,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     }
 
     private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
-        // Obtén la lista de puestos
-        ArrayList<Puesto> puestos = sistema.getListaPuestos();
-
-        // Crea un DefaultListModel para almacenar los nombres de puestos
-        DefaultListModel<String> listaModelo = new DefaultListModel<>();
-        for (Puesto puesto : puestos) {
-            listaModelo.addElement(puesto.getNombre());
-        }
-        // Asigna el DefaultListModel al JList listaPantallaPuestos
-        listaPantallaPuestos.setModel(listaModelo);
+        Sistema sistema = Sistema.getInstance(); 
+        listaPantallaPuestos.setListData(sistema.getListaPuestos().toArray());
     }
 
     @SuppressWarnings("unchecked")
@@ -34,12 +25,12 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
         labelTitulo = new javax.swing.JLabel();
         labelPostulantes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaPostulantes = new javax.swing.JList<>();
+        listaPostulantes = new javax.swing.JList();
         labelPuestos = new javax.swing.JLabel();
         spinnerNivel = new javax.swing.JSpinner();
         btnCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaPantallaPuestos = new javax.swing.JList<>();
+        listaPantallaPuestos = new javax.swing.JList();
         labelNivel = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
@@ -126,8 +117,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
  Sistema sistema = Sistema.getInstance();
     int nivelRequerido = (int) spinnerNivel.getValue();
-    Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
-
+    //Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
+    Puesto puestoSeleccionado =  (Puesto) listaPantallaPuestos.getSelectedValue();
     if (puestoSeleccionado != null) {
         // Obtén la lista de postulantes con al menos una entrevista
         ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
@@ -144,7 +135,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
                 puntajesUltimaEntrevista.put(postulante, 0); // Puntaje por defecto si no hay entrevistas
             }
         }
-
         // Ordenar la lista de postulantes en función del puntaje de la última entrevista, en orden decreciente
         postulantesFiltrados.sort((postulante1, postulante2) -> Integer.compare(puntajesUltimaEntrevista.get(postulante2), puntajesUltimaEntrevista.get(postulante1)));
 
@@ -155,7 +145,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
             listaModelo.addElement(nombreCedula);
         }
 
-        // Asignar el DefaultListModel ordenado al JList listaPostulantes
         listaPostulantes.setModel(listaModelo);
 
         if (listaModelo.isEmpty()) {
@@ -196,8 +185,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     private javax.swing.JLabel labelPostulantes;
     private javax.swing.JLabel labelPuestos;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JList<String> listaPantallaPuestos;
-    private javax.swing.JList<String> listaPostulantes;
+    private javax.swing.JList listaPantallaPuestos;
+    private javax.swing.JList listaPostulantes;
     private javax.swing.JSpinner spinnerNivel;
     // End of variables declaration//GEN-END:variables
 

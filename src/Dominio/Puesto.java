@@ -42,5 +42,9 @@ public class Puesto implements Serializable {
 
     //=================Metodos=============================================
 
- 
+     @Override
+    public String toString() {
+
+        return this.getNombre();
+    }
 }

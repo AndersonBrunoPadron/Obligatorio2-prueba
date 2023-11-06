@@ -14,7 +14,7 @@ public class Inicio extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 Sistema sistema = Sistema.getInstance();
-                sistema.serializarSistema(); // Llama al método de serialización
+                sistema.serializarSistema(); 
                 System.exit(0); // Cierra la aplicación
             }
         });

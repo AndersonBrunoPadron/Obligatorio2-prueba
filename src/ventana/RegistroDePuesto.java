@@ -1,19 +1,18 @@
 package ventana;
 
-import Dominio.ExperienciaPostulante;
-import Dominio.Puesto;
-import Dominio.Sistema;
-import Dominio.Tematica;
-import java.util.ArrayList;
+import Dominio.*;
+import java.util.*;
 import javax.swing.JOptionPane;
 
-public class RegistroDePuesto extends javax.swing.JFrame {
+public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
 
     private ArrayList<Tematica> temasRequeridos = new ArrayList<Tematica>();
 
     public RegistroDePuesto() {
         initComponents();
-        cargarTemasEnComboBox();
+
+        Sistema.getInstance().addObserver(this);
+         update(null, null);
     }
 
     private void cargarTemasEnComboBox() {
@@ -198,7 +197,6 @@ public class RegistroDePuesto extends javax.swing.JFrame {
         String nombrePuesto = txtNombre.getText().trim(); // Obtener el nombre del puesto y eliminar espacios en blanco
 
         if (nombrePuesto.isEmpty()) {
-            // Mostrar un mensaje de error si el nombre del puesto está vacío
             JOptionPane.showMessageDialog(this, "El nombre del puesto no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String tipoPuesto = "";
@@ -209,13 +207,10 @@ public class RegistroDePuesto extends javax.swing.JFrame {
             } else if (btnMixto.isSelected()) {
                 tipoPuesto = "Mixto";
             } else {
-                // Mostrar un mensaje de error si no se ha seleccionado ningún tipo de puesto
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de puesto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
             // Validar que al menos se haya seleccionado una temática
             if (temasRequeridos.isEmpty()) {
-                // Mostrar un mensaje de error si no se han seleccionado temas requeridos
                 JOptionPane.showMessageDialog(this, "Debe seleccionar al menos una temática requerida.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 // Crear una lista de temas requeridos a partir de los temas seleccionados
@@ -224,14 +219,11 @@ public class RegistroDePuesto extends javax.swing.JFrame {
                     temasRequeridosPuesto.add(tematica);
                 }
 
-                // Crear una instancia de Puesto y asignar los valores
                 Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
                 Sistema.getInstance().agregarPuesto(nuevoPuesto);
-                System.out.println(Sistema.getInstance().getListaPuestos().size());
 
                 limpiarPantalla();
 
-                // Mostrar un mensaje de éxito
                 JOptionPane.showMessageDialog(this, "El puesto ha sido registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -261,23 +253,20 @@ public class RegistroDePuesto extends javax.swing.JFrame {
                 }
             }
         }
-
         if (temaEnSistema) {
-            actualizarListaTemasRequeridos();
+            //actualizarListaTemasRequeridos();
+            listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-    private void actualizarListaTemasRequeridos() {
-        String[] temasStrings = new String[temasRequeridos.size()];
-        for (int i = 0; i < temasRequeridos.size(); i++) {
-            temasStrings[i] = temasRequeridos.get(i).getNombre();
-        }
-        listaTemasRequeridos.setListData(temasStrings);
-    }
+   /* private void actualizarListaTemasRequeridos() {
+        listaTemasRequeridos.setListData(temasRequeridos.toArray());
+    }*/
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int selectedIndex = listaTemasRequeridos.getSelectedIndex();
         if (selectedIndex >= 0) {
             temasRequeridos.remove(selectedIndex);
-            actualizarListaTemasRequeridos();
+           // actualizarListaTemasRequeridos();
+            listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void limpiarPantalla() {
@@ -286,7 +275,8 @@ public class RegistroDePuesto extends javax.swing.JFrame {
         btnPresencial.setSelected(false);
         btnMixto.setSelected(false);
         temasRequeridos.clear(); // Elimina todos los elementos de la lista temasRequeridos
-        actualizarListaTemasRequeridos();
+        //actualizarListaTemasRequeridos();
+        listaTemasRequeridos.setListData(temasRequeridos.toArray());
     }
 
 
@@ -309,4 +299,8 @@ public class RegistroDePuesto extends javax.swing.JFrame {
     private javax.swing.JList listaTemasRequeridos;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    public void update(Observable o, Object ob) {
+                cargarTemasEnComboBox();
+    }
 }

@@ -1,10 +1,9 @@
-
 package Dominio;
 
 import java.io.Serializable;
 
+public class Evaluador extends Persona implements Serializable {
 
-public class Evaluador extends Persona implements Serializable{
     private String fechaIngreso;
 
     public Evaluador(String nombre, int cedula, String direccion, String fechaIngreso) {
@@ -18,5 +17,11 @@ public class Evaluador extends Persona implements Serializable{
 
     public void setFechaIngreso(String fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
+    }
+
+    @Override
+    public String toString() {
+
+        return this.getNombre() + " (" + this.getCedula() + ")";
     }
 }

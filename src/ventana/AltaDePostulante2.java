@@ -35,13 +35,13 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     }
 
     private void actualizarListaExperiencias() {
-        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+      /*  DefaultListModel<String> modeloLista = new DefaultListModel<>();
 
         for (ExperienciaPostulante experiencia : experiencias) {
             modeloLista.addElement(experiencia.toString());
         }
-
-        listaExperiencias.setModel(modeloLista);
+*/
+        listaExperiencias.setListData(experiencias.toArray());
     }
 
     @SuppressWarnings("unchecked")

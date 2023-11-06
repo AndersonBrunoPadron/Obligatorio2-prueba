@@ -24,30 +24,19 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
     }
 
     private void tematicaSeleccionadaEnPantalla() {
-        Tematica tematicaSeleccionada = obtenerTematicaSeleccionadaEnPantalla();
+        Tematica tematicaSeleccionada = (Tematica) listaPantallaTematica.getSelectedValue();
         if (tematicaSeleccionada != null) {
-            // Hacer algo con la temática seleccionada, por ejemplo, mostrar sus detalles
-            System.out.println("Tematica seleccionada: " + tematicaSeleccionada.getNombre());
             estadisticaAPantalla();
         }
     }
 
     private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance();
-        ArrayList<Tematica> tematicas = sistema.getListaTematicas();
-        // Crear una lista de nombres de temáticas
-        ArrayList<String> nombresTematicas = new ArrayList<>();
-        for (Tematica tematica : tematicas) {
-            nombresTematicas.add(tematica.getNombre());
-        }
-        // Convierte la lista de nombres de temáticas a un arreglo de String
-        String[] nombresTematicasArray = nombresTematicas.toArray(new String[nombresTematicas.size()]);
-
-        listaPantallaTematica.setListData(nombresTematicasArray);
+        listaPantallaTematica.setListData(sistema.getListaTematicas().toArray());
     }
 
     private void estadisticaAPantalla() {
-        Tematica tematicaSeleccionada = obtenerTematicaSeleccionadaEnPantalla();
+        Tematica tematicaSeleccionada = (Tematica) listaPantallaTematica.getSelectedValue();
         int cantidadPostulantes = Sistema.getInstance().contarPostulantesConNivelSuperiorA5EnTematica(tematicaSeleccionada);
         int cantidadPuestos = Sistema.getInstance().cuantosPuestosTienenTematica(tematicaSeleccionada);
         actualizarEstadisticas(cantidadPuestos, cantidadPostulantes, tematicaSeleccionada);
@@ -77,28 +66,6 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
 
     }
 
-    private Tematica obtenerTematicaSeleccionadaEnPantalla() {
-        String nombreTematicaSeleccionada = listaPantallaTematica.getSelectedValue();
-
-        Tematica tematicaSeleccionada = null;
-
-        if (nombreTematicaSeleccionada != null) {
-            Sistema sistema = Sistema.getInstance();
-            ArrayList<Tematica> tematicas = sistema.getListaTematicas();
-
-            int i = 0;
-            while (tematicaSeleccionada == null && i < tematicas.size()) {
-                Tematica tematica = tematicas.get(i);
-                if (tematica.getNombre().equalsIgnoreCase(nombreTematicaSeleccionada)) {
-                    tematicaSeleccionada = tematica;
-                }
-                i++;
-            }
-        }
-        System.out.println(tematicaSeleccionada.getNombre() + " " + tematicaSeleccionada.getDescripcion());
-        return tematicaSeleccionada;
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,7 +73,7 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
         labelTitulo = new javax.swing.JLabel();
         labelTematicas = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaPantallaTematica = new javax.swing.JList<>();
+        listaPantallaTematica = new javax.swing.JList();
         labelTitulo1 = new javax.swing.JLabel();
         labelCantPuestos = new javax.swing.JLabel();
         labelCantPostulantes = new javax.swing.JLabel();
@@ -161,7 +128,6 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelCantPostulantes;
@@ -169,6 +135,6 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
     private javax.swing.JLabel labelTematicas;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelTitulo1;
-    private javax.swing.JList<String> listaPantallaTematica;
+    private javax.swing.JList listaPantallaTematica;
     // End of variables declaration//GEN-END:variables
 }

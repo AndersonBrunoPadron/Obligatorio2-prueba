@@ -13,16 +13,11 @@ public class Postulante extends Persona implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: ").append(getNombre()).append("\n");
-        sb.append("Cédula: ").append(getCedula()).append("\n");
-        sb.append("Tipo: ").append(tipo).append("\n");
-        sb.append("Experiencias:\n");
-        for (ExperienciaPostulante experiencia : temas) {
-            sb.append("- ").append(experiencia).append("\n");
-        }
-        return sb.toString();
+
+        return this.getNombre()+" ("+this.getCedula()+")";
     }
+    
+    
 public String retornaNombreYCi(){
     return this.getNombre()+" "+this.getCedula();
 }

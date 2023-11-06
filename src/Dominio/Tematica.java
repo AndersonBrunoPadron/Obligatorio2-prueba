@@ -1,15 +1,13 @@
-
 package Dominio;
 
 import java.io.Serializable;
 
+public class Tematica implements Serializable {
 
-public class Tematica implements Serializable{
     private String nombre;
     private String descripcion;
 
     //=================Sets y Gets============================
-    
     public String getNombre() {
         return nombre;
     }
@@ -25,5 +23,10 @@ public class Tematica implements Serializable{
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    @Override
+    public String toString() {
+
+        return this.getNombre();
+    }
 }

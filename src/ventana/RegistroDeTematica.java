@@ -3,16 +3,20 @@ package ventana;
 
 import Dominio.Tematica;
 import Dominio.Sistema;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 
 
 
-public class RegistroDeTematica extends javax.swing.JFrame {
+public class RegistroDeTematica extends javax.swing.JFrame implements Observer{
 
 private Tematica modelo;
 
     public RegistroDeTematica() {
         initComponents();
+        Sistema.getInstance().addObserver(this);
+         update(null, null);
     }
 
 
@@ -84,17 +88,22 @@ private Tematica modelo;
     if (nombre.isEmpty() || descripcion.isEmpty()) {
         // Si algún campo está vacío, muestra un mensaje de error
         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        // Si los campos están llenos, crea una instancia de Tematica y agrega a la lista
+    } 
+    if(!Sistema.getInstance().existeTematica(nombre)){
         Tematica nuevaTematica = new Tematica();
         nuevaTematica.setNombre(nombre);
         nuevaTematica.setDescripcion(descripcion);
-       Sistema.getInstance().agregarTematica(nuevaTematica);
+        Sistema.getInstance().agregarTematica(nuevaTematica);
 
-        // Muestra un mensaje de éxito
         JOptionPane.showMessageDialog(this, "La temática se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        // Borra los campos de texto después de agregar la temática
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        System.out.println();
+    }
+    else{
+        JOptionPane.showMessageDialog(this, "La temática ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+
         txtNombre.setText("");
         txtDescripcion.setText("");
         System.out.println();
@@ -112,4 +121,9 @@ private Tematica modelo;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+    public void update(Observable o, Object ob) {
+        
+    }
 }

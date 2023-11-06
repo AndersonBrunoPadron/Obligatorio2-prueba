@@ -1,14 +1,11 @@
 package Dominio;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.util.Observable;
 
-public class Sistema implements Serializable {
+
+public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Postulante> listaPostulantes;
     private ArrayList<Evaluador> listaEvaluadores;
@@ -19,35 +16,6 @@ public class Sistema implements Serializable {
 
     public static Sistema instance;
 
-    public void serializarSistema() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-            objectOutputStream.writeObject(this);
-            System.out.println("Sistema serializado con éxito.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al serializar el sistema.");
-        }
-    }
-
-    public static Sistema deserializarSistema() {
-        Sistema sistema = null;
-        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
-            sistema = (Sistema) objectInputStream.readObject();
-            System.out.println("Sistema deserializado con éxito.");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            System.err.println("Error al deserializar el sistema.");
-        }
-        return sistema;
-    }
-
-    public static Sistema getInstance() {
-        if (instance == null) {
-            instance = new Sistema();
-        }
-        return instance;
-    }
-
     public Sistema() {
         listaTematicas = new ArrayList<Tematica>(); // Inicializa el ArrayList de Tematica en el constructor.
         listaEvaluadores = new ArrayList<Evaluador>();
@@ -56,6 +24,13 @@ public class Sistema implements Serializable {
         listaTemas = new ArrayList<Tema>();
         listaPuestos = new ArrayList<Puesto>();
 
+    }
+
+    public static Sistema getInstance() {
+        if (instance == null) {
+            instance = new Sistema();
+        }
+        return instance;
     }
 
     public ArrayList<Postulante> getListaPostulantes() {
@@ -88,18 +63,25 @@ public class Sistema implements Serializable {
 
     public void setListaTemas(ArrayList<Tema> listaTemas) {
         this.listaTemas = listaTemas;
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Puesto> getListaPuestos() {
         return listaPuestos;
+        
     }
 
     public void setListaPuestos(ArrayList<Puesto> listaPuestos) {
         this.listaPuestos = listaPuestos;
+        setChanged();
+        notifyObservers();
     }
 
     public void setListaTematicas(ArrayList<Tematica> listaTematica) {
         this.listaTematicas = listaTematica;
+                        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Tematica> getListaTematicas() {
@@ -124,6 +106,30 @@ public class Sistema implements Serializable {
 
     public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
+    }
+
+    public void serializarSistema() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); 
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+            objectOutputStream.writeObject(this);
+            System.out.println("Sistema serializado con éxito.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al serializar el sistema.");
+        }
+    }
+
+    public static Sistema deserializarSistema() {
+        Sistema sistema = null;
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); 
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+            sistema = (Sistema) objectInputStream.readObject();
+            System.out.println("Sistema deserializado con éxito.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.err.println("Error al deserializar el sistema.");
+        }
+        return sistema;
     }
 
     public Postulante obtenerUltimoPostulante() {
@@ -155,6 +161,17 @@ public class Sistema implements Serializable {
         }
         return encontro;
     }
+
+    public boolean existeTematica(String unTema) {
+        boolean encontro = false;
+        for (int i = 0; i < listaTematicas.size() && !encontro; i++) {
+            Tematica tematica = listaTematicas.get(i);
+            if (tematica.getNombre().equals(unTema.toLowerCase())) {
+                encontro = true;
+            }
+        }
+        return encontro;
+    }
     
         public boolean existeEvaluadorConCedula(int cedula) {
         boolean encontro = false;
@@ -171,16 +188,6 @@ public class Sistema implements Serializable {
         if (posicionPostulante >= 0 && posicionPostulante < listaPostulantes.size()) {
             Postulante postulante = listaPostulantes.get(posicionPostulante);
             postulante.setTemas(nuevosTemas);
-        }
-    }
-
-    public void imprimirTemasDePostulantes() {
-        for (Postulante postulante : listaPostulantes) {
-            System.out.println("Temas de " + postulante.getNombre() + ":");
-            ArrayList<ExperienciaPostulante> temas = postulante.getTemas(); // Asume que el método getTemas existe en la clase Postulante
-            for (ExperienciaPostulante tema : temas) {
-                System.out.println(tema.getTema());
-            }
         }
     }
 
@@ -223,11 +230,7 @@ public class Sistema implements Serializable {
 
                 for (Tematica tematicaRequerida : tematicasRequeridas) {
                     if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
-
                         cont++;
-                        System.out.println("cantidad tema de postulante " + postulante.getNombre() + " " + postulante.getTemas().size());
-                        System.out.println("cantidad temas requeridos " + tematicasRequeridas.size());
-                        System.out.println("datos tema de postulante " + postulante.getTemas().toString());
                         cumpleRequisitos = true;
                     }
                 }
@@ -281,7 +284,6 @@ public class Sistema implements Serializable {
                 cantidadPuestos++;
             }
         }
-        System.out.println(cantidadPuestos);
         return cantidadPuestos;
     }
 
@@ -296,22 +298,21 @@ public class Sistema implements Serializable {
 
         return experienciasDelPostulante;
     }
-    
-    public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
-    Entrevista ultimaEntrevista = null; // Inicializa como null
 
-    for (Entrevista entrevista : listaEntrevistas) {
-        if (entrevista.getPostulante() == postulante) {
-            // Si la entrevista está asociada al postulante
-            if (ultimaEntrevista == null) {
-                // Si no se ha encontrado una última entrevista o esta es más reciente
-                ultimaEntrevista = entrevista; // Actualiza la última entrevista
+    public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
+        Entrevista ultimaEntrevista = null; // Inicializa como null
+
+        for (Entrevista entrevista : listaEntrevistas) {
+            if (entrevista.getPostulante() == postulante) {
+                // Si la entrevista está asociada al postulante
+                if (ultimaEntrevista == null) {
+                    // Si no se ha encontrado una última entrevista o esta es más reciente
+                    ultimaEntrevista = entrevista; // Actualiza la última entrevista
+                }
             }
         }
+
+        return ultimaEntrevista;
     }
-
-    return ultimaEntrevista;
-}
-
 
 }
