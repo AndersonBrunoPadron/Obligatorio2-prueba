@@ -29,19 +29,18 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         });
     }
 
-private void objetoAPantalla() {
-    Sistema sistema = Sistema.getInstance();
-    ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
+    private void objetoAPantalla() {
+        Sistema sistema = Sistema.getInstance();
+        ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
 
-    // Ordena la lista de postulantes por número de cédula de forma creciente
-    postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
+        // Ordena la lista de postulantes por número de cédula de forma creciente
+        postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
 
-    listaPantallaPostulantes.setListData(postulantes.toArray());
-}
-
+        listaPantallaPostulantes.setListData(postulantes.toArray());
+    }
 
     private void datosAPantalla() {
-           Postulante postulanteSeleccionado = (Postulante) listaPantallaPostulantes.getSelectedValue();
+        Postulante postulanteSeleccionado = (Postulante) listaPantallaPostulantes.getSelectedValue();
         if (postulanteSeleccionado != null) {
             labelTxtNombre.setText(postulanteSeleccionado.getNombre());
             labelTxtCedula.setText("" + postulanteSeleccionado.getCedula());
@@ -58,11 +57,15 @@ private void objetoAPantalla() {
 
         for (ExperienciaPostulante experiencia : experiencias) {
             modelo.addElement(experiencia.getTema() + " (" + experiencia.getNivel() + ")");
+            cargarEntrevistasDelPostulante(postulanteSeleccionado);
         }
 
-        cargarEntrevistasDelPostulante(postulanteSeleccionado);
+        // Eliminar el MouseListener anterior 
+        for (MouseListener mouseListener : labelTxtLinkedin.getMouseListeners()) {
+            labelTxtLinkedin.removeMouseListener(mouseListener);
+        }
 
-        // Agregar el MouseListener al labelTxtLinkedin
+        // Agregar el nuevo MouseListener al labelTxtLinkedin
         labelTxtLinkedin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -82,6 +85,7 @@ private void objetoAPantalla() {
                     System.out.println("No es una URL válida: " + linkedinURL);
                 }
             }
+
         });
     }
 
@@ -98,16 +102,14 @@ private void objetoAPantalla() {
     }
 
     private void cargarEntrevistasDelPostulante(Postulante postulante) {
-        
+
         Sistema sistema = Sistema.getInstance();
-        // Obten una referencia al modelo de tabla
+
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
         // Limpia la tabla si ya contiene datos
         modelo.setRowCount(0);
 
-        // Obtén las entrevistas del postulante
         ArrayList<Entrevista> entrevistas = new ArrayList<>();
-
         for (Entrevista entrevista : sistema.getListaEntrevistas()) {
             if (entrevista.getPostulante() == postulante) {
                 entrevistas.add(entrevista);
@@ -342,9 +344,15 @@ private void objetoAPantalla() {
         // Verificar si se ha seleccionado un postulante
         if (listaPantallaPostulantes.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Sale de la función si no se ha seleccionado un postulante.
+        } else {
+            // Realizar la búsqueda y aplicar el resaltado
+            realizarBusquedaConResaltado(palabraClave);
         }
 
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void realizarBusquedaConResaltado(String palabraClave) {
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
         int columnComentarios = 3; // Columna de comentarios en la tabla
 
@@ -361,14 +369,13 @@ private void objetoAPantalla() {
                 return c;
             }
         });
+
         // Refrescar la tabla para aplicar el formato HTML
         tablaPantalla.repaint();
-
-
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
+    }
     private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
         txtBuscar.setText("");
+        realizarBusquedaConResaltado("");
 
     }//GEN-LAST:event_btnResetearActionPerformed
 
