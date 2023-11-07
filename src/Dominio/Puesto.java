@@ -30,6 +30,7 @@ public class Puesto implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+        
     }
 
     public ArrayList<Tematica> getTemasRequeridos() {

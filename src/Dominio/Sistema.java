@@ -61,14 +61,12 @@ public class Sistema extends Observable implements Serializable {
 
     public void setListaPuestos(ArrayList<Puesto> listaPuestos) {
         this.listaPuestos = listaPuestos;
-        setChanged();
-        notifyObservers();
+
     }
 
     public void setListaTematicas(ArrayList<Tematica> listaTematica) {
         this.listaTematicas = listaTematica;
-        setChanged();
-        notifyObservers();
+
     }
 
     public ArrayList<Tematica> getListaTematicas() {
@@ -77,22 +75,32 @@ public class Sistema extends Observable implements Serializable {
 
     public void agregarTematica(Tematica tematica) {
         listaTematicas.add(tematica);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarPostulante(Postulante postulante) {
         listaPostulantes.add(postulante);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarEvaluador(Evaluador evaluador) {
         listaEvaluadores.add(evaluador);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
+        setChanged();
+        notifyObservers();
     }
 
     public void serializarSistema() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); 
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); 
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
             objectOutputStream.writeObject(this);
             System.out.println("Sistema serializado con éxito.");
         } catch (IOException e) {
@@ -103,7 +111,8 @@ public class Sistema extends Observable implements Serializable {
 
     public static Sistema deserializarSistema() {
         Sistema sistema = null;
-        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); 
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             sistema = (Sistema) objectInputStream.readObject();
             System.out.println("Sistema deserializado con éxito.");
         } catch (IOException | ClassNotFoundException e) {

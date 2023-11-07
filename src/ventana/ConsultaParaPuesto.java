@@ -4,17 +4,19 @@ import Dominio.*;
 import java.util.*;
 import javax.swing.*;
 
-public class ConsultaParaPuesto extends javax.swing.JFrame {
+public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
 
     public ConsultaParaPuesto() {
         initComponents();
-        objetoAPantalla();
+
+        Sistema.getInstance().addObserver(this);
+        update(null, null);
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
         spinnerNivel.setModel(spinnerModel);
     }
 
     private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance(); 
+        Sistema sistema = Sistema.getInstance();
         listaPantallaPuestos.setListData(sistema.getListaPuestos().toArray());
     }
 
@@ -115,57 +117,54 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
- Sistema sistema = Sistema.getInstance();
-    int nivelRequerido = (int) spinnerNivel.getValue();
-    //Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
-    Puesto puestoSeleccionado =  (Puesto) listaPantallaPuestos.getSelectedValue();
-    
-    System.out.println(puestoSeleccionado);
-    
-    
-    if (puestoSeleccionado != null) {
-        // Obtén la lista de postulantes con al menos una entrevista
-        ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
-        // Filtra los postulantes que cumplen con las condiciones
-        System.out.println("postulantes con entrevistas "+postulantesConEntrevistas);
-        
-        
-        ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
-        System.out.println("filtrados "+postulantesFiltrados);
-        
-        
-        // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
-        Map<Postulante, Integer> puntajesUltimaEntrevista = new HashMap<>();
-        for (Postulante postulante : postulantesFiltrados) {
-            Entrevista ultimaEntrevista = sistema.obtenerUltimaEntrevista(postulante);
-                    System.out.println("puntaje  "+ultimaEntrevista.getPuntaje());
-            
-            if (ultimaEntrevista != null) {
-                puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
-            } else {
-                puntajesUltimaEntrevista.put(postulante, 0); // Puntaje por defecto si no hay entrevistas
+        Sistema sistema = Sistema.getInstance();
+        int nivelRequerido = (int) spinnerNivel.getValue();
+        //Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
+        Puesto puestoSeleccionado = (Puesto) listaPantallaPuestos.getSelectedValue();
+
+        System.out.println(puestoSeleccionado);
+
+        if (puestoSeleccionado != null) {
+            // Obtén la lista de postulantes con al menos una entrevista
+            ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
+            // Filtra los postulantes que cumplen con las condiciones
+            System.out.println("postulantes con entrevistas " + postulantesConEntrevistas);
+
+            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
+            System.out.println("filtrados " + postulantesFiltrados);
+
+            // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
+            Map<Postulante, Integer> puntajesUltimaEntrevista = new HashMap<>();
+            for (Postulante postulante : postulantesFiltrados) {
+                Entrevista ultimaEntrevista = sistema.obtenerUltimaEntrevista(postulante);
+                System.out.println("puntaje  " + ultimaEntrevista.getPuntaje());
+
+                if (ultimaEntrevista != null) {
+                    puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
+                } else {
+                    puntajesUltimaEntrevista.put(postulante, 0); // Puntaje por defecto si no hay entrevistas
+                }
             }
-        }
-        // Ordenar la lista de postulantes en función del puntaje de la última entrevista, en orden decreciente
-        postulantesFiltrados.sort((postulante1, postulante2) -> Integer.compare(puntajesUltimaEntrevista.get(postulante2), puntajesUltimaEntrevista.get(postulante1)));
+            // Ordenar la lista de postulantes en función del puntaje de la última entrevista, en orden decreciente
+            postulantesFiltrados.sort((postulante1, postulante2) -> Integer.compare(puntajesUltimaEntrevista.get(postulante2), puntajesUltimaEntrevista.get(postulante1)));
 
-        // Crear un DefaultListModel para almacenar los nombres de postulantes ordenados por puntaje
-        DefaultListModel<String> listaModelo = new DefaultListModel<>();
-        for (Postulante postulante : postulantesFiltrados) {
-            String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
-            listaModelo.addElement(nombreCedula);
-        }
-        System.out.println("filtrados 2 "+postulantesFiltrados);
-        
-        listaPostulantes.setModel(listaModelo);
+            // Crear un DefaultListModel para almacenar los nombres de postulantes ordenados por puntaje
+            DefaultListModel<String> listaModelo = new DefaultListModel<>();
+            for (Postulante postulante : postulantesFiltrados) {
+                String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
+                listaModelo.addElement(nombreCedula);
+            }
+            System.out.println("filtrados 2 " + postulantesFiltrados);
 
-        if (listaModelo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No se encontraron resultados.", "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
+            listaPostulantes.setModel(listaModelo);
+
+            if (listaModelo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados.", "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            // Si no se ha seleccionado un puesto, muestra un mensaje de error
+            JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        // Si no se ha seleccionado un puesto, muestra un mensaje de error
-        JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
 
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -201,5 +200,10 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     private javax.swing.JList listaPostulantes;
     private javax.swing.JSpinner spinnerNivel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        objetoAPantalla();
+    }
 
 }

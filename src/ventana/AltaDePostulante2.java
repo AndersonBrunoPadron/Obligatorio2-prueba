@@ -2,9 +2,11 @@ package ventana;
 
 import Dominio.*;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.*;
 
-public class AltaDePostulante2 extends javax.swing.JFrame {
+public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
 
     private Postulante postulante;
     private String nombre;
@@ -20,6 +22,8 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     public AltaDePostulante2(String unNombre, int unaCedula, String unaDireccion, int unTelefono, String unCorreo, String unLinkedin, String unTipo) {
         //  sistema = new Sistema();
         initComponents();
+                Sistema.getInstance().addObserver(this);
+         update(null, null);
         // this.postulante = postulante1;
         this.nombre = unNombre;
         this.cedula = unaCedula;
@@ -29,7 +33,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
         this.linkedin = unLinkedin;
         this.tipo = unTipo;
 
-        cargarTemasEnComboBox();
+
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
         spinnerNivel.setModel(spinnerModel);
     }
@@ -232,4 +236,13 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     private javax.swing.JList listaExperiencias;
     private javax.swing.JSpinner spinnerNivel;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    @Override
+    public void update(Observable o, Object arg) {
+       cargarTemasEnComboBox();
+    }
+
+
 }

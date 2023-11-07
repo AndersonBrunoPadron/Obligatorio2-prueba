@@ -11,13 +11,15 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-public class HistorialDePostulante extends javax.swing.JFrame {
+public class HistorialDePostulante extends javax.swing.JFrame  implements Observer{
 
     private Postulante postulanteSeleccionado;
 
     public HistorialDePostulante() {
         initComponents();
-        objetoAPantalla();
+
+        Sistema.getInstance().addObserver(this);
+         update(null, null);
 
         listaPantallaPostulantes.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -410,4 +412,9 @@ private void realizarBusquedaConResaltado(String palabraClave) {
     private javax.swing.JTable tablaPantalla;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+               objetoAPantalla();
+    }
 }
