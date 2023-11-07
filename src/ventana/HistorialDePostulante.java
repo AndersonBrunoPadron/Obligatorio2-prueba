@@ -53,16 +53,8 @@ public class HistorialDePostulante extends javax.swing.JFrame {
 
         ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionado.getCedula());
        
-        /*
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        listaPantallaExperiencias.setModel(modelo);
-
-        for (ExperienciaPostulante experiencia : experiencias) {
-            modelo.addElement(experiencia.getTema() + " (" + experiencia.getNivel() + ")");
-            cargarEntrevistasDelPostulante(postulanteSeleccionado);
-        }
-*/
         listaPantallaExperiencias.setListData(experiencias.toArray());
+        
         cargarEntrevistasDelPostulante(postulanteSeleccionado);
         // Eliminar el MouseListener anterior 
         for (MouseListener mouseListener : labelTxtLinkedin.getMouseListeners()) {
@@ -89,7 +81,6 @@ public class HistorialDePostulante extends javax.swing.JFrame {
                     System.out.println("No es una URL válida: " + linkedinURL);
                 }
             }
-
         });
     }
 

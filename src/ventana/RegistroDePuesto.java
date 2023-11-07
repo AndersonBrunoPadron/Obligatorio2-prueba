@@ -258,9 +258,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
             listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-   /* private void actualizarListaTemasRequeridos() {
-        listaTemasRequeridos.setListData(temasRequeridos.toArray());
-    }*/
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int selectedIndex = listaTemasRequeridos.getSelectedIndex();
         if (selectedIndex >= 0) {

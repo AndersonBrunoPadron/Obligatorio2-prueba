@@ -4,32 +4,45 @@ import Dominio.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 public class AltaDePostulante2 extends javax.swing.JFrame {
 
     private Postulante postulante;
+    private String nombre;
+    private int cedula;
+    private String direccion;
+    private int telefono;
+    private String correo;
+    private String linkedin;
+    private String tipo;
+
     private ArrayList<ExperienciaPostulante> experiencias = new ArrayList<ExperienciaPostulante>();
 
-    public AltaDePostulante2(Postulante postulante1) {
+    public AltaDePostulante2(String unNombre, int unaCedula, String unaDireccion, int unTelefono, String unCorreo, String unLinkedin, String unTipo) {
         //  sistema = new Sistema();
         initComponents();
-        this.postulante = postulante1;
+        // this.postulante = postulante1;
+        this.nombre = unNombre;
+        this.cedula = unaCedula;
+        this.direccion = unaDireccion;
+        this.telefono = unTelefono;
+        this.correo = unCorreo;
+        this.linkedin = unLinkedin;
+        this.tipo = unTipo;
 
         cargarTemasEnComboBox();
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
         spinnerNivel.setModel(spinnerModel);
     }
 
-private void cargarTemasEnComboBox() {
-    comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
-    // Accede a la lista de temas en el sistema
-    ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
-    // Agrega los temas al combo box
-    for (Tematica tematica : temas) {
-        comboBoxTema.addItem(tematica);
+    private void cargarTemasEnComboBox() {
+        comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
+        // Accede a la lista de temas en el sistema
+        ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
+        // Agrega los temas al combo box
+        for (Tematica tematica : temas) {
+            comboBoxTema.addItem(tematica);
+        }
     }
-}
-
 
     private void actualizarListaExperiencias() {
         listaExperiencias.setListData(experiencias.toArray());
@@ -52,7 +65,7 @@ private void cargarTemasEnComboBox() {
         listaExperiencias = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alta de postultante");
         getContentPane().setLayout(null);
 
@@ -144,7 +157,13 @@ private void cargarTemasEnComboBox() {
             JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Obtener la lista de experiencias
-            postulante.agregarTemas(experiencias);
+            //postulante.agregarTemas(experiencias);
+            Postulante postulante = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
+            JOptionPane.showMessageDialog(this, "La postulante se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            // Agrega el Postulante al Sistema
+            Sistema.getInstance().agregarPostulante(postulante);
+            AltaDePostulante1 siguienteVentana = new AltaDePostulante1();
+            siguienteVentana.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
