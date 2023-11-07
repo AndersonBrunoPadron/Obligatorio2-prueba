@@ -1,13 +1,9 @@
 package ventana;
 
-import Dominio.Postulante;
-import Dominio.Sistema;
-import Dominio.ExperienciaPostulante;
-import Dominio.Tematica;
+import Dominio.*;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
+
 
 public class AltaDePostulante2 extends javax.swing.JFrame {
 
@@ -24,23 +20,18 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
         spinnerNivel.setModel(spinnerModel);
     }
 
-    private void cargarTemasEnComboBox() {
-        comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
-        // Accede a la lista de temas en el sistema
-        ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
-        // Agrega los temas al combo box
-        for (Tematica tematica : temas) {
-            comboBoxTema.addItem(tematica.getNombre());
-        }
+private void cargarTemasEnComboBox() {
+    comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
+    // Accede a la lista de temas en el sistema
+    ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
+    // Agrega los temas al combo box
+    for (Tematica tematica : temas) {
+        comboBoxTema.addItem(tematica);
     }
+}
+
 
     private void actualizarListaExperiencias() {
-      /*  DefaultListModel<String> modeloLista = new DefaultListModel<>();
-
-        for (ExperienciaPostulante experiencia : experiencias) {
-            modeloLista.addElement(experiencia.toString());
-        }
-*/
         listaExperiencias.setListData(experiencias.toArray());
     }
 
@@ -50,7 +41,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
 
         labelExperiencia = new javax.swing.JLabel();
         labelTema = new javax.swing.JLabel();
-        comboBoxTema = new javax.swing.JComboBox<>();
+        comboBoxTema = new javax.swing.JComboBox();
         spinnerNivel = new javax.swing.JSpinner();
         btnRegistrar = new javax.swing.JButton();
         labelNivel = new javax.swing.JLabel();
@@ -150,7 +141,6 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
         if (experiencias.isEmpty()) {
-            // Mostrar un mensaje de error si no se han seleccionado temas requeridos
             JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Obtener la lista de experiencias
@@ -177,7 +167,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        String temaSeleccionado = (String) comboBoxTema.getSelectedItem();
+        Tematica temaSeleccionado = (Tematica) comboBoxTema.getSelectedItem();
         int nivelSeleccionado = (int) spinnerNivel.getValue();
 
         // Comprobar si ya existe una experiencia para el tema seleccionado
@@ -214,7 +204,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> comboBoxTema;
+    private javax.swing.JComboBox comboBoxTema;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelExperiencia;

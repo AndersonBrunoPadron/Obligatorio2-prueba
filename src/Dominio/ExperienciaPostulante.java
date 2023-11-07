@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 public class ExperienciaPostulante implements Serializable{
 
-    private String tema;
+    private Tematica tema;
     private int nivel;
 
     // Constructor
-    public ExperienciaPostulante(String tema, int nivel) {
+    public ExperienciaPostulante(Tematica tema, int nivel) {
         this.tema = tema;
         this.nivel = nivel;
     }
 
-    public void setTema(String nuevoTema) {
+    public void setTema(Tematica nuevoTema) {
         this.tema = nuevoTema;
     }
 
-    public String getTema() {
+    public Tematica getTema() {
         return tema;
     }
 

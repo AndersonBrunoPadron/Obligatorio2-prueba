@@ -10,7 +10,7 @@ public class Sistema extends Observable implements Serializable {
     private ArrayList<Postulante> listaPostulantes;
     private ArrayList<Evaluador> listaEvaluadores;
     private ArrayList<Entrevista> listaEntrevistas;
-    private ArrayList<Tema> listaTemas;
+   // private ArrayList<Tema> listaTemas;
     private ArrayList<Puesto> listaPuestos;
     private ArrayList<Tematica> listaTematicas;
 
@@ -21,7 +21,7 @@ public class Sistema extends Observable implements Serializable {
         listaEvaluadores = new ArrayList<Evaluador>();
         listaPostulantes = new ArrayList<Postulante>();
         listaEntrevistas = new ArrayList<Entrevista>();
-        listaTemas = new ArrayList<Tema>();
+       // listaTemas = new ArrayList<Tema>();
         listaPuestos = new ArrayList<Puesto>();
 
     }
@@ -57,6 +57,7 @@ public class Sistema extends Observable implements Serializable {
         this.listaEntrevistas = listaEntrevistas;
     }
 
+    /*
     public ArrayList<Tema> getListaTemas() {
         return listaTemas;
     }
@@ -66,7 +67,7 @@ public class Sistema extends Observable implements Serializable {
         setChanged();
         notifyObservers();
     }
-
+*/
     public ArrayList<Puesto> getListaPuestos() {
         return listaPuestos;
         
@@ -100,24 +101,27 @@ public class Sistema extends Observable implements Serializable {
         listaEvaluadores.add(evaluador);
     }
 
+    /*
     public void agregarTema(Tema tema) {
         listaTemas.add(tema);
     }
-
+*/
     public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
     }
 
-    public void serializarSistema() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); 
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-            objectOutputStream.writeObject(this);
-            System.out.println("Sistema serializado con éxito.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error al serializar el sistema.");
-        }
+public void serializarSistema() {
+    try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser");
+         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+         ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
+        objectOutputStream.writeObject(this);
+        System.out.println("Sistema serializado con éxito.");
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Error al serializar el sistema.");
     }
+}
+
 
     public static Sistema deserializarSistema() {
         Sistema sistema = null;
@@ -229,7 +233,7 @@ public class Sistema extends Observable implements Serializable {
             for (ExperienciaPostulante experiencia : postulante.getTemas()) {
 
                 for (Tematica tematicaRequerida : tematicasRequeridas) {
-                    if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
+                    if (experiencia.getTema().equals(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
                         cont++;
                         cumpleRequisitos = true;
                     }
@@ -258,7 +262,7 @@ public class Sistema extends Observable implements Serializable {
         for (Postulante postulante : listaPostulantes) {
             boolean cumpleRequisitos = false;
             for (ExperienciaPostulante experiencia : postulante.getTemas()) {
-                if (experiencia.getTema().equalsIgnoreCase(tematica.getNombre()) && experiencia.getNivel() > 5) {
+                if (experiencia.getTema().equals(tematica.getNombre()) && experiencia.getNivel() > 5) {
                     cumpleRequisitos = true;
                 }
             }
@@ -300,7 +304,7 @@ public class Sistema extends Observable implements Serializable {
     }
 
     public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
-        Entrevista ultimaEntrevista = null; // Inicializa como null
+        Entrevista ultimaEntrevista = null; 
 
         for (Entrevista entrevista : listaEntrevistas) {
             if (entrevista.getPostulante() == postulante) {
@@ -311,7 +315,6 @@ public class Sistema extends Observable implements Serializable {
                 }
             }
         }
-
         return ultimaEntrevista;
     }
 

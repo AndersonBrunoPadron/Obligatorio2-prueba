@@ -1,4 +1,6 @@
 
+
+/*
 package Dominio;
 
 import java.io.Serializable;
@@ -47,3 +49,4 @@ public class Tema implements Serializable{
     
     
 }
+*/
