@@ -98,9 +98,7 @@ public class Sistema extends Observable implements Serializable {
     }
 
     public void serializarSistema() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); 
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); 
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
             objectOutputStream.writeObject(this);
             System.out.println("Sistema serializado con éxito.");
         } catch (IOException e) {
@@ -111,8 +109,7 @@ public class Sistema extends Observable implements Serializable {
 
     public static Sistema deserializarSistema() {
         Sistema sistema = null;
-        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); 
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             sistema = (Sistema) objectInputStream.readObject();
             System.out.println("Sistema deserializado con éxito.");
         } catch (IOException | ClassNotFoundException e) {
@@ -160,6 +157,18 @@ public class Sistema extends Observable implements Serializable {
                 encontro = true;
             }
         }
+        return encontro;
+    }
+
+    public boolean existePuesto(String unPuesto) {
+        boolean encontro = false;
+        for (int i = 0; i < listaPuestos.size() && !encontro; i++) {
+            Puesto puesto = listaPuestos.get(i);
+            if (puesto.getNombre().equalsIgnoreCase(unPuesto)) {
+                encontro = true;
+            }
+        }
+        System.out.println("eb sistema "+encontro);
         return encontro;
     }
 

@@ -4,7 +4,7 @@ import Dominio.*;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
+public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
 
     private ArrayList<Tematica> temasRequeridos = new ArrayList<Tematica>();
 
@@ -12,7 +12,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
         initComponents();
 
         Sistema.getInstance().addObserver(this);
-         update(null, null);
+        update(null, null);
     }
 
     private void cargarTemasEnComboBox() {
@@ -218,14 +218,20 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
                 for (Tematica tematica : temasRequeridos) {
                     temasRequeridosPuesto.add(tematica);
                 }
+                if (!Sistema.getInstance().existePuesto(nombrePuesto)) {
+                           System.out.println("eb ventana "+Sistema.getInstance().existePuesto(nombrePuesto));
+                    Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
+                    Sistema.getInstance().agregarPuesto(nuevoPuesto);
 
-                Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
-                Sistema.getInstance().agregarPuesto(nuevoPuesto);
+                    limpiarPantalla();
 
-                limpiarPantalla();
+                    JOptionPane.showMessageDialog(this, "El puesto ha sido registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El nombre del puesto ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
-                JOptionPane.showMessageDialog(this, "El puesto ha sido registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
+
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -263,7 +269,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
         int selectedIndex = listaTemasRequeridos.getSelectedIndex();
         if (selectedIndex >= 0) {
             temasRequeridos.remove(selectedIndex);
-           // actualizarListaTemasRequeridos();
+            // actualizarListaTemasRequeridos();
             listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -299,6 +305,6 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer{
     // End of variables declaration//GEN-END:variables
 
     public void update(Observable o, Object ob) {
-                cargarTemasEnComboBox();
+        cargarTemasEnComboBox();
     }
 }
