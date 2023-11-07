@@ -119,16 +119,27 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
     int nivelRequerido = (int) spinnerNivel.getValue();
     //Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
     Puesto puestoSeleccionado =  (Puesto) listaPantallaPuestos.getSelectedValue();
+    
+    System.out.println(puestoSeleccionado);
+    
+    
     if (puestoSeleccionado != null) {
         // Obtén la lista de postulantes con al menos una entrevista
         ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
         // Filtra los postulantes que cumplen con las condiciones
+        System.out.println("postulantes con entrevistas "+postulantesConEntrevistas);
+        
+        
         ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
-
+        System.out.println("filtrados "+postulantesFiltrados);
+        
+        
         // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
         Map<Postulante, Integer> puntajesUltimaEntrevista = new HashMap<>();
         for (Postulante postulante : postulantesFiltrados) {
             Entrevista ultimaEntrevista = sistema.obtenerUltimaEntrevista(postulante);
+                    System.out.println("puntaje  "+ultimaEntrevista.getPuntaje());
+            
             if (ultimaEntrevista != null) {
                 puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
             } else {
@@ -144,7 +155,8 @@ public class ConsultaParaPuesto extends javax.swing.JFrame {
             String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
             listaModelo.addElement(nombreCedula);
         }
-
+        System.out.println("filtrados 2 "+postulantesFiltrados);
+        
         listaPostulantes.setModel(listaModelo);
 
         if (listaModelo.isEmpty()) {

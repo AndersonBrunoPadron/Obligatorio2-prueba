@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Observable;
 
-
 public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Postulante> listaPostulantes;
     private ArrayList<Evaluador> listaEvaluadores;
     private ArrayList<Entrevista> listaEntrevistas;
-   // private ArrayList<Tema> listaTemas;
     private ArrayList<Puesto> listaPuestos;
     private ArrayList<Tematica> listaTematicas;
 
@@ -21,7 +19,6 @@ public class Sistema extends Observable implements Serializable {
         listaEvaluadores = new ArrayList<Evaluador>();
         listaPostulantes = new ArrayList<Postulante>();
         listaEntrevistas = new ArrayList<Entrevista>();
-       // listaTemas = new ArrayList<Tema>();
         listaPuestos = new ArrayList<Puesto>();
 
     }
@@ -57,20 +54,9 @@ public class Sistema extends Observable implements Serializable {
         this.listaEntrevistas = listaEntrevistas;
     }
 
-    /*
-    public ArrayList<Tema> getListaTemas() {
-        return listaTemas;
-    }
-
-    public void setListaTemas(ArrayList<Tema> listaTemas) {
-        this.listaTemas = listaTemas;
-        setChanged();
-        notifyObservers();
-    }
-*/
     public ArrayList<Puesto> getListaPuestos() {
         return listaPuestos;
-        
+
     }
 
     public void setListaPuestos(ArrayList<Puesto> listaPuestos) {
@@ -81,7 +67,7 @@ public class Sistema extends Observable implements Serializable {
 
     public void setListaTematicas(ArrayList<Tematica> listaTematica) {
         this.listaTematicas = listaTematica;
-                        setChanged();
+        setChanged();
         notifyObservers();
     }
 
@@ -101,32 +87,23 @@ public class Sistema extends Observable implements Serializable {
         listaEvaluadores.add(evaluador);
     }
 
-    /*
-    public void agregarTema(Tema tema) {
-        listaTemas.add(tema);
-    }
-*/
     public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
     }
 
-public void serializarSistema() {
-    try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser");
-         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-         ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
-        objectOutputStream.writeObject(this);
-        System.out.println("Sistema serializado con éxito.");
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.err.println("Error al serializar el sistema.");
+    public void serializarSistema() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
+            objectOutputStream.writeObject(this);
+            System.out.println("Sistema serializado con éxito.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al serializar el sistema.");
+        }
     }
-}
-
 
     public static Sistema deserializarSistema() {
         Sistema sistema = null;
-        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); 
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             sistema = (Sistema) objectInputStream.readObject();
             System.out.println("Sistema deserializado con éxito.");
         } catch (IOException | ClassNotFoundException e) {
@@ -176,8 +153,8 @@ public void serializarSistema() {
         }
         return encontro;
     }
-    
-        public boolean existeEvaluadorConCedula(int cedula) {
+
+    public boolean existeEvaluadorConCedula(int cedula) {
         boolean encontro = false;
         for (int i = 0; i < listaEvaluadores.size() && !encontro; i++) {
             Evaluador evaluador = listaEvaluadores.get(i);
@@ -220,7 +197,6 @@ public void serializarSistema() {
                 postulantesConEntrevistas.add(postulante);
             }
         }
-
         return postulantesConEntrevistas;
     }
 
@@ -233,13 +209,13 @@ public void serializarSistema() {
             for (ExperienciaPostulante experiencia : postulante.getTemas()) {
 
                 for (Tematica tematicaRequerida : tematicasRequeridas) {
-                    if (experiencia.getTema().equals(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
+                    if (experiencia.getTema().equals(tematicaRequerida) && experiencia.getNivel() >= nivelRequerido) {
                         cont++;
                         cumpleRequisitos = true;
                     }
                 }
             }
-            if (cumpleRequisitos && cont == tematicasRequeridas.size() == puestoSeleccionado.getTipo().equalsIgnoreCase(postulante.getTipo())) {
+            if (cumpleRequisitos && cont == tematicasRequeridas.size() == puestoSeleccionado.getTipo().equals(postulante.getTipo())) {
                 postulantesCumplenConRequisitos.add(postulante);
             }
         }
@@ -270,7 +246,6 @@ public void serializarSistema() {
                 cantidadPostulantes++;
             }
         }
-        System.out.println(cantidadPostulantes);
         return cantidadPostulantes;
     }
 
@@ -299,20 +274,15 @@ public void serializarSistema() {
                 experienciasDelPostulante = postulante.getTemas();
             }
         }
-
         return experienciasDelPostulante;
     }
 
     public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
-        Entrevista ultimaEntrevista = null; 
+        Entrevista ultimaEntrevista = null;
 
         for (Entrevista entrevista : listaEntrevistas) {
             if (entrevista.getPostulante() == postulante) {
-                // Si la entrevista está asociada al postulante
-                if (ultimaEntrevista == null) {
-                    // Si no se ha encontrado una última entrevista o esta es más reciente
-                    ultimaEntrevista = entrevista; // Actualiza la última entrevista
-                }
+                ultimaEntrevista = entrevista;
             }
         }
         return ultimaEntrevista;
