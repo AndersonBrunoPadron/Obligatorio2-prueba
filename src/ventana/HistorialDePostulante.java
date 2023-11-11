@@ -11,13 +11,15 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-public class HistorialDePostulante extends javax.swing.JFrame {
+public class HistorialDePostulante extends javax.swing.JFrame  implements Observer{
 
     private Postulante postulanteSeleccionado;
 
     public HistorialDePostulante() {
         initComponents();
-        objetoAPantalla();
+
+        Sistema.getInstance().addObserver(this);
+         update(null, null);
 
         listaPantallaPostulantes.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -52,14 +54,10 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         }
 
         ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionado.getCedula());
-        DefaultListModel<String> modelo = new DefaultListModel<>();
-        listaPantallaExperiencias.setModel(modelo);
-
-        for (ExperienciaPostulante experiencia : experiencias) {
-            modelo.addElement(experiencia.getTema() + " (" + experiencia.getNivel() + ")");
-            cargarEntrevistasDelPostulante(postulanteSeleccionado);
-        }
-
+       
+        listaPantallaExperiencias.setListData(experiencias.toArray());
+        
+        cargarEntrevistasDelPostulante(postulanteSeleccionado);
         // Eliminar el MouseListener anterior 
         for (MouseListener mouseListener : labelTxtLinkedin.getMouseListeners()) {
             labelTxtLinkedin.removeMouseListener(mouseListener);
@@ -85,7 +83,6 @@ public class HistorialDePostulante extends javax.swing.JFrame {
                     System.out.println("No es una URL válida: " + linkedinURL);
                 }
             }
-
         });
     }
 
@@ -157,7 +154,7 @@ public class HistorialDePostulante extends javax.swing.JFrame {
         labelTematicas7 = new javax.swing.JLabel();
         labelTematicas8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaPantallaExperiencias = new javax.swing.JList<>();
+        listaPantallaExperiencias = new javax.swing.JList();
         labelTxtFormato = new javax.swing.JLabel();
         labelTxtNombre = new javax.swing.JLabel();
         labelTxtCedula = new javax.swing.JLabel();
@@ -352,27 +349,31 @@ public class HistorialDePostulante extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void realizarBusquedaConResaltado(String palabraClave) {
-        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-        int columnComentarios = 3; // Columna de comentarios en la tabla
+private void realizarBusquedaConResaltado(String palabraClave) {
+    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+    int columnComentarios = 3; // Columna de comentarios en la tabla
 
-        // Restablecer el renderizador de la tabla para usar HTML
-        tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == columnComentarios) {
-                    String comentario = value.toString();
-                    String comentarioResaltado = comentario.replaceAll(palabraClave, "<font color='red'>" + palabraClave + "</font>");
-                    setText("<html>" + comentarioResaltado + "</html>");
-                }
-                return c;
+    // Restablecer el renderizador de la tabla para usar HTML
+    tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (column == columnComentarios && value instanceof String) {
+                String comentario = (String) value;
+                String comentarioResaltado = comentario.replaceAll(
+                    "(?i)" + Pattern.quote(palabraClave), "<font color='red'>$0</font>"
+                );
+                setText("<html>" + comentarioResaltado + "</html>");
             }
-        });
+            return c;
+        }
+    });
 
-        // Refrescar la tabla para aplicar el formato HTML
-        tablaPantalla.repaint();
-    }
+    // Refrescar la tabla para aplicar el formato HTML
+    tablaPantalla.repaint();
+}
+
+
     private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
         txtBuscar.setText("");
         realizarBusquedaConResaltado("");
@@ -406,9 +407,14 @@ public class HistorialDePostulante extends javax.swing.JFrame {
     private javax.swing.JLabel labelTxtMail;
     private javax.swing.JLabel labelTxtNombre;
     private javax.swing.JLabel labelTxtTelefono;
-    private javax.swing.JList<String> listaPantallaExperiencias;
+    private javax.swing.JList listaPantallaExperiencias;
     private javax.swing.JList listaPantallaPostulantes;
     private javax.swing.JTable tablaPantalla;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+               objetoAPantalla();
+    }
 }

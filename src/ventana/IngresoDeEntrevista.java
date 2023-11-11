@@ -2,20 +2,22 @@ package ventana;
 
 import Dominio.*;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class IngresoDeEntrevista extends javax.swing.JFrame {
+public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
 
     public IngresoDeEntrevista() {
         initComponents();
-        objetoAPantalla();
+
+                Sistema.getInstance().addObserver(this);
+        update(null, null);
     }
 
     private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
-
-
         // Asigna los DefaultListModel a los componentes JList
         listaPantallaPostulantes.setListData(sistema.getListaPostulantes().toArray());
         listaPantallaEvaluadores.setListData(sistema.getListaEvaluadores().toArray());
@@ -183,4 +185,11 @@ public class IngresoDeEntrevista extends javax.swing.JFrame {
     private javax.swing.JTextField txtComentario;
     private javax.swing.JTextField txtPuntaje;
     // End of variables declaration//GEN-END:variables
+
+
+
+    @Override
+    public void update(Observable o, Object arg) {
+        objetoAPantalla();
+    }
 }

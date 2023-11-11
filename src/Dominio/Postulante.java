@@ -14,13 +14,13 @@ public class Postulante extends Persona implements Serializable {
     @Override
     public String toString() {
 
-        return this.getNombre()+" ("+this.getCedula()+")";
+        return this.getNombre() + " (" + this.getCedula() + ")";
     }
-    
-    
-public String retornaNombreYCi(){
-    return this.getNombre()+" "+this.getCedula();
-}
+
+    public String retornaNombreYCi() {
+        return this.getNombre() + " " + this.getCedula();
+    }
+
     public Postulante(String nombre, int cedula, String direccion, int telefono, String correo, String linkedin, String tipo, ArrayList<ExperienciaPostulante> temas) {
         super(nombre, cedula, direccion);
         this.telefono = telefono;
@@ -74,11 +74,10 @@ public String retornaNombreYCi(){
         temas.addAll(temasNuevos);
     }
 
-
     public int obtenerNivelTema(String temaBuscado) {
         int res = 0;
         for (ExperienciaPostulante experiencia : temas) {
-            if (experiencia.getTema().equalsIgnoreCase(temaBuscado)) {
+            if (experiencia.getTema().equals(temaBuscado)) {
                 res = experiencia.getNivel();
             }
         }

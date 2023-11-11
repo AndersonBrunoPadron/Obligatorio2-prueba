@@ -1,12 +1,11 @@
 package ventana;
 
 import Dominio.*;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class AltaDePostulante1 extends javax.swing.JFrame {
 
-    public AltaDePostulante1() {        
+    public AltaDePostulante1() {
         initComponents();
     }
 
@@ -142,55 +141,49 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
 
-    String nombre = txtNombre.getText().trim();
-    String cedulaStr = txtCedula.getText().trim();
-    String direccion = txtDireccion.getText().trim();
-    String telefonoStr = txtTelefono.getText().trim();
-    String correo = txtMail.getText().trim();
-    String linkedin = txtLinkedin.getText().trim();
-    String tipo = "";
-    boolean continuar = true;
+        String nombre = txtNombre.getText().trim();
+        String cedulaStr = txtCedula.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+        String telefonoStr = txtTelefono.getText().trim();
+        String correo = txtMail.getText().trim();
+        String linkedin = txtLinkedin.getText().trim();
+        String tipo = "";
+        boolean continuar = true;
 
-    if (nombre.isEmpty() || cedulaStr.isEmpty() || direccion.isEmpty() || telefonoStr.isEmpty() || correo.isEmpty() || linkedin.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
-        continuar = false;
-    } else {
-        try {
-            int cedula = Integer.parseInt(cedulaStr);
-            int telefono = Integer.parseInt(telefonoStr);
+        if (nombre.isEmpty() || cedulaStr.isEmpty() || direccion.isEmpty() || telefonoStr.isEmpty() || correo.isEmpty() || linkedin.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            continuar = false;
+        } else {
+            try {
+                int cedula = Integer.parseInt(cedulaStr);
+                int telefono = Integer.parseInt(telefonoStr);
 
-            if (btnRemoto.isSelected()) {
-                tipo = "Remoto";
-            } else if (btnPresencial.isSelected()) {
-                tipo = "Presencial";
-            } else if (btnMixto.isSelected()) {
-                tipo = "Mixto";
-            } else {
-                JOptionPane.showMessageDialog(this, "Debes seleccionar un formato.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (btnRemoto.isSelected()) {
+                    tipo = "Remoto";
+                } else if (btnPresencial.isSelected()) {
+                    tipo = "Presencial";
+                } else if (btnMixto.isSelected()) {
+                    tipo = "Mixto";
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debes seleccionar un formato.", "Error", JOptionPane.ERROR_MESSAGE);
+                    continuar = false;
+                }
+
+                if (continuar) {
+                    // Verificar si la cédula ya existe en el sistema
+                    if (Sistema.getInstance().existePostulanteConCedula(cedula) || Sistema.getInstance().existeEvaluadorConCedula(cedula)) {
+                        JOptionPane.showMessageDialog(this, "La cédula ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        AltaDePostulante2 siguienteVentana = new AltaDePostulante2(nombre, cedula, direccion, telefono, correo, linkedin, tipo);
+                        siguienteVentana.setVisible(true);
+                        this.dispose();
+                    }
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "La cédula y el teléfono deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
                 continuar = false;
             }
-
-            if (continuar) {
-                // Verificar si la cédula ya existe en el sistema
-                if (Sistema.getInstance().existePostulanteConCedula(cedula) || Sistema.getInstance().existeEvaluadorConCedula(cedula)) {
-                    JOptionPane.showMessageDialog(this, "La cédula ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Crea el Postulante con un ArrayList vacío para temas
-                    Postulante postulante = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, new ArrayList<ExperienciaPostulante>());
-                    
-                    // Agrega el Postulante al Sistema
-                    Sistema.getInstance().agregarPostulante(postulante);
-                    // Abre la siguiente ventana si es necesario
-                    AltaDePostulante2 siguienteVentana = new AltaDePostulante2(postulante);
-                    siguienteVentana.setVisible(true);
-                    this.dispose();
-                }
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La cédula y el teléfono deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
-            continuar = false;
         }
-    }
 
     }//GEN-LAST:event_btnSiguienteActionPerformed
 

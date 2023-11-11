@@ -3,14 +3,18 @@ package ventana;
 import Dominio.Sistema;
 import Dominio.Tematica;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ConsultaPorTematica extends javax.swing.JFrame {
+public class ConsultaPorTematica extends javax.swing.JFrame implements Observer {
 
     public ConsultaPorTematica() {
         initComponents();
-        objetoAPantalla();
+
+        Sistema.getInstance().addObserver(this);
+        update(null, null);
         // Agrega un ListSelectionListener a la lista de temáticas
         listaPantallaTematica.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -137,4 +141,9 @@ public class ConsultaPorTematica extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitulo1;
     private javax.swing.JList listaPantallaTematica;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        objetoAPantalla();
+    }
 }

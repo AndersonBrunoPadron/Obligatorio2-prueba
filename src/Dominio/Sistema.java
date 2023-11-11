@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Observable;
 
-
 public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Postulante> listaPostulantes;
     private ArrayList<Evaluador> listaEvaluadores;
     private ArrayList<Entrevista> listaEntrevistas;
-    private ArrayList<Tema> listaTemas;
     private ArrayList<Puesto> listaPuestos;
     private ArrayList<Tematica> listaTematicas;
 
@@ -21,7 +19,6 @@ public class Sistema extends Observable implements Serializable {
         listaEvaluadores = new ArrayList<Evaluador>();
         listaPostulantes = new ArrayList<Postulante>();
         listaEntrevistas = new ArrayList<Entrevista>();
-        listaTemas = new ArrayList<Tema>();
         listaPuestos = new ArrayList<Puesto>();
 
     }
@@ -57,31 +54,19 @@ public class Sistema extends Observable implements Serializable {
         this.listaEntrevistas = listaEntrevistas;
     }
 
-    public ArrayList<Tema> getListaTemas() {
-        return listaTemas;
-    }
-
-    public void setListaTemas(ArrayList<Tema> listaTemas) {
-        this.listaTemas = listaTemas;
-        setChanged();
-        notifyObservers();
-    }
-
     public ArrayList<Puesto> getListaPuestos() {
         return listaPuestos;
-        
+
     }
 
     public void setListaPuestos(ArrayList<Puesto> listaPuestos) {
         this.listaPuestos = listaPuestos;
-        setChanged();
-        notifyObservers();
+
     }
 
     public void setListaTematicas(ArrayList<Tematica> listaTematica) {
         this.listaTematicas = listaTematica;
-                        setChanged();
-        notifyObservers();
+
     }
 
     public ArrayList<Tematica> getListaTematicas() {
@@ -90,27 +75,30 @@ public class Sistema extends Observable implements Serializable {
 
     public void agregarTematica(Tematica tematica) {
         listaTematicas.add(tematica);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarPostulante(Postulante postulante) {
         listaPostulantes.add(postulante);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarEvaluador(Evaluador evaluador) {
         listaEvaluadores.add(evaluador);
-    }
-
-    public void agregarTema(Tema tema) {
-        listaTemas.add(tema);
+        setChanged();
+        notifyObservers();
     }
 
     public void agregarPuesto(Puesto puesto) {
         listaPuestos.add(puesto);
+        setChanged();
+        notifyObservers();
     }
 
     public void serializarSistema() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); 
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("sistema.ser"); BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream); ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream)) {
             objectOutputStream.writeObject(this);
             System.out.println("Sistema serializado con éxito.");
         } catch (IOException e) {
@@ -121,8 +109,7 @@ public class Sistema extends Observable implements Serializable {
 
     public static Sistema deserializarSistema() {
         Sistema sistema = null;
-        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); 
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        try (FileInputStream fileInputStream = new FileInputStream("sistema.ser"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             sistema = (Sistema) objectInputStream.readObject();
             System.out.println("Sistema deserializado con éxito.");
         } catch (IOException | ClassNotFoundException e) {
@@ -172,8 +159,20 @@ public class Sistema extends Observable implements Serializable {
         }
         return encontro;
     }
-    
-        public boolean existeEvaluadorConCedula(int cedula) {
+
+    public boolean existePuesto(String unPuesto) {
+        boolean encontro = false;
+        for (int i = 0; i < listaPuestos.size() && !encontro; i++) {
+            Puesto puesto = listaPuestos.get(i);
+            if (puesto.getNombre().equalsIgnoreCase(unPuesto)) {
+                encontro = true;
+            }
+        }
+        System.out.println("eb sistema "+encontro);
+        return encontro;
+    }
+
+    public boolean existeEvaluadorConCedula(int cedula) {
         boolean encontro = false;
         for (int i = 0; i < listaEvaluadores.size() && !encontro; i++) {
             Evaluador evaluador = listaEvaluadores.get(i);
@@ -216,7 +215,6 @@ public class Sistema extends Observable implements Serializable {
                 postulantesConEntrevistas.add(postulante);
             }
         }
-
         return postulantesConEntrevistas;
     }
 
@@ -229,13 +227,13 @@ public class Sistema extends Observable implements Serializable {
             for (ExperienciaPostulante experiencia : postulante.getTemas()) {
 
                 for (Tematica tematicaRequerida : tematicasRequeridas) {
-                    if (experiencia.getTema().equalsIgnoreCase(tematicaRequerida.getNombre()) && experiencia.getNivel() >= nivelRequerido) {
+                    if (experiencia.getTema().equals(tematicaRequerida) && experiencia.getNivel() >= nivelRequerido) {
                         cont++;
                         cumpleRequisitos = true;
                     }
                 }
             }
-            if (cumpleRequisitos && cont == tematicasRequeridas.size() == puestoSeleccionado.getTipo().equalsIgnoreCase(postulante.getTipo())) {
+            if (cumpleRequisitos && cont == tematicasRequeridas.size() == puestoSeleccionado.getTipo().equals(postulante.getTipo())) {
                 postulantesCumplenConRequisitos.add(postulante);
             }
         }
@@ -258,7 +256,7 @@ public class Sistema extends Observable implements Serializable {
         for (Postulante postulante : listaPostulantes) {
             boolean cumpleRequisitos = false;
             for (ExperienciaPostulante experiencia : postulante.getTemas()) {
-                if (experiencia.getTema().equalsIgnoreCase(tematica.getNombre()) && experiencia.getNivel() > 5) {
+                if (experiencia.getTema().equals(tematica.getNombre()) && experiencia.getNivel() > 5) {
                     cumpleRequisitos = true;
                 }
             }
@@ -266,7 +264,6 @@ public class Sistema extends Observable implements Serializable {
                 cantidadPostulantes++;
             }
         }
-        System.out.println(cantidadPostulantes);
         return cantidadPostulantes;
     }
 
@@ -295,23 +292,17 @@ public class Sistema extends Observable implements Serializable {
                 experienciasDelPostulante = postulante.getTemas();
             }
         }
-
         return experienciasDelPostulante;
     }
 
     public Entrevista obtenerUltimaEntrevista(Postulante postulante) {
-        Entrevista ultimaEntrevista = null; // Inicializa como null
+        Entrevista ultimaEntrevista = null;
 
         for (Entrevista entrevista : listaEntrevistas) {
             if (entrevista.getPostulante() == postulante) {
-                // Si la entrevista está asociada al postulante
-                if (ultimaEntrevista == null) {
-                    // Si no se ha encontrado una última entrevista o esta es más reciente
-                    ultimaEntrevista = entrevista; // Actualiza la última entrevista
-                }
+                ultimaEntrevista = entrevista;
             }
         }
-
         return ultimaEntrevista;
     }
 
