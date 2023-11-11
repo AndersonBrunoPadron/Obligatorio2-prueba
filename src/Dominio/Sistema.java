@@ -2,6 +2,7 @@ package Dominio;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Iterator;
 import java.util.Observable;
 
 public class Sistema extends Observable implements Serializable {
@@ -34,8 +35,8 @@ public class Sistema extends Observable implements Serializable {
         return listaPostulantes;
     }
 
-    public void setListaPostulantes(Postulante postulantes) {
-        this.listaPostulantes = listaPostulantes;
+    public void setListaPostulantes(ArrayList<Postulante> listaDePostulantes) {
+        this.listaPostulantes = listaDePostulantes;
     }
 
     public ArrayList<Evaluador> getListaEvaluadores() {
@@ -304,6 +305,21 @@ public class Sistema extends Observable implements Serializable {
             }
         }
         return ultimaEntrevista;
+    }
+    
+    public void eliminarPostulantePorObjeto(Postulante elPostulante){
+        ArrayList<Postulante> listaPostulantes = this.getListaPostulantes();
+        
+        Iterator<Postulante> iter = listaPostulantes.iterator();
+        
+        while(iter.hasNext()){
+            Postulante postulante = iter.next();
+            if(postulante.equals(elPostulante)){
+                iter.remove();
+            }
+        }
+        
+        this.setListaPostulantes(listaPostulantes);
     }
 
 }

@@ -211,7 +211,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(20, 690, 120, 23);
+        btnSalir.setBounds(20, 690, 120, 27);
 
         labelBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelBuscar.setText("Buscar:");
@@ -295,7 +295,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         jScrollPane3.setViewportView(listaPantallaExperiencias);
 
         getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(540, 270, 230, 100);
+        jScrollPane3.setBounds(540, 260, 230, 100);
 
         labelTxtFormato.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         getContentPane().add(labelTxtFormato);
