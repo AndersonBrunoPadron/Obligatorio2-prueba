@@ -111,8 +111,25 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-
-
+        DefaultListModel<String> modelo = (DefaultListModel<String>) listaPostulantes.getModel();
+        
+        Puesto puesto = (Puesto)listaPantallaPuestos.getSelectedValue();
+        ArchivoGrabacion archivo = new ArchivoGrabacion("Consulta.txt", false);
+        archivo.grabarLinea(puesto.getNombre());
+        modelo.size();
+        
+        for(int i=0; i<modelo.size(); i++){
+            String seleccionado = modelo.getElementAt(i);
+            String[] partes1 = seleccionado.split("\\(");
+            String[] partes2 = partes1[1].split("\\)");
+            System.out.println(partes2[0]);
+            int cedula = Integer.parseInt(partes2[0]);
+            Postulante postulante = Sistema.getInstance().obtenerPostulantePorCedula(cedula);
+            archivo.grabarLinea(postulante.getNombre() +" - "+ postulante.getCedula() + " - "+ postulante.getCorreo());
+            System.out.println(postulante.getNombre() +" - "+ postulante.getCedula() + " - "+ postulante.getCorreo());
+        }
+        
+        archivo.cerrar();
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
