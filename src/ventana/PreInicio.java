@@ -17,6 +17,7 @@ public class PreInicio extends javax.swing.JFrame {
         btnCargarDatosDelSistema = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Restauracion");
         getContentPane().setLayout(null);
 
         btnSistemaNuevo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

@@ -42,6 +42,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ingreso de entrevistas");
         getContentPane().setLayout(null);
 
         jScrollPane1.setViewportView(listaPantallaPostulantes);
@@ -90,7 +91,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(30, 300, 90, 23);
+        btnCancelar.setBounds(30, 300, 90, 27);
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +100,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 300, 90, 23);
+        btnRegistrar.setBounds(270, 300, 90, 27);
 
         setSize(new java.awt.Dimension(408, 373));
         setLocationRelativeTo(null);

@@ -33,10 +33,11 @@ private Tematica modelo;
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de temática");
         getContentPane().setLayout(null);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labelTitulo.setText("Registo de temática");
+        labelTitulo.setText("Registro de temática");
         getContentPane().add(labelTitulo);
         labelTitulo.setBounds(120, 0, 160, 30);
 
@@ -61,7 +62,7 @@ private Tematica modelo;
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 240, 90, 23);
+        btnCancelar.setBounds(20, 240, 90, 27);
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +71,7 @@ private Tematica modelo;
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 240, 90, 23);
+        btnRegistrar.setBounds(270, 240, 90, 27);
 
         setSize(new java.awt.Dimension(414, 307));
         setLocationRelativeTo(null);

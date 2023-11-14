@@ -48,10 +48,11 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
         btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de puesto");
         getContentPane().setLayout(null);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labelTitulo.setText("Registo de puesto");
+        labelTitulo.setText("Registro de puesto");
         getContentPane().add(labelTitulo);
         labelTitulo.setBounds(130, 0, 160, 30);
 
@@ -122,7 +123,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 290, 90, 23);
+        btnCancelar.setBounds(20, 290, 90, 27);
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrar.setText("Registrar");

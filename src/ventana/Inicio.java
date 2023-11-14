@@ -24,159 +24,205 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAltaPostulante = new javax.swing.JButton();
-        btnBajaPostulante = new javax.swing.JButton();
-        btnRegistroTematica = new javax.swing.JButton();
-        btnRegistroEvaluador = new javax.swing.JButton();
-        btnRegistroPuesto = new javax.swing.JButton();
-        btnIngresoDeEntrevista = new javax.swing.JButton();
-        btnConsultaParaPuesto = new javax.swing.JButton();
-        btnConsultaParaPuesto1 = new javax.swing.JButton();
-        btnConsultaParaPuesto2 = new javax.swing.JButton();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jLabel1 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        itemAltaP = new javax.swing.JMenuItem();
+        itemBajaP = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        itemHistorialP = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itemRegistroE = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        itemRegistroT = new javax.swing.JMenuItem();
+        itemConsultaT = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        itemRegistroPuesto = new javax.swing.JMenuItem();
+        itemConsultaPuesto = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        itemEntrevista = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
         getContentPane().setLayout(null);
 
-        btnAltaPostulante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAltaPostulante.setText("Alta de postulante");
-        btnAltaPostulante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAltaPostulanteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAltaPostulante);
-        btnAltaPostulante.setBounds(50, 40, 160, 50);
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 30)); // NOI18N
+        jLabel1.setText("Bienvenido al sistema de gestión!");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(140, 100, 400, 60);
 
-        btnBajaPostulante.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBajaPostulante.setText("Baja de postulante");
-        btnBajaPostulante.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBajaPostulanteActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBajaPostulante);
-        btnBajaPostulante.setBounds(250, 40, 160, 50);
+        getContentPane().add(btnSalir);
+        btnSalir.setBounds(10, 360, 76, 27);
 
-        btnRegistroTematica.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegistroTematica.setText("Registro de temática");
-        btnRegistroTematica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroTematicaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnRegistroTematica);
-        btnRegistroTematica.setBounds(450, 40, 160, 50);
+        jMenu1.setText("Postulantes");
 
-        btnRegistroEvaluador.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegistroEvaluador.setText("Registro de evaluador");
-        btnRegistroEvaluador.addActionListener(new java.awt.event.ActionListener() {
+        itemAltaP.setText("Alta de postulante");
+        itemAltaP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroEvaluadorActionPerformed(evt);
+                itemAltaPActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistroEvaluador);
-        btnRegistroEvaluador.setBounds(50, 120, 160, 50);
+        jMenu1.add(itemAltaP);
 
-        btnRegistroPuesto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegistroPuesto.setText("Registro de puesto");
-        btnRegistroPuesto.addActionListener(new java.awt.event.ActionListener() {
+        itemBajaP.setText("Baja de postulante");
+        itemBajaP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroPuestoActionPerformed(evt);
+                itemBajaPActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegistroPuesto);
-        btnRegistroPuesto.setBounds(250, 120, 160, 50);
+        jMenu1.add(itemBajaP);
+        jMenu1.add(jSeparator1);
 
-        btnIngresoDeEntrevista.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnIngresoDeEntrevista.setText("Ingreso de entrevista");
-        btnIngresoDeEntrevista.addActionListener(new java.awt.event.ActionListener() {
+        itemHistorialP.setText("Historial de postulante");
+        itemHistorialP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresoDeEntrevistaActionPerformed(evt);
+                itemHistorialPActionPerformed(evt);
             }
         });
-        getContentPane().add(btnIngresoDeEntrevista);
-        btnIngresoDeEntrevista.setBounds(450, 120, 160, 50);
+        jMenu1.add(itemHistorialP);
 
-        btnConsultaParaPuesto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnConsultaParaPuesto.setText("Consulta para puesto");
-        btnConsultaParaPuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaParaPuestoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnConsultaParaPuesto);
-        btnConsultaParaPuesto.setBounds(50, 210, 160, 50);
+        jMenuBar1.add(jMenu1);
 
-        btnConsultaParaPuesto1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnConsultaParaPuesto1.setText("Consulta por temática");
-        btnConsultaParaPuesto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaParaPuesto1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnConsultaParaPuesto1);
-        btnConsultaParaPuesto1.setBounds(250, 210, 160, 50);
+        jMenu2.setText("Evaluadores");
 
-        btnConsultaParaPuesto2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnConsultaParaPuesto2.setText("Historial de postulante");
-        btnConsultaParaPuesto2.addActionListener(new java.awt.event.ActionListener() {
+        itemRegistroE.setText("Registro de evaluador");
+        itemRegistroE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultaParaPuesto2ActionPerformed(evt);
+                itemRegistroEActionPerformed(evt);
             }
         });
-        getContentPane().add(btnConsultaParaPuesto2);
-        btnConsultaParaPuesto2.setBounds(450, 210, 160, 50);
+        jMenu2.add(itemRegistroE);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Tematicas");
+
+        itemRegistroT.setText("Registro de temática");
+        itemRegistroT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegistroTActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itemRegistroT);
+
+        itemConsultaT.setText("Consulta por temática");
+        itemConsultaT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultaTActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itemConsultaT);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Puestos");
+
+        itemRegistroPuesto.setText("Registro de puesto");
+        itemRegistroPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegistroPuestoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemRegistroPuesto);
+
+        itemConsultaPuesto.setText("Consulta para puesto");
+        itemConsultaPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultaPuestoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itemConsultaPuesto);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Entrevista");
+
+        itemEntrevista.setText("Ingreso de entrevista");
+        itemEntrevista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEntrevistaActionPerformed(evt);
+            }
+        });
+        jMenu5.add(itemEntrevista);
+
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(671, 460));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAltaPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaPostulanteActionPerformed
-        new AltaDePostulante1().setVisible(true);
-    }//GEN-LAST:event_btnAltaPostulanteActionPerformed
-
-    private void btnBajaPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaPostulanteActionPerformed
+    private void itemBajaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBajaPActionPerformed
         new BajaDePostulante().setVisible(true);
-    }//GEN-LAST:event_btnBajaPostulanteActionPerformed
+    }//GEN-LAST:event_itemBajaPActionPerformed
 
-    private void btnRegistroTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroTematicaActionPerformed
-        new RegistroDeTematica().setVisible(true);
-    }//GEN-LAST:event_btnRegistroTematicaActionPerformed
-
-    private void btnRegistroEvaluadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroEvaluadorActionPerformed
-        new RegistroDeEvaluador().setVisible(true);
-    }//GEN-LAST:event_btnRegistroEvaluadorActionPerformed
-
-    private void btnRegistroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroPuestoActionPerformed
-        new RegistroDePuesto().setVisible(true);
-    }//GEN-LAST:event_btnRegistroPuestoActionPerformed
-
-    private void btnIngresoDeEntrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoDeEntrevistaActionPerformed
-        new IngresoDeEntrevista().setVisible(true);
-    }//GEN-LAST:event_btnIngresoDeEntrevistaActionPerformed
-
-    private void btnConsultaParaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaParaPuestoActionPerformed
-        new ConsultaParaPuesto().setVisible(true);
-    }//GEN-LAST:event_btnConsultaParaPuestoActionPerformed
-
-    private void btnConsultaParaPuesto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaParaPuesto1ActionPerformed
+    private void itemConsultaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaTActionPerformed
         new ConsultaPorTematica().setVisible(true);
-    }//GEN-LAST:event_btnConsultaParaPuesto1ActionPerformed
+    }//GEN-LAST:event_itemConsultaTActionPerformed
 
-    private void btnConsultaParaPuesto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaParaPuesto2ActionPerformed
+    private void itemAltaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltaPActionPerformed
+        new AltaDePostulante1().setVisible(true);
+    }//GEN-LAST:event_itemAltaPActionPerformed
+
+    private void itemHistorialPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemHistorialPActionPerformed
         new HistorialDePostulante().setVisible(true);
-    }//GEN-LAST:event_btnConsultaParaPuesto2ActionPerformed
+    }//GEN-LAST:event_itemHistorialPActionPerformed
+
+    private void itemRegistroEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroEActionPerformed
+        new RegistroDeEvaluador().setVisible(true);
+    }//GEN-LAST:event_itemRegistroEActionPerformed
+
+    private void itemRegistroTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroTActionPerformed
+        new RegistroDeTematica().setVisible(true);
+    }//GEN-LAST:event_itemRegistroTActionPerformed
+
+    private void itemRegistroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroPuestoActionPerformed
+        new RegistroDePuesto().setVisible(true);
+    }//GEN-LAST:event_itemRegistroPuestoActionPerformed
+
+    private void itemConsultaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaPuestoActionPerformed
+        new ConsultaParaPuesto().setVisible(true);
+    }//GEN-LAST:event_itemConsultaPuestoActionPerformed
+
+    private void itemEntrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntrevistaActionPerformed
+        new IngresoDeEntrevista().setVisible(true);
+    }//GEN-LAST:event_itemEntrevistaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAltaPostulante;
-    private javax.swing.JButton btnBajaPostulante;
-    private javax.swing.JButton btnConsultaParaPuesto;
-    private javax.swing.JButton btnConsultaParaPuesto1;
-    private javax.swing.JButton btnConsultaParaPuesto2;
-    private javax.swing.JButton btnIngresoDeEntrevista;
-    private javax.swing.JButton btnRegistroEvaluador;
-    private javax.swing.JButton btnRegistroPuesto;
-    private javax.swing.JButton btnRegistroTematica;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JMenuItem itemAltaP;
+    private javax.swing.JMenuItem itemBajaP;
+    private javax.swing.JMenuItem itemConsultaPuesto;
+    private javax.swing.JMenuItem itemConsultaT;
+    private javax.swing.JMenuItem itemEntrevista;
+    private javax.swing.JMenuItem itemHistorialP;
+    private javax.swing.JMenuItem itemRegistroE;
+    private javax.swing.JMenuItem itemRegistroPuesto;
+    private javax.swing.JMenuItem itemRegistroT;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

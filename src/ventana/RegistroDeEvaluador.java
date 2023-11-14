@@ -27,10 +27,11 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de evaluador");
         getContentPane().setLayout(null);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labelTitulo.setText("Registo de evaluador");
+        labelTitulo.setText("Registro de evaluador");
         getContentPane().add(labelTitulo);
         labelTitulo.setBounds(120, 0, 160, 30);
 
@@ -69,7 +70,7 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 240, 90, 23);
+        btnCancelar.setBounds(20, 240, 90, 27);
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +79,7 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 240, 90, 23);
+        btnRegistrar.setBounds(270, 240, 90, 27);
 
         setSize(new java.awt.Dimension(414, 307));
         setLocationRelativeTo(null);

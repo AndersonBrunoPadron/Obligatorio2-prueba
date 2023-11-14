@@ -39,9 +39,9 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labelTitulo.setText("Alta postulante");
+        labelTitulo.setText("Alta de postulante");
         getContentPane().add(labelTitulo);
-        labelTitulo.setBounds(150, 0, 110, 30);
+        labelTitulo.setBounds(150, 0, 140, 30);
 
         labelNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelNombre.setText("Nombre:");
@@ -86,7 +86,7 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 270, 100, 23);
+        btnCancelar.setBounds(20, 270, 100, 27);
 
         btnSiguiente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSiguiente.setText("Siguiente");
@@ -96,7 +96,7 @@ public class AltaDePostulante1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSiguiente);
-        btnSiguiente.setBounds(300, 270, 110, 23);
+        btnSiguiente.setBounds(300, 270, 110, 27);
         getContentPane().add(txtCedula);
         txtCedula.setBounds(150, 70, 260, 20);
         getContentPane().add(txtLinkedin);

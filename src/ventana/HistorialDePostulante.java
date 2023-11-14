@@ -164,6 +164,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         labelTxtLinkedin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Historial de postulante");
         getContentPane().setLayout(null);
 
         tablaPantalla.setModel(new javax.swing.table.DefaultTableModel(
@@ -199,7 +200,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         jScrollPane1.setBounds(20, 430, 910, 240);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelTitulo.setText("Historial postulante");
+        labelTitulo.setText("Historial del postulante");
         getContentPane().add(labelTitulo);
         labelTitulo.setBounds(370, 0, 230, 30);
 
