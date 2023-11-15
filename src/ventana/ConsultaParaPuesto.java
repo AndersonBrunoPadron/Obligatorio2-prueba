@@ -130,6 +130,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
         }
         
         archivo.cerrar();
+        JOptionPane.showMessageDialog(this, "Los datos han sido exportados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed

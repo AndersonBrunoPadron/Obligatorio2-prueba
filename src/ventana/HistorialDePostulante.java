@@ -42,22 +42,22 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
     }
 
     private void datosAPantalla() {
-        Postulante postulanteSeleccionado = (Postulante) listaPantallaPostulantes.getSelectedValue();
-        if (postulanteSeleccionado != null) {
-            labelTxtNombre.setText(postulanteSeleccionado.getNombre());
-            labelTxtCedula.setText("" + postulanteSeleccionado.getCedula());
-            labelTxtDireccion.setText(postulanteSeleccionado.getDireccion());
-            labelTxtTelefono.setText("" + postulanteSeleccionado.getTelefono());
-            labelTxtMail.setText(postulanteSeleccionado.getCorreo());
-            labelTxtLinkedin.setText(postulanteSeleccionado.getLinkedin());
-            labelTxtFormato.setText(postulanteSeleccionado.getTipo());
+        Postulante postulanteSeleccionadoEnLista = (Postulante) listaPantallaPostulantes.getSelectedValue();
+        if (postulanteSeleccionadoEnLista != null) {
+            labelTxtNombre.setText(postulanteSeleccionadoEnLista.getNombre());
+            labelTxtCedula.setText("" + postulanteSeleccionadoEnLista.getCedula());
+            labelTxtDireccion.setText(postulanteSeleccionadoEnLista.getDireccion());
+            labelTxtTelefono.setText("" + postulanteSeleccionadoEnLista.getTelefono());
+            labelTxtMail.setText(postulanteSeleccionadoEnLista.getCorreo());
+            labelTxtLinkedin.setText(postulanteSeleccionadoEnLista.getLinkedin());
+            labelTxtFormato.setText(postulanteSeleccionadoEnLista.getTipo());
         }
 
-        ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionado.getCedula());
+        ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionadoEnLista.getCedula());
        
         listaPantallaExperiencias.setListData(experiencias.toArray());
         
-        cargarEntrevistasDelPostulante(postulanteSeleccionado);
+        cargarEntrevistasDelPostulante(postulanteSeleccionadoEnLista);
         // Eliminar el MouseListener anterior 
         for (MouseListener mouseListener : labelTxtLinkedin.getMouseListeners()) {
             labelTxtLinkedin.removeMouseListener(mouseListener);

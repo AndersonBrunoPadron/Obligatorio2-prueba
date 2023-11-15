@@ -3,6 +3,7 @@ package ventana;
 import Dominio.Sistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
@@ -172,7 +173,12 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_itemConsultaTActionPerformed
 
     private void itemAltaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltaPActionPerformed
-        new AltaDePostulante1().setVisible(true);
+        if(Sistema.getInstance().getListaTematicas().size()>=1){
+            new AltaDePostulante1().setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No existen temáticas cargadas en la que asignar postulantes", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_itemAltaPActionPerformed
 
     private void itemHistorialPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemHistorialPActionPerformed

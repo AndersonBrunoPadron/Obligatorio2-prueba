@@ -162,10 +162,10 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
         } else {
             // Obtener la lista de experiencias
             //postulante.agregarTemas(experiencias);
-            Postulante postulante = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
+            Postulante postulanteNuevo = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
             JOptionPane.showMessageDialog(this, "La postulante se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             // Agrega el Postulante al Sistema
-            Sistema.getInstance().agregarPostulante(postulante);
+            Sistema.getInstance().agregarPostulante(postulanteNuevo);
             AltaDePostulante1 siguienteVentana = new AltaDePostulante1();
             siguienteVentana.setVisible(true);
             this.dispose();

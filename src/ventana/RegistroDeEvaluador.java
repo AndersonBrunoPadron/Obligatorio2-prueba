@@ -70,7 +70,7 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 240, 90, 27);
+        btnCancelar.setBounds(20, 230, 90, 27);
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +79,7 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 240, 90, 27);
+        btnRegistrar.setBounds(290, 230, 90, 27);
 
         setSize(new java.awt.Dimension(414, 307));
         setLocationRelativeTo(null);

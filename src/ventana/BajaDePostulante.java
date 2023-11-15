@@ -3,7 +3,7 @@ package ventana;
 
 import Dominio.*;
 import java.util.*;
-import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 
 
@@ -50,7 +50,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
         jScrollPane1.setViewportView(jListPostulantes);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 40, 420, 230);
+        jScrollPane1.setBounds(20, 40, 440, 230);
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +78,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
         Postulante postulante = (Postulante) jListPostulantes.getSelectedValue();
         Sistema.getInstance().eliminarPostulantePorObjeto(postulante);
         objetoAPantalla();
+        JOptionPane.showMessageDialog(this, "Se ha dado de baja al postulante seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

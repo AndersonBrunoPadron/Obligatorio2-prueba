@@ -321,5 +321,20 @@ public class Sistema extends Observable implements Serializable {
         
         this.setListaPostulantes(listaPostulantes);
     }
+    
+    public void eliminarEntrevistaPorPostulante(Postulante elPostulante){
+        ArrayList<Entrevista> listaEntrevistas = this.getListaEntrevistas();
+        
+        Iterator<Entrevista> iter = listaEntrevistas.iterator();
+        
+        while(iter.hasNext()){
+            Entrevista entrevista = iter.next();
+            if(entrevista.getPostulante().equals(elPostulante)){
+                iter.remove();
+            }
+        }
+        
+        this.setListaEntrevistas(listaEntrevistas);
+    }
 
 }
