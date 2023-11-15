@@ -10,6 +10,11 @@ public class Entrevista implements Serializable {
     private String comentarios;
     private int idEntrevista;
 
+    
+    @Override
+    public String toString(){
+        return "Nombre "+postulante.toString()+" puntaje "+ puntaje+ " comentario "+comentarios;
+    }
     //=================Sets y Gets=============================================
     public Evaluador getEvaluador() {
         return evaluador;
