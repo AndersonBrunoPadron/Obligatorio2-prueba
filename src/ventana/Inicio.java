@@ -15,7 +15,7 @@ public class Inicio extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 Sistema sistema = Sistema.getInstance();
-                sistema.serializarSistema(); 
+                sistema.serializarSistema();
                 System.exit(0); // Cierra la aplicación
             }
         });
@@ -173,10 +173,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_itemConsultaTActionPerformed
 
     private void itemAltaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltaPActionPerformed
-        if(Sistema.getInstance().getListaTematicas().size()>=1){
+        if (Sistema.getInstance().getListaTematicas().size() >= 1) {
             new AltaDePostulante1().setVisible(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "No existen temáticas cargadas en la que asignar postulantes", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_itemAltaPActionPerformed
@@ -194,15 +193,38 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_itemRegistroTActionPerformed
 
     private void itemRegistroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroPuestoActionPerformed
-        new RegistroDePuesto().setVisible(true);
+
+        if (Sistema.getInstance().getListaTematicas().size() >= 1) {
+            new RegistroDePuesto().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos una temática al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_itemRegistroPuestoActionPerformed
 
     private void itemConsultaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaPuestoActionPerformed
-        new ConsultaParaPuesto().setVisible(true);
+
+        if (Sistema.getInstance().getListaPuestos().size() >= 1) {
+            new ConsultaParaPuesto().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos un puesto al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_itemConsultaPuestoActionPerformed
 
     private void itemEntrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntrevistaActionPerformed
-        new IngresoDeEntrevista().setVisible(true);
+
+        if (Sistema.getInstance().getListaEvaluadores().size() > 0 && Sistema.getInstance().getListaPostulantes().size() > 0) {
+            new IngresoDeEntrevista().setVisible(true);
+        } else {
+            if (Sistema.getInstance().getListaEvaluadores().size() > 0 && Sistema.getInstance().getListaPostulantes().size() == 0) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar al menos un postulante al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (Sistema.getInstance().getListaEvaluadores().size() == 0 && Sistema.getInstance().getListaPostulantes().size() > 0) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar al menos un evaluadore al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (Sistema.getInstance().getListaEvaluadores().size() == 0 && Sistema.getInstance().getListaPostulantes().size() == 0) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar al menos un postulante y un evaluador al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_itemEntrevistaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

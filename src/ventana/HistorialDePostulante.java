@@ -98,23 +98,26 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         return res;
     }
 
-    private void cargarEntrevistasDelPostulante(Postulante postulante) {
+private void cargarEntrevistasDelPostulante(Postulante postulante) {
+    Sistema sistema = Sistema.getInstance();
+    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+    
+    // Limpia la tabla si ya contiene datos
+    modelo.setRowCount(0);
 
-        Sistema sistema = Sistema.getInstance();
-
-        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-        // Limpia la tabla si ya contiene datos
-        modelo.setRowCount(0);
-
-        ArrayList<Entrevista> entrevistas = new ArrayList<>();
-        for (Entrevista entrevista : sistema.getListaEntrevistas()) {
-            if (entrevista.getPostulante() == postulante) {
-                entrevistas.add(entrevista);
-            }
+    ArrayList<Entrevista> entrevistas = new ArrayList<>();
+    for (Entrevista entrevista : sistema.getListaEntrevistas()) {
+        if (entrevista.getPostulante() == postulante) {
+            entrevistas.add(entrevista);
         }
-        // Inicializa un contador
+    }
+
+    if (entrevistas.isEmpty()) {
+        // Si no hay entrevistas, agrega una fila especial
+        modelo.addRow(new Object[]{"No tiene entrevistas"});
+    } else {
+        // Si hay entrevistas, agrega las filas normales
         int contador = 1;
-        // Agrega las entrevistas al modelo de la tabla
         for (Entrevista entrevista : entrevistas) {
             modelo.addRow(new Object[]{
                 contador, // Utiliza el contador en lugar de la posición
@@ -125,9 +128,12 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
             // Incrementa el contador para la próxima entrevista
             contador++;
         }
-        // Notifica a la tabla que los datos han cambiado
-        modelo.fireTableDataChanged();
     }
+
+    // Notifica a la tabla que los datos han cambiado
+    modelo.fireTableDataChanged();
+}
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

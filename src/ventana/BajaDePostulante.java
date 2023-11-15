@@ -59,7 +59,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnEliminar);
-        btnEliminar.setBounds(380, 290, 90, 27);
+        btnEliminar.setBounds(370, 300, 90, 23);
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +68,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(10, 290, 76, 27);
+        btnSalir.setBounds(20, 290, 90, 23);
 
         setSize(new java.awt.Dimension(500, 362));
         setLocationRelativeTo(null);
@@ -82,7 +82,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
 
 

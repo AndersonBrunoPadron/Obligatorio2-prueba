@@ -1,24 +1,21 @@
 package ventana;
 
 import Dominio.*;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
+public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer {
 
     public IngresoDeEntrevista() {
         initComponents();
 
-                Sistema.getInstance().addObserver(this);
+        Sistema.getInstance().addObserver(this);
         update(null, null);
     }
 
     private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance(); // Obtén la instancia de Sistema
-        // Asigna los DefaultListModel a los componentes JList
+        Sistema sistema = Sistema.getInstance(); 
         listaPantallaPostulantes.setListData(sistema.getListaPostulantes().toArray());
         listaPantallaEvaluadores.setListData(sistema.getListaEvaluadores().toArray());
     }
@@ -111,62 +108,53 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // Obtén los índices seleccionados en las listas de postulantes y evaluadores
-        int selectedIndexPostulantes = listaPantallaPostulantes.getSelectedIndex();
-        int selectedIndexEvaluadores = listaPantallaEvaluadores.getSelectedIndex();
-        boolean sigue = true;
-        // Verifica que se haya seleccionado al menos un postulante y un evaluador
-        if (selectedIndexPostulantes != -1 && selectedIndexEvaluadores != -1) {
-            String comentario = txtComentario.getText().trim();
-            String puntaje = txtPuntaje.getText().trim();
 
-            // Valida que todos los campos estén completos
-            if (comentario.isEmpty() || puntaje.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Sal de la función si algún campo está vacío.
-            }
+    int selectedIndexPostulantes = listaPantallaPostulantes.getSelectedIndex();
+    int selectedIndexEvaluadores = listaPantallaEvaluadores.getSelectedIndex();
 
-            // Valida que el puntaje esté en el rango de 1 a 100
+    // Verifica que se haya seleccionado al menos un postulante y un evaluador
+    if (selectedIndexPostulantes != -1 && selectedIndexEvaluadores != -1) {
+        String comentario = txtComentario.getText().trim();
+        String puntaje = txtPuntaje.getText().trim();
+
+        if (comentario.isEmpty() || puntaje.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             int puntajeValue;
             try {
                 puntajeValue = Integer.parseInt(puntaje);
                 if (puntajeValue < 1 || puntajeValue > 100) {
                     JOptionPane.showMessageDialog(this, "El puntaje debe estar en el rango de 1 a 100.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Sal de la función si el puntaje no está en el rango válido.
+                } else {
+                    // Obtén los objetos correspondientes a los índices seleccionados
+                    Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
+                    Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
+
+                    Entrevista entrevista = new Entrevista();
+                    entrevista.setPostulante(selectedPostulante);
+                    entrevista.setEvaluador(selectedEvaluador);
+                    entrevista.setComentarios(comentario);
+                    entrevista.setPuntaje(puntajeValue);
+                    entrevista.setIdEntrevista(Sistema.getInstance().getListaEntrevistas().size());
+
+                    Sistema.getInstance().getListaEntrevistas().add(entrevista);
+
+                    String mensaje = "Entrevista registrada con éxito:\n"
+                            + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
+                            + "Evaluador: " + selectedEvaluador.getNombre()
+                            + " Id entrevista: " + Sistema.getInstance().getListaEntrevistas().size();
+                    JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
+
+                    txtComentario.setText("");
+                    txtPuntaje.setText("");
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "El puntaje debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Sal de la función si el puntaje no es un número válido.
             }
-
-            // Obtén los objetos correspondientes a los índices seleccionados
-            Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
-            Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
-
-            // Crea una instancia de Entrevista y establece sus atributos
-            Entrevista entrevista = new Entrevista();
-            entrevista.setPostulante(selectedPostulante);
-            entrevista.setEvaluador(selectedEvaluador);
-            entrevista.setComentarios(comentario);
-            entrevista.setPuntaje(puntajeValue);
-            entrevista.setIdEntrevista(Sistema.getInstance().getListaEntrevistas().size());
-
-            // Agrega la entrevista a la lista de entrevistas en tu sistema
-            Sistema.getInstance().getListaEntrevistas().add(entrevista);
-
-            // Mensaje de confirmación
-            String mensaje = "Entrevista registrada con éxito:\n"
-                    + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
-                    + "Evaluador: " + selectedEvaluador.getNombre()
-                    + " Id entrevista: " + Sistema.getInstance().getListaEntrevistas().size();
-            JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
-
-            txtComentario.setText("");
-            txtPuntaje.setText("");
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante y un evaluador.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante y un evaluador.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -186,8 +174,6 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer{
     private javax.swing.JTextField txtComentario;
     private javax.swing.JTextField txtPuntaje;
     // End of variables declaration//GEN-END:variables
-
-
 
     @Override
     public void update(Observable o, Object arg) {
