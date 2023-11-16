@@ -12,10 +12,8 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     
     private Postulante postulanteSeleccionado;
 
-
     public BajaDePostulante() {
         initComponents();
-        
         Sistema.getInstance().addObserver(this);
         update(null, null);
     }
@@ -23,7 +21,6 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     private void objetoAPantalla(){
         Sistema sistema = Sistema.getInstance();
         ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
-        
         jListPostulantes.setListData(postulantes.toArray());
     }
 
@@ -84,7 +81,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnSalirActionPerformed
 
 

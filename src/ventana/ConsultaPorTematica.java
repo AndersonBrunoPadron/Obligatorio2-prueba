@@ -2,7 +2,6 @@ package ventana;
 
 import Dominio.Sistema;
 import Dominio.Tematica;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.event.ListSelectionEvent;
@@ -15,12 +14,10 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
 
         Sistema.getInstance().addObserver(this);
         update(null, null);
-        // Agrega un ListSelectionListener a la lista de temáticas
         listaPantallaTematica.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    // Se ejecutará cuando se complete la selección de un elemento
                     tematicaSeleccionadaEnPantalla();
                 }
             }
@@ -57,7 +54,6 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
         if (cantidadPuestos > 1) {
             labelCantPuestos.setText("Existen " + cantidadPuestos + " puestos que buscan conocimiento en " + tematicaSeleccionada.getNombre());
         }
-
         if (cantidadPostulantes == 0) {
             labelCantPostulantes.setText("Aún no existen postulantes con un nivel mayor a 5 en " + tematicaSeleccionada.getNombre());
         }
@@ -67,7 +63,6 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
         if (cantidadPostulantes > 1) {
             labelCantPostulantes.setText("Existen " + cantidadPostulantes + " postulantes que tiene un nivel mayor a 5 en " + tematicaSeleccionada.getNombre());
         }
-
     }
 
     @SuppressWarnings("unchecked")

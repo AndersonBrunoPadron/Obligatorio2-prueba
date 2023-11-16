@@ -169,7 +169,7 @@ public class Sistema extends Observable implements Serializable {
                 encontro = true;
             }
         }
-        System.out.println("eb sistema "+encontro);
+        System.out.println("eb sistema " + encontro);
         return encontro;
     }
 
@@ -219,8 +219,10 @@ public class Sistema extends Observable implements Serializable {
         return postulantesConEntrevistas;
     }
 
-    public ArrayList<Postulante> obtenerPostulantesPorTematicaNivel(ArrayList<Postulante> postulantes, ArrayList<Tematica> tematicasRequeridas, int nivelRequerido, Puesto puestoSeleccionado) {
+    public ArrayList<Postulante> obtenerPostulantesPorTematicaNivel(ArrayList<Tematica> tematicasRequeridas, int nivelRequerido, Puesto puestoSeleccionado) {
         ArrayList<Postulante> postulantesCumplenConRequisitos = new ArrayList<>();
+        ArrayList<Postulante> postulantes = obtenerPostulantesConEntrevistas();
+        System.out.println("postulantes con entrevistas " + postulantes);
 
         for (Postulante postulante : postulantes) {
             boolean cumpleRequisitos = false;
@@ -306,34 +308,34 @@ public class Sistema extends Observable implements Serializable {
         }
         return ultimaEntrevista;
     }
-    
-    public void eliminarPostulantePorObjeto(Postulante elPostulante){
+
+    public void eliminarPostulantePorObjeto(Postulante elPostulante) {
         ArrayList<Postulante> listaPostulantes = this.getListaPostulantes();
-        
+
         Iterator<Postulante> iter = listaPostulantes.iterator();
-        
-        while(iter.hasNext()){
+
+        while (iter.hasNext()) {
             Postulante postulante = iter.next();
-            if(postulante.equals(elPostulante)){
+            if (postulante.equals(elPostulante)) {
                 iter.remove();
             }
         }
-        
+
         this.setListaPostulantes(listaPostulantes);
     }
-    
-    public void eliminarEntrevistaPorPostulante(Postulante elPostulante){
+
+    public void eliminarEntrevistaPorPostulante(Postulante elPostulante) {
         ArrayList<Entrevista> listaEntrevistas = this.getListaEntrevistas();
-        
+
         Iterator<Entrevista> iter = listaEntrevistas.iterator();
-        
-        while(iter.hasNext()){
+
+        while (iter.hasNext()) {
             Entrevista entrevista = iter.next();
-            if(entrevista.getPostulante().equals(elPostulante)){
+            if (entrevista.getPostulante().equals(elPostulante)) {
                 iter.remove();
             }
         }
-        
+
         this.setListaEntrevistas(listaEntrevistas);
     }
 

@@ -9,7 +9,6 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
 
     public IngresoDeEntrevista() {
         initComponents();
-
         Sistema.getInstance().addObserver(this);
         update(null, null);
     }
@@ -128,7 +127,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
                 if (puntajeValue < 1 || puntajeValue > 100) {
                     JOptionPane.showMessageDialog(this, "El puntaje debe estar en el rango de 1 a 100.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // Obtén los objetos correspondientes a los índices seleccionados
+                    // Obtiene los objetos correspondientes a los índices seleccionados
                     Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
                     Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
 

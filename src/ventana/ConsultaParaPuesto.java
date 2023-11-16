@@ -8,7 +8,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
 
     public ConsultaParaPuesto() {
         initComponents();
-
         Sistema.getInstance().addObserver(this);
         update(null, null);
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
@@ -137,18 +136,10 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
 
         Sistema sistema = Sistema.getInstance();
         int nivelRequerido = (int) spinnerNivel.getValue();
-        //Puesto puestoSeleccionado = obtenerPuestoSeleccionadoEnPantalla();
         Puesto puestoSeleccionado = (Puesto) listaPantallaPuestos.getSelectedValue();
 
-        System.out.println(puestoSeleccionado);
-
         if (puestoSeleccionado != null) {
-            // Obtén la lista de postulantes con al menos una entrevista
-            ArrayList<Postulante> postulantesConEntrevistas = sistema.obtenerPostulantesConEntrevistas();
-            // Filtra los postulantes que cumplen con las condiciones
-            System.out.println("postulantes con entrevistas " + postulantesConEntrevistas);
-
-            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(postulantesConEntrevistas, puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
+            ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
             System.out.println("filtrados " + postulantesFiltrados);
 
             // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
@@ -180,7 +171,6 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados.", "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            // Si no se ha seleccionado un puesto, muestra un mensaje de error
             JOptionPane.showMessageDialog(this, "Selecciona un puesto antes de consultar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 

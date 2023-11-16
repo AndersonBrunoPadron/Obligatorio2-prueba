@@ -10,16 +10,13 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
 
     public RegistroDePuesto() {
         initComponents();
-
         Sistema.getInstance().addObserver(this);
         update(null, null);
     }
 
     private void cargarTemasEnComboBox() {
-        comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
-        // Accede a la lista de temas en el sistema
+        comboBoxTema.removeAllItems(); 
         ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
-        // Agrega los temas al combo box
         for (Tematica tematica : temas) {
             comboBoxTema.addItem(tematica.getNombre());
         }
@@ -220,7 +217,6 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
                     temasRequeridosPuesto.add(tematica);
                 }
                 if (!Sistema.getInstance().existePuesto(nombrePuesto)) {
-                           System.out.println("eb ventana "+Sistema.getInstance().existePuesto(nombrePuesto));
                     Puesto nuevoPuesto = new Puesto(nombrePuesto, tipoPuesto, temasRequeridosPuesto);
                     Sistema.getInstance().agregarPuesto(nuevoPuesto);
 
@@ -230,9 +226,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
                 } else {
                     JOptionPane.showMessageDialog(this, "El nombre del puesto ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -251,7 +245,6 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
                 temaExistente = true;
             }
         }
-
         if (!temaExistente) {
             for (Tematica tematica : Sistema.getInstance().getListaTematicas()) {
                 if (tematica.getNombre().equals(temaSeleccionado)) {
@@ -261,7 +254,6 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
             }
         }
         if (temaEnSistema) {
-            //actualizarListaTemasRequeridos();
             listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -270,7 +262,6 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
         int selectedIndex = listaTemasRequeridos.getSelectedIndex();
         if (selectedIndex >= 0) {
             temasRequeridos.remove(selectedIndex);
-            // actualizarListaTemasRequeridos();
             listaTemasRequeridos.setListData(temasRequeridos.toArray());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -279,8 +270,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
         btnRemoto.setSelected(false);
         btnPresencial.setSelected(false);
         btnMixto.setSelected(false);
-        temasRequeridos.clear(); // Elimina todos los elementos de la lista temasRequeridos
-        //actualizarListaTemasRequeridos();
+        temasRequeridos.clear(); 
         listaTemasRequeridos.setListData(temasRequeridos.toArray());
     }
 

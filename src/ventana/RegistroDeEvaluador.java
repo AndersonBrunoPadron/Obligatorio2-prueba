@@ -96,11 +96,10 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
     String nombre = txtNombre.getText();
     String cedulaStr = txtCedula.getText();
-    String ingresoAnoStr = txtIngreso.getText(); // Cambiado a ingresoAnoStr para reflejar que es solo el año
+    String ingresoAnoStr = txtIngreso.getText();
     String direccion = txtDireccion.getText();
 
     try {
-        // Validar que los campos no estén vacíos
         if (nombre.isEmpty() || cedulaStr.isEmpty() || ingresoAnoStr.isEmpty() || direccion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -121,7 +120,6 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
                     Sistema.getInstance().agregarEvaluador(nuevoEvaluador);
                     JOptionPane.showMessageDialog(this, "El evaluador se ha registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-                    // Limpiar los campos de texto
                     txtNombre.setText("");
                     txtCedula.setText("");
                     txtIngreso.setText("");

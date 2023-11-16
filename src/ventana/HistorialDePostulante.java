@@ -17,10 +17,8 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
 
     public HistorialDePostulante() {
         initComponents();
-
         Sistema.getInstance().addObserver(this);
         update(null, null);
-
         listaPantallaPostulantes.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -37,7 +35,6 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
 
         // Ordena la lista de postulantes por número de cédula de forma creciente
         postulantes.sort(Comparator.comparingInt(Postulante::getCedula));
-
         listaPantallaPostulantes.setListData(postulantes.toArray());
     }
 
@@ -54,7 +51,6 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
         }
 
         ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionadoEnLista.getCedula());
-
         listaPantallaExperiencias.setListData(experiencias.toArray());
 
         cargarEntrevistasDelPostulante(postulanteSeleccionadoEnLista);
@@ -100,7 +96,6 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
     private void cargarEntrevistasDelPostulante(Postulante postulante) {
         Sistema sistema = Sistema.getInstance();
         DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-
         // Limpia la tabla si ya contiene datos
         modelo.setRowCount(0);
 
@@ -110,7 +105,6 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
                 entrevistas.add(entrevista);
             }
         }
-
         if (entrevistas.isEmpty()) {
 
         } else {
@@ -338,7 +332,6 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         String palabraClave = txtBuscar.getText().trim();
-
         if (listaPantallaPostulantes.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {

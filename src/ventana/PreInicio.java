@@ -15,6 +15,7 @@ public class PreInicio extends javax.swing.JFrame {
 
         btnSistemaNuevo = new javax.swing.JButton();
         btnCargarDatosDelSistema = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restauracion");
@@ -40,6 +41,11 @@ public class PreInicio extends javax.swing.JFrame {
         });
         getContentPane().add(btnCargarDatosDelSistema);
         btnCargarDatosDelSistema.setBounds(90, 70, 200, 70);
+
+        labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelTitulo.setText("Seleccione una opción para ingresar al sistema");
+        getContentPane().add(labelTitulo);
+        labelTitulo.setBounds(40, 10, 330, 30);
 
         setSize(new java.awt.Dimension(414, 307));
         setLocationRelativeTo(null);
@@ -81,5 +87,6 @@ public class PreInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarDatosDelSistema;
     private javax.swing.JButton btnSistemaNuevo;
+    private javax.swing.JLabel labelTitulo;
     // End of variables declaration//GEN-END:variables
 }

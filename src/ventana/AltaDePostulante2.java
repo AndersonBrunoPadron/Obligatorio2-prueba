@@ -39,10 +39,8 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
     }
 
     private void cargarTemasEnComboBox() {
-        comboBoxTema.removeAllItems(); // Limpia cualquier elemento existente en el combo box
-        // Accede a la lista de temas en el sistema
+        comboBoxTema.removeAllItems(); 
         ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
-        // Agrega los temas al combo box
         for (Tematica tematica : temas) {
             comboBoxTema.addItem(tematica);
         }
@@ -160,11 +158,8 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
         if (experiencias.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Obtener la lista de experiencias
-            //postulante.agregarTemas(experiencias);
             Postulante postulanteNuevo = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
             JOptionPane.showMessageDialog(this, "La postulante se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            // Agrega el Postulante al Sistema
             Sistema.getInstance().agregarPostulante(postulanteNuevo);
             AltaDePostulante1 siguienteVentana = new AltaDePostulante1();
             siguienteVentana.setVisible(true);
@@ -175,7 +170,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int selectedIndex = listaExperiencias.getSelectedIndex();
         if (selectedIndex >= 0) {
-            experiencias.remove(selectedIndex); // Elimina la experiencia seleccionada
+            experiencias.remove(selectedIndex); 
             actualizarListaExperiencias();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -208,10 +203,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
             ExperienciaPostulante experiencia = new ExperienciaPostulante(temaSeleccionado, nivelSeleccionado);
             experiencias.add(experiencia);
         }
-        // Actualizar la lista de experiencias en pantalla
         listaExperiencias.setListData(experiencias.toArray());
-
-        // Restablecer los valores predeterminados
         comboBoxTema.setSelectedIndex(0);
         spinnerNivel.setValue(1);
 
