@@ -75,6 +75,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Postulante postulante = (Postulante) jListPostulantes.getSelectedValue();
+        Sistema.getInstance().eliminarEntrevistaPorPostulante(postulante);
         Sistema.getInstance().eliminarPostulantePorObjeto(postulante);
         objetoAPantalla();
         JOptionPane.showMessageDialog(this, "Se ha dado de baja al postulante seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);

@@ -313,14 +313,12 @@ public class Sistema extends Observable implements Serializable {
         ArrayList<Postulante> listaPostulantes = this.getListaPostulantes();
 
         Iterator<Postulante> iter = listaPostulantes.iterator();
-
         while (iter.hasNext()) {
             Postulante postulante = iter.next();
             if (postulante.equals(elPostulante)) {
                 iter.remove();
             }
         }
-
         this.setListaPostulantes(listaPostulantes);
     }
 
@@ -328,14 +326,12 @@ public class Sistema extends Observable implements Serializable {
         ArrayList<Entrevista> listaEntrevistas = this.getListaEntrevistas();
 
         Iterator<Entrevista> iter = listaEntrevistas.iterator();
-
         while (iter.hasNext()) {
             Entrevista entrevista = iter.next();
             if (entrevista.getPostulante().equals(elPostulante)) {
                 iter.remove();
             }
         }
-
         this.setListaEntrevistas(listaEntrevistas);
     }
 
