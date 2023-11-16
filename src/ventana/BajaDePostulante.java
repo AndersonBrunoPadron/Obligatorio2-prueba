@@ -1,12 +1,12 @@
+// AUTORES: 
+//ANDERSON BRUNO (314202)
+//CRISTHIAN GRIBAUSKAS (309715)
 
 package ventana;
 
 import Dominio.*;
 import java.util.*;
 import javax.swing.JOptionPane;
-
-
-
 
 public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     

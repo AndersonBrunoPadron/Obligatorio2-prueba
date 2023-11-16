@@ -1,3 +1,7 @@
+// AUTORES: 
+//ANDERSON BRUNO (314202)
+//CRISTHIAN GRIBAUSKAS (309715)
+
 package ventana;
 
 import Dominio.Sistema;
@@ -18,7 +22,7 @@ public class PreInicio extends javax.swing.JFrame {
         labelTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Restauracion");
+        setTitle("Restauración");
         getContentPane().setLayout(null);
 
         btnSistemaNuevo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -29,7 +33,7 @@ public class PreInicio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSistemaNuevo);
-        btnSistemaNuevo.setBounds(90, 160, 200, 70);
+        btnSistemaNuevo.setBounds(110, 170, 170, 60);
 
         btnCargarDatosDelSistema.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCargarDatosDelSistema.setText("Cargar datos del sistema");
@@ -40,7 +44,7 @@ public class PreInicio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCargarDatosDelSistema);
-        btnCargarDatosDelSistema.setBounds(90, 70, 200, 70);
+        btnCargarDatosDelSistema.setBounds(110, 80, 170, 60);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelTitulo.setText("Seleccione una opción para ingresar al sistema");
