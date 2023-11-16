@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -10,7 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 
-public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
+public class AltaDePostulante2 extends javax.swing.JFrame implements Observer {
 
     private Postulante postulante;
     private String nombre;
@@ -27,7 +26,7 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
         //  sistema = new Sistema();
         initComponents();
         Sistema.getInstance().addObserver(this);
-         update(null, null);
+        update(null, null);
         // this.postulante = postulante1;
         this.nombre = unNombre;
         this.cedula = unaCedula;
@@ -37,13 +36,12 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
         this.linkedin = unLinkedin;
         this.tipo = unTipo;
 
-
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(1, 1, 10, 1);
         spinnerNivel.setModel(spinnerModel);
     }
 
     private void cargarTemasEnComboBox() {
-        comboBoxTema.removeAllItems(); 
+        comboBoxTema.removeAllItems();
         ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
         for (Tematica tematica : temas) {
             comboBoxTema.addItem(tematica);
@@ -159,22 +157,27 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
-        if (experiencias.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Postulante postulanteNuevo = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
-            JOptionPane.showMessageDialog(this, "La postulante se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            Sistema.getInstance().agregarPostulante(postulanteNuevo);
-            AltaDePostulante1 siguienteVentana = new AltaDePostulante1();
-            siguienteVentana.setVisible(true);
-            this.dispose();
+        try {
+            if (experiencias.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un tema.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Postulante postulanteNuevo = new Postulante(nombre, cedula, direccion, telefono, correo, linkedin, tipo, experiencias);
+                JOptionPane.showMessageDialog(this, "La postulante se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                Sistema.getInstance().agregarPostulante(postulanteNuevo);
+                AltaDePostulante1 siguienteVentana = new AltaDePostulante1();
+                siguienteVentana.setVisible(true);
+                this.dispose();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int selectedIndex = listaExperiencias.getSelectedIndex();
         if (selectedIndex >= 0) {
-            experiencias.remove(selectedIndex); 
+            experiencias.remove(selectedIndex);
             actualizarListaExperiencias();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -233,12 +236,9 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer{
     private javax.swing.JSpinner spinnerNivel;
     // End of variables declaration//GEN-END:variables
 
-    
-
     @Override
     public void update(Observable o, Object arg) {
-       cargarTemasEnComboBox();
+        cargarTemasEnComboBox();
     }
-
 
 }

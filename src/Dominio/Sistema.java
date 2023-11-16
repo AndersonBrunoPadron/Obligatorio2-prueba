@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package Dominio;
 
 import java.util.ArrayList;
@@ -313,7 +312,7 @@ public class Sistema extends Observable implements Serializable {
         return ultimaEntrevista;
     }
 
-    public boolean  eliminarPostulantePorObjeto(Postulante elPostulante) {
+    public boolean eliminarPostulantePorObjeto(Postulante elPostulante) {
         ArrayList<Postulante> listaPostulantes = this.getListaPostulantes();
         boolean res = false;
         Iterator<Postulante> iter = listaPostulantes.iterator();
@@ -339,6 +338,17 @@ public class Sistema extends Observable implements Serializable {
             }
         }
         this.setListaEntrevistas(listaEntrevistas);
+    }
+
+    public int idUltimaEntrevista() {
+        int maxId = 0;
+
+        for (Entrevista entrevista : listaEntrevistas) {
+            if (entrevista.getIdEntrevista() > maxId) {
+                maxId = entrevista.getIdEntrevista();
+            }
+        }
+        return maxId + 1;
     }
 
 }

@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -18,7 +17,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
     }
 
     private void objetoAPantalla() {
-        Sistema sistema = Sistema.getInstance(); 
+        Sistema sistema = Sistema.getInstance();
         listaPantallaPostulantes.setListData(sistema.getListaPostulantes().toArray());
         listaPantallaEvaluadores.setListData(sistema.getListaEvaluadores().toArray());
     }
@@ -114,52 +113,52 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
-    int selectedIndexPostulantes = listaPantallaPostulantes.getSelectedIndex();
-    int selectedIndexEvaluadores = listaPantallaEvaluadores.getSelectedIndex();
+        int selectedIndexPostulantes = listaPantallaPostulantes.getSelectedIndex();
+        int selectedIndexEvaluadores = listaPantallaEvaluadores.getSelectedIndex();
 
-    // Verifica que se haya seleccionado al menos un postulante y un evaluador
-    if (selectedIndexPostulantes != -1 && selectedIndexEvaluadores != -1) {
-        String comentario = txtComentario.getText().trim();
-        String puntaje = txtPuntaje.getText().trim();
+        // Verifica que se haya seleccionado al menos un postulante y un evaluador
+        if (selectedIndexPostulantes != -1 && selectedIndexEvaluadores != -1) {
+            String comentario = txtComentario.getText().trim();
+            String puntaje = txtPuntaje.getText().trim();
 
-        if (comentario.isEmpty() || puntaje.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int puntajeValue;
-            try {
-                puntajeValue = Integer.parseInt(puntaje);
-                if (puntajeValue < 1 || puntajeValue > 100) {
-                    JOptionPane.showMessageDialog(this, "El puntaje debe estar en el rango de 1 a 100.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Obtiene los objetos correspondientes a los índices seleccionados
-                    Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
-                    Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
+            if (comentario.isEmpty() || puntaje.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int puntajeValue;
+                try {
+                    puntajeValue = Integer.parseInt(puntaje);
+                    if (puntajeValue < 1 || puntajeValue > 100) {
+                        JOptionPane.showMessageDialog(this, "El puntaje debe estar en el rango de 1 a 100.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Obtiene los objetos correspondientes a los índices seleccionados
+                        Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
+                        Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
 
-                    Entrevista entrevista = new Entrevista();
-                    entrevista.setPostulante(selectedPostulante);
-                    entrevista.setEvaluador(selectedEvaluador);
-                    entrevista.setComentarios(comentario);
-                    entrevista.setPuntaje(puntajeValue);
-                    entrevista.setIdEntrevista(Sistema.getInstance().getListaEntrevistas().size());
+                        Entrevista entrevista = new Entrevista();
+                        entrevista.setPostulante(selectedPostulante);
+                        entrevista.setEvaluador(selectedEvaluador);
+                        entrevista.setComentarios(comentario);
+                        entrevista.setPuntaje(puntajeValue);
+                        entrevista.setIdEntrevista(Sistema.getInstance().idUltimaEntrevista());
 
-                    Sistema.getInstance().getListaEntrevistas().add(entrevista);
+                        Sistema.getInstance().getListaEntrevistas().add(entrevista);
 
-                    String mensaje = "Entrevista registrada con éxito:\n"
-                            + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
-                            + "Evaluador: " + selectedEvaluador.getNombre()
-                            + " Id entrevista: " + Sistema.getInstance().getListaEntrevistas().size();
-                    JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
+                        String mensaje = "Entrevista registrada con éxito:\n"
+                                + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
+                                + "Evaluador: " + selectedEvaluador.getNombre()
+                                + " Id entrevista: " + Sistema.getInstance().idUltimaEntrevista();
+                        JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
 
-                    txtComentario.setText("");
-                    txtPuntaje.setText("");
+                        txtComentario.setText("");
+                        txtPuntaje.setText("");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "El puntaje debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "El puntaje debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante y un evaluador.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante y un evaluador.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

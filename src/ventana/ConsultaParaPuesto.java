@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -115,23 +114,23 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         DefaultListModel<String> modelo = (DefaultListModel<String>) listaPostulantes.getModel();
-        
-        Puesto puesto = (Puesto)listaPantallaPuestos.getSelectedValue();
+
+        Puesto puesto = (Puesto) listaPantallaPuestos.getSelectedValue();
         ArchivoGrabacion archivo = new ArchivoGrabacion("Consulta.txt", false);
         archivo.grabarLinea(puesto.getNombre());
         modelo.size();
-        
-        for(int i=0; i<modelo.size(); i++){
+
+        for (int i = 0; i < modelo.size(); i++) {
             String seleccionado = modelo.getElementAt(i);
             String[] partes1 = seleccionado.split("\\(");
             String[] partes2 = partes1[1].split("\\)");
             System.out.println(partes2[0]);
             int cedula = Integer.parseInt(partes2[0]);
             Postulante postulante = Sistema.getInstance().obtenerPostulantePorCedula(cedula);
-            archivo.grabarLinea(postulante.getNombre() +" - "+ postulante.getCedula() + " - "+ postulante.getCorreo());
-            System.out.println(postulante.getNombre() +" - "+ postulante.getCedula() + " - "+ postulante.getCorreo());
+            archivo.grabarLinea(postulante.getNombre() + " - " + postulante.getCedula() + " - " + postulante.getCorreo());
+            System.out.println(postulante.getNombre() + " - " + postulante.getCedula() + " - " + postulante.getCorreo());
         }
-        
+
         archivo.cerrar();
         JOptionPane.showMessageDialog(this, "Los datos han sido exportados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExportarActionPerformed
@@ -144,34 +143,17 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
 
         if (puestoSeleccionado != null) {
             ArrayList<Postulante> postulantesFiltrados = sistema.obtenerPostulantesPorTematicaNivel(puestoSeleccionado.getTemasRequeridos(), nivelRequerido, puestoSeleccionado);
-            System.out.println("filtrados " + postulantesFiltrados);
 
-            // Calcular el puntaje de la última entrevista para cada postulante y almacenarlos en un mapa
             Map<Postulante, Integer> puntajesUltimaEntrevista = new HashMap<>();
             for (Postulante postulante : postulantesFiltrados) {
                 Entrevista ultimaEntrevista = sistema.obtenerUltimaEntrevista(postulante);
-                System.out.println("puntaje  " + ultimaEntrevista.getPuntaje());
-
-                if (ultimaEntrevista != null) {
-                    puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
-                } else {
-                    puntajesUltimaEntrevista.put(postulante, 0); // Puntaje por defecto si no hay entrevistas
-                }
+                puntajesUltimaEntrevista.put(postulante, ultimaEntrevista.getPuntaje());
             }
-            // Ordenar la lista de postulantes en función del puntaje de la última entrevista, en orden decreciente
             postulantesFiltrados.sort((postulante1, postulante2) -> Integer.compare(puntajesUltimaEntrevista.get(postulante2), puntajesUltimaEntrevista.get(postulante1)));
 
-            // Crear un DefaultListModel para almacenar los nombres de postulantes ordenados por puntaje
-            DefaultListModel<String> listaModelo = new DefaultListModel<>();
-            for (Postulante postulante : postulantesFiltrados) {
-                String nombreCedula = postulante.getNombre() + " (" + postulante.getCedula() + ")";
-                listaModelo.addElement(nombreCedula);
-            }
-            System.out.println("filtrados 2 " + postulantesFiltrados);
+            listaPostulantes.setListData(postulantesFiltrados.toArray());
 
-            listaPostulantes.setModel(listaModelo);
-
-            if (listaModelo.isEmpty()) {
+            if (postulantesFiltrados.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados.", "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
