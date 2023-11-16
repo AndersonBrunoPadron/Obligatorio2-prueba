@@ -121,7 +121,7 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
             }
         });
         getContentPane().add(btnVolver);
-        btnVolver.setBounds(30, 293, 100, 30);
+        btnVolver.setBounds(30, 293, 90, 20);
 
         setSize(new java.awt.Dimension(473, 372));
         setLocationRelativeTo(null);

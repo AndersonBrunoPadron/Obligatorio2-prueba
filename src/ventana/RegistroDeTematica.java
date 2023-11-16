@@ -1,4 +1,3 @@
-
 package ventana;
 
 import Dominio.Tematica;
@@ -7,18 +6,15 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
 
+public class RegistroDeTematica extends javax.swing.JFrame implements Observer {
 
-
-public class RegistroDeTematica extends javax.swing.JFrame implements Observer{
-
-private Tematica modelo;
+    private Tematica modelo;
 
     public RegistroDeTematica() {
         initComponents();
         Sistema.getInstance().addObserver(this);
-         update(null, null);
+        update(null, null);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,7 +58,7 @@ private Tematica modelo;
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 240, 90, 27);
+        btnCancelar.setBounds(20, 240, 90, 20);
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -71,9 +67,9 @@ private Tematica modelo;
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 240, 90, 27);
+        btnRegistrar.setBounds(270, 240, 90, 20);
 
-        setSize(new java.awt.Dimension(414, 307));
+        setSize(new java.awt.Dimension(406, 307));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -82,35 +78,37 @@ private Tematica modelo;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-// Obtener los valores de los campos de texto
-    String nombre = txtNombre.getText();
-    String descripcion = txtDescripcion.getText();
 
-    if (nombre.isEmpty() || descripcion.isEmpty()) {
-        // Si algún campo está vacío, muestra un mensaje de error
-        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-    } 
-    if(!Sistema.getInstance().existeTematica(nombre)){
-        Tematica nuevaTematica = new Tematica();
-        nuevaTematica.setNombre(nombre);
-        nuevaTematica.setDescripcion(descripcion);
-        Sistema.getInstance().agregarTematica(nuevaTematica);
+        String nombre = txtNombre.getText();
+        String descripcion = txtDescripcion.getText();
+        boolean sigue = true;
 
-        JOptionPane.showMessageDialog(this, "La temática se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            sigue = false;
+        } else {
+            if (!Sistema.getInstance().existeTematica(nombre) && sigue) {
+                Tematica nuevaTematica = new Tematica();
+                nuevaTematica.setNombre(nombre);
+                nuevaTematica.setDescripcion(descripcion);
+                Sistema.getInstance().agregarTematica(nuevaTematica);
 
-        txtNombre.setText("");
-        txtDescripcion.setText("");
-        System.out.println();
-    }
-    else{
-        JOptionPane.showMessageDialog(this, "La temática ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "La temática se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        txtNombre.setText("");
-        txtDescripcion.setText("");
-        System.out.println();
-    }
+                txtNombre.setText("");
+                txtDescripcion.setText("");
+                System.out.println();
+            } else if(Sistema.getInstance().existeTematica(nombre)){
+                JOptionPane.showMessageDialog(this, "La temática ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                txtNombre.setText("");
+                txtDescripcion.setText("");
+                System.out.println();
+            }
+
+        }
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -123,8 +121,7 @@ private Tematica modelo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-
     public void update(Observable o, Object ob) {
-        
+
     }
 }

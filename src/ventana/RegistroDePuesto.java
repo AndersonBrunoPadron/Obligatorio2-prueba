@@ -123,7 +123,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 290, 90, 27);
+        btnCancelar.setBounds(20, 290, 90, 20);
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrar.setText("Registrar");

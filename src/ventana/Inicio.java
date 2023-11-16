@@ -63,7 +63,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(10, 360, 76, 27);
+        btnSalir.setBounds(10, 360, 90, 20);
 
         jMenu1.setText("Postulantes");
 
@@ -233,6 +233,7 @@ public class Inicio extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JMenuItem itemAltaP;
     private javax.swing.JMenuItem itemBajaP;

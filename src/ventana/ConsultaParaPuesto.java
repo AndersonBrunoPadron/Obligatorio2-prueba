@@ -72,7 +72,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(30, 400, 120, 23);
+        btnCancelar.setBounds(30, 400, 110, 20);
 
         jScrollPane2.setViewportView(listaPantallaPuestos);
 
@@ -92,7 +92,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnConsultar);
-        btnConsultar.setBounds(260, 180, 120, 23);
+        btnConsultar.setBounds(270, 180, 110, 20);
 
         btnExportar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnExportar.setText("Exportar");
@@ -102,7 +102,7 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnExportar);
-        btnExportar.setBounds(260, 400, 120, 23);
+        btnExportar.setBounds(270, 400, 110, 20);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(30, 220, 350, 3);
 

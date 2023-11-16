@@ -28,7 +28,7 @@ public class PreInicio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSistemaNuevo);
-        btnSistemaNuevo.setBounds(100, 160, 180, 50);
+        btnSistemaNuevo.setBounds(90, 160, 200, 70);
 
         btnCargarDatosDelSistema.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCargarDatosDelSistema.setText("Cargar datos del sistema");
@@ -39,7 +39,7 @@ public class PreInicio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCargarDatosDelSistema);
-        btnCargarDatosDelSistema.setBounds(100, 70, 180, 50);
+        btnCargarDatosDelSistema.setBounds(90, 70, 200, 70);
 
         setSize(new java.awt.Dimension(414, 307));
         setLocationRelativeTo(null);

@@ -154,7 +154,7 @@ public class Sistema extends Observable implements Serializable {
         boolean encontro = false;
         for (int i = 0; i < listaTematicas.size() && !encontro; i++) {
             Tematica tematica = listaTematicas.get(i);
-            if (tematica.getNombre().equals(unTema.toLowerCase())) {
+            if (tematica.getNombre().toLowerCase().equals(unTema.toLowerCase())) {
                 encontro = true;
             }
         }

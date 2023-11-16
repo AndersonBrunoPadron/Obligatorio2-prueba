@@ -65,6 +65,7 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
         getContentPane().add(txtDireccion);
         txtDireccion.setBounds(120, 140, 240, 20);
 
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,8 +73,9 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(20, 230, 90, 27);
+        btnCancelar.setBounds(20, 230, 90, 20);
 
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,9 +83,9 @@ public class RegistroDeEvaluador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(290, 230, 90, 27);
+        btnRegistrar.setBounds(270, 230, 90, 20);
 
-        setSize(new java.awt.Dimension(414, 307));
+        setSize(new java.awt.Dimension(412, 307));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

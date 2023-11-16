@@ -52,6 +52,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 40, 440, 230);
 
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,8 +60,9 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnEliminar);
-        btnEliminar.setBounds(370, 300, 90, 23);
+        btnEliminar.setBounds(370, 290, 90, 20);
 
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +70,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(20, 290, 90, 23);
+        btnSalir.setBounds(20, 290, 90, 20);
 
         setSize(new java.awt.Dimension(500, 362));
         setLocationRelativeTo(null);

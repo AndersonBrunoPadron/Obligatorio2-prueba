@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-public class HistorialDePostulante extends javax.swing.JFrame  implements Observer{
+public class HistorialDePostulante extends javax.swing.JFrame implements Observer {
 
     private Postulante postulanteSeleccionado;
 
@@ -19,7 +19,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         initComponents();
 
         Sistema.getInstance().addObserver(this);
-         update(null, null);
+        update(null, null);
 
         listaPantallaPostulantes.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -54,15 +54,14 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         }
 
         ArrayList<ExperienciaPostulante> experiencias = Sistema.getInstance().obtenerExperienciasPorCedula(postulanteSeleccionadoEnLista.getCedula());
-       
+
         listaPantallaExperiencias.setListData(experiencias.toArray());
-        
+
         cargarEntrevistasDelPostulante(postulanteSeleccionadoEnLista);
         // Eliminar el MouseListener anterior 
         for (MouseListener mouseListener : labelTxtLinkedin.getMouseListeners()) {
             labelTxtLinkedin.removeMouseListener(mouseListener);
         }
-
         // Agregar el nuevo MouseListener al labelTxtLinkedin
         labelTxtLinkedin.addMouseListener(new MouseAdapter() {
             @Override
@@ -86,7 +85,7 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         });
     }
 
-    // Método para verificar si una cadena es una URL válida
+    // verifica si una cadena es una URL válida
     private boolean isURL(String str) {
         boolean res = false;
         try {
@@ -98,42 +97,37 @@ public class HistorialDePostulante extends javax.swing.JFrame  implements Observ
         return res;
     }
 
-private void cargarEntrevistasDelPostulante(Postulante postulante) {
-    Sistema sistema = Sistema.getInstance();
-    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-    
-    // Limpia la tabla si ya contiene datos
-    modelo.setRowCount(0);
+    private void cargarEntrevistasDelPostulante(Postulante postulante) {
+        Sistema sistema = Sistema.getInstance();
+        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
 
-    ArrayList<Entrevista> entrevistas = new ArrayList<>();
-    for (Entrevista entrevista : sistema.getListaEntrevistas()) {
-        if (entrevista.getPostulante() == postulante) {
-            entrevistas.add(entrevista);
+        // Limpia la tabla si ya contiene datos
+        modelo.setRowCount(0);
+
+        ArrayList<Entrevista> entrevistas = new ArrayList<>();
+        for (Entrevista entrevista : sistema.getListaEntrevistas()) {
+            if (entrevista.getPostulante() == postulante) {
+                entrevistas.add(entrevista);
+            }
         }
-    }
 
-    if (entrevistas.isEmpty()) {
-        // Si no hay entrevistas, agrega una fila especial
-        modelo.addRow(new Object[]{"No tiene entrevistas"});
-    } else {
-        // Si hay entrevistas, agrega las filas normales
-        int contador = 1;
-        for (Entrevista entrevista : entrevistas) {
-            modelo.addRow(new Object[]{
-                contador, // Utiliza el contador en lugar de la posición
-                entrevista.getEvaluador().getNombre(),
-                entrevista.getPuntaje(),
-                entrevista.getComentarios()
-            });
-            // Incrementa el contador para la próxima entrevista
-            contador++;
+        if (entrevistas.isEmpty()) {
+
+        } else {
+            int contador = 1;
+            for (Entrevista entrevista : entrevistas) {
+                modelo.addRow(new Object[]{
+                    contador,
+                    entrevista.getEvaluador().getNombre(),
+                    entrevista.getPuntaje(),
+                    entrevista.getComentarios()
+                });
+                contador++;
+            }
         }
+        // Notifica a la tabla que los datos han cambiado
+        modelo.fireTableDataChanged();
     }
-
-    // Notifica a la tabla que los datos han cambiado
-    modelo.fireTableDataChanged();
-}
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -218,7 +212,7 @@ private void cargarEntrevistasDelPostulante(Postulante postulante) {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(20, 690, 120, 27);
+        btnSalir.setBounds(20, 690, 120, 23);
 
         labelBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelBuscar.setText("Buscar:");
@@ -342,43 +336,40 @@ private void cargarEntrevistasDelPostulante(Postulante postulante) {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // Obtener la palabra clave de txtBuscar
+
         String palabraClave = txtBuscar.getText().trim();
 
-        // Verificar si se ha seleccionado un postulante
         if (listaPantallaPostulantes.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Realizar la búsqueda y aplicar el resaltado
             realizarBusquedaConResaltado(palabraClave);
         }
 
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-private void realizarBusquedaConResaltado(String palabraClave) {
-    DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
-    int columnComentarios = 3; // Columna de comentarios en la tabla
+    private void realizarBusquedaConResaltado(String palabraClave) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaPantalla.getModel();
+        int columnComentarios = 3;
 
-    // Restablecer el renderizador de la tabla para usar HTML
-    tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (column == columnComentarios && value instanceof String) {
-                String comentario = (String) value;
-                String comentarioResaltado = comentario.replaceAll(
-                    "(?i)" + Pattern.quote(palabraClave), "<font color='red'>$0</font>"
-                );
-                setText("<html>" + comentarioResaltado + "</html>");
+        // Restablecer el renderizador de la tabla para usar HTML
+        tablaPantalla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == columnComentarios && value instanceof String) {
+                    String comentario = (String) value;
+                    String comentarioResaltado = comentario.replaceAll(
+                            "(?i)" + Pattern.quote(palabraClave), "<font color='red'>$0</font>"
+                    );
+                    setText("<html>" + comentarioResaltado + "</html>");
+                }
+                return c;
             }
-            return c;
-        }
-    });
-
-    // Refrescar la tabla para aplicar el formato HTML
-    tablaPantalla.repaint();
-}
+        });
+        // Refrescar la tabla para aplicar el formato HTML
+        tablaPantalla.repaint();
+    }
 
 
     private void btnResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearActionPerformed
@@ -422,6 +413,6 @@ private void realizarBusquedaConResaltado(String palabraClave) {
 
     @Override
     public void update(Observable o, Object arg) {
-               objetoAPantalla();
+        objetoAPantalla();
     }
 }

@@ -81,6 +81,7 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
         getContentPane().add(txtPuntaje);
         txtPuntaje.setBounds(120, 180, 240, 20);
 
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,8 +89,9 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(30, 300, 90, 27);
+        btnCancelar.setBounds(30, 300, 90, 20);
 
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,9 +99,9 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
             }
         });
         getContentPane().add(btnRegistrar);
-        btnRegistrar.setBounds(270, 300, 90, 27);
+        btnRegistrar.setBounds(270, 300, 90, 20);
 
-        setSize(new java.awt.Dimension(408, 373));
+        setSize(new java.awt.Dimension(408, 363));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
