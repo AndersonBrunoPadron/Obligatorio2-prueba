@@ -113,26 +113,30 @@ public class ConsultaParaPuesto extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        DefaultListModel<String> modelo = (DefaultListModel<String>) listaPostulantes.getModel();
 
+        ListModel<Postulante> modelo = listaPostulantes.getModel();
         Puesto puesto = (Puesto) listaPantallaPuestos.getSelectedValue();
-        ArchivoGrabacion archivo = new ArchivoGrabacion("Consulta.txt", false);
-        archivo.grabarLinea(puesto.getNombre());
-        modelo.size();
+        boolean sigue = true;
 
-        for (int i = 0; i < modelo.size(); i++) {
-            String seleccionado = modelo.getElementAt(i);
-            String[] partes1 = seleccionado.split("\\(");
-            String[] partes2 = partes1[1].split("\\)");
-            System.out.println(partes2[0]);
-            int cedula = Integer.parseInt(partes2[0]);
-            Postulante postulante = Sistema.getInstance().obtenerPostulantePorCedula(cedula);
-            archivo.grabarLinea(postulante.getNombre() + " - " + postulante.getCedula() + " - " + postulante.getCorreo());
-            System.out.println(postulante.getNombre() + " - " + postulante.getCedula() + " - " + postulante.getCorreo());
+        if (puesto != null) {
+            if (modelo.getSize() == 0) {
+                JOptionPane.showMessageDialog(this, "Debe realizar una busqueda antes de exportar.", "Error", JOptionPane.ERROR_MESSAGE);
+                sigue = false;
+            }
+            if (sigue) {
+                ArchivoGrabacion archivo = new ArchivoGrabacion("Consulta.txt", false);
+                archivo.grabarLinea(puesto.getNombre());
+
+                for (int i = 0; i < modelo.getSize(); i++) {
+                    Postulante postulante = modelo.getElementAt(i);
+                    archivo.grabarLinea(postulante.getNombre() + " - " + postulante.getCedula() + " - " + postulante.getCorreo());
+                }
+                archivo.cerrar();
+                JOptionPane.showMessageDialog(this, "Los datos han sido exportados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un puesto antes de exportar", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        archivo.cerrar();
-        JOptionPane.showMessageDialog(this, "Los datos han sido exportados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
