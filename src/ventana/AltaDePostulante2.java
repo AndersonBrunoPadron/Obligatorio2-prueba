@@ -4,9 +4,7 @@
 package ventana;
 
 import Dominio.*;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 import javax.swing.*;
 
 public class AltaDePostulante2 extends javax.swing.JFrame implements Observer {
@@ -23,11 +21,9 @@ public class AltaDePostulante2 extends javax.swing.JFrame implements Observer {
     private ArrayList<ExperienciaPostulante> experiencias = new ArrayList<ExperienciaPostulante>();
 
     public AltaDePostulante2(String unNombre, int unaCedula, String unaDireccion, int unTelefono, String unCorreo, String unLinkedin, String unTipo) {
-        //  sistema = new Sistema();
         initComponents();
         Sistema.getInstance().addObserver(this);
         update(null, null);
-        // this.postulante = postulante1;
         this.nombre = unNombre;
         this.cedula = unaCedula;
         this.direccion = unaDireccion;

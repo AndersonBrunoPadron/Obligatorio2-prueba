@@ -1,12 +1,11 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package Dominio;
 
 import java.io.Serializable;
 
-public class ExperienciaPostulante implements Serializable{
+public class ExperienciaPostulante implements Serializable {
 
     private Tematica tema;
     private int nivel;

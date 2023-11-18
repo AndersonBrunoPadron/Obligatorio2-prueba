@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -337,7 +336,7 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
 
         String palabraClave = txtBuscar.getText().trim();
         if (listaPantallaPostulantes.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un postulante antes de buscar.", "Alerta", JOptionPane.INFORMATION_MESSAGE);
         } else {
             realizarBusquedaConResaltado(palabraClave);
         }

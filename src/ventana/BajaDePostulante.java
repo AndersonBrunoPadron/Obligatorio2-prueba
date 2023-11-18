@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -9,7 +8,7 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 public class BajaDePostulante extends javax.swing.JFrame implements Observer {
-    
+
     private Postulante postulanteSeleccionado;
 
     public BajaDePostulante() {
@@ -18,7 +17,7 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
         update(null, null);
     }
 
-    private void objetoAPantalla(){
+    private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance();
         ArrayList<Postulante> postulantes = sistema.getListaPostulantes();
         jListPostulantes.setListData(postulantes.toArray());
@@ -74,18 +73,18 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    Postulante postulante = (Postulante) jListPostulantes.getSelectedValue();
-    if (Sistema.getInstance().eliminarPostulantePorObjeto(postulante)) {
-        Sistema.getInstance().eliminarEntrevistaPorPostulante(postulante);
-        objetoAPantalla();
-        JOptionPane.showMessageDialog(this, "Se ha dado de baja al postulante seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al eliminar el postulante", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        Postulante postulante = (Postulante) jListPostulantes.getSelectedValue();
+        if (Sistema.getInstance().eliminarPostulantePorObjeto(postulante)) {
+            Sistema.getInstance().eliminarEntrevistaPorPostulante(postulante);
+            objetoAPantalla();
+            JOptionPane.showMessageDialog(this, "Se ha dado de baja al postulante seleccionado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar el postulante", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-      
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
 
@@ -99,6 +98,6 @@ public class BajaDePostulante extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-               objetoAPantalla();
+        objetoAPantalla();
     }
 }

@@ -3,10 +3,8 @@
 //CRISTHIAN GRIBAUSKAS (309715)
 package Dominio;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.io.*;
-import java.util.Iterator;
-import java.util.Observable;
 
 public class Sistema extends Observable implements Serializable {
 
@@ -19,7 +17,7 @@ public class Sistema extends Observable implements Serializable {
     public static Sistema instance;
 
     public Sistema() {
-        listaTematicas = new ArrayList<Tematica>(); // Inicializa el ArrayList de Tematica en el constructor.
+        listaTematicas = new ArrayList<Tematica>();
         listaEvaluadores = new ArrayList<Evaluador>();
         listaPostulantes = new ArrayList<Postulante>();
         listaEntrevistas = new ArrayList<Entrevista>();
@@ -124,12 +122,11 @@ public class Sistema extends Observable implements Serializable {
     }
 
     public Postulante obtenerUltimoPostulante() {
-        Postulante ultimoPostulante = null; // Inicializa como null
+        Postulante ultimoPostulante = null;
         if (!listaPostulantes.isEmpty()) {
-            // Si la lista no está vacía, asigna el último elemento a la variable
             ultimoPostulante = listaPostulantes.get(listaPostulantes.size() - 1);
         }
-        return ultimoPostulante; // Retorna la variable
+        return ultimoPostulante;
     }
 
     public Postulante obtenerPostulantePorCedula(int cedula) {
@@ -172,7 +169,6 @@ public class Sistema extends Observable implements Serializable {
                 encontro = true;
             }
         }
-        System.out.println("eb sistema " + encontro);
         return encontro;
     }
 
@@ -253,7 +249,7 @@ public class Sistema extends Observable implements Serializable {
                 tematicaEncontrada = tematica;
             }
         }
-        return tematicaEncontrada; // Devuelve null si no se encuentra la temática con el nombre especificado
+        return tematicaEncontrada;
     }
 
     public int contarPostulantesConNivelSuperiorA5EnTematica(Tematica tematica) {

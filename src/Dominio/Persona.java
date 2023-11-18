@@ -1,14 +1,12 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package Dominio;
 
 import java.io.Serializable;
 
+public class Persona implements Serializable {
 
-
-public class Persona implements Serializable{
     private String nombre;
     private int cedula;
     private String direccion;
@@ -43,4 +41,3 @@ public class Persona implements Serializable{
         this.direccion = direccion;
     }
 }
-

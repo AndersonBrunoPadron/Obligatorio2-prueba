@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.Sistema;
@@ -56,20 +55,18 @@ public class PreInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSistemaNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSistemaNuevoActionPerformed
-        // Preguntar al usuario si desea cargar un sistema serializado
+
         int option = JOptionPane.showConfirmDialog(null, "¿Desea iniciar un sistema nuevo?", "Sistema nuevo", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
-            // Cargar el sistema serializado
+            // Cargar el sistema nuevo
             Sistema sistema = new Sistema();
             dispose();
             new Inicio().setVisible(true);
         }
-
-
     }//GEN-LAST:event_btnSistemaNuevoActionPerformed
 
     private void btnCargarDatosDelSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosDelSistemaActionPerformed
-        // Preguntar al usuario si desea cargar un sistema serializado
+
         int option = JOptionPane.showConfirmDialog(null, "¿Desea cargar datos del sistema anterior?", "Cargar Sistema", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
             // Cargar el sistema serializado
@@ -84,8 +81,6 @@ public class PreInicio extends javax.swing.JFrame {
                 new Inicio().setVisible(true);
             }
         }
-
-
     }//GEN-LAST:event_btnCargarDatosDelSistemaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

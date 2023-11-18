@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package Dominio;
 
 import java.io.Serializable;
@@ -88,8 +87,6 @@ public class Postulante extends Persona implements Serializable {
         return res; // Si no se encuentra el tema, devuelve 0.
     }
 
-    public String[] split(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 
 }

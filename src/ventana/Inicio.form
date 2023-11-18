@@ -14,30 +14,30 @@
             <Property name="text" type="java.lang.String" value="Postulantes"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemAltaP">
+            <MenuItem class="javax.swing.JMenuItem" name="altaPostulante">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alta de postulante"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemAltaPActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="altaPostulanteActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemBajaP">
+            <MenuItem class="javax.swing.JMenuItem" name="bajaPostulante">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Baja de postulante"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemBajaPActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bajaPostulanteActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemHistorialP">
+            <MenuItem class="javax.swing.JMenuItem" name="historialPostulante">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Historial de postulante"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemHistorialPActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historialPostulanteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -47,12 +47,12 @@
             <Property name="text" type="java.lang.String" value="Evaluadores"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemRegistroE">
+            <MenuItem class="javax.swing.JMenuItem" name="registroEvaluador">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Registro de evaluador"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemRegistroEActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroEvaluadorActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -62,20 +62,20 @@
             <Property name="text" type="java.lang.String" value="Tematicas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemRegistroT">
+            <MenuItem class="javax.swing.JMenuItem" name="registroTematica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Registro de tem&#xe1;tica"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemRegistroTActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroTematicaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemConsultaT">
+            <MenuItem class="javax.swing.JMenuItem" name="consultaPorTematica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta por tem&#xe1;tica"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemConsultaTActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultaPorTematicaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -85,20 +85,20 @@
             <Property name="text" type="java.lang.String" value="Puestos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemRegistroPuesto">
+            <MenuItem class="javax.swing.JMenuItem" name="registroPuesto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Registro de puesto"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemRegistroPuestoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroPuestoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemConsultaPuesto">
+            <MenuItem class="javax.swing.JMenuItem" name="consultaParaPuesto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta para puesto"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemConsultaPuestoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultaParaPuestoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -108,12 +108,12 @@
             <Property name="text" type="java.lang.String" value="Entrevista"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemEntrevista">
+            <MenuItem class="javax.swing.JMenuItem" name="ingresoEntrevista">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ingreso de entrevista"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEntrevistaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ingresoEntrevistaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

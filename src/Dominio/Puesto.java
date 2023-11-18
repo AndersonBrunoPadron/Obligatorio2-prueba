@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package Dominio;
 
 import java.io.Serializable;
@@ -34,7 +33,7 @@ public class Puesto implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-        
+
     }
 
     public ArrayList<Tematica> getTemasRequeridos() {
@@ -46,8 +45,7 @@ public class Puesto implements Serializable {
     }
 
     //=================Metodos=============================================
-
-     @Override
+    @Override
     public String toString() {
 
         return this.getNombre();

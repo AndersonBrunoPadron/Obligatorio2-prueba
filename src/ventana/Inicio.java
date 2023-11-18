@@ -1,12 +1,10 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.Sistema;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
@@ -20,7 +18,7 @@ public class Inicio extends javax.swing.JFrame {
             public void windowClosing(WindowEvent e) {
                 Sistema sistema = Sistema.getInstance();
                 sistema.serializarSistema();
-                System.exit(0); // Cierra la aplicación
+                System.exit(0);
             }
         });
     }
@@ -34,20 +32,20 @@ public class Inicio extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        itemAltaP = new javax.swing.JMenuItem();
-        itemBajaP = new javax.swing.JMenuItem();
+        altaPostulante = new javax.swing.JMenuItem();
+        bajaPostulante = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        itemHistorialP = new javax.swing.JMenuItem();
+        historialPostulante = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        itemRegistroE = new javax.swing.JMenuItem();
+        registroEvaluador = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        itemRegistroT = new javax.swing.JMenuItem();
-        itemConsultaT = new javax.swing.JMenuItem();
+        registroTematica = new javax.swing.JMenuItem();
+        consultaPorTematica = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        itemRegistroPuesto = new javax.swing.JMenuItem();
-        itemConsultaPuesto = new javax.swing.JMenuItem();
+        registroPuesto = new javax.swing.JMenuItem();
+        consultaParaPuesto = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        itemEntrevista = new javax.swing.JMenuItem();
+        ingresoEntrevista = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -71,94 +69,94 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu1.setText("Postulantes");
 
-        itemAltaP.setText("Alta de postulante");
-        itemAltaP.addActionListener(new java.awt.event.ActionListener() {
+        altaPostulante.setText("Alta de postulante");
+        altaPostulante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemAltaPActionPerformed(evt);
+                altaPostulanteActionPerformed(evt);
             }
         });
-        jMenu1.add(itemAltaP);
+        jMenu1.add(altaPostulante);
 
-        itemBajaP.setText("Baja de postulante");
-        itemBajaP.addActionListener(new java.awt.event.ActionListener() {
+        bajaPostulante.setText("Baja de postulante");
+        bajaPostulante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemBajaPActionPerformed(evt);
+                bajaPostulanteActionPerformed(evt);
             }
         });
-        jMenu1.add(itemBajaP);
+        jMenu1.add(bajaPostulante);
         jMenu1.add(jSeparator1);
 
-        itemHistorialP.setText("Historial de postulante");
-        itemHistorialP.addActionListener(new java.awt.event.ActionListener() {
+        historialPostulante.setText("Historial de postulante");
+        historialPostulante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemHistorialPActionPerformed(evt);
+                historialPostulanteActionPerformed(evt);
             }
         });
-        jMenu1.add(itemHistorialP);
+        jMenu1.add(historialPostulante);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Evaluadores");
 
-        itemRegistroE.setText("Registro de evaluador");
-        itemRegistroE.addActionListener(new java.awt.event.ActionListener() {
+        registroEvaluador.setText("Registro de evaluador");
+        registroEvaluador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegistroEActionPerformed(evt);
+                registroEvaluadorActionPerformed(evt);
             }
         });
-        jMenu2.add(itemRegistroE);
+        jMenu2.add(registroEvaluador);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Tematicas");
 
-        itemRegistroT.setText("Registro de temática");
-        itemRegistroT.addActionListener(new java.awt.event.ActionListener() {
+        registroTematica.setText("Registro de temática");
+        registroTematica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegistroTActionPerformed(evt);
+                registroTematicaActionPerformed(evt);
             }
         });
-        jMenu3.add(itemRegistroT);
+        jMenu3.add(registroTematica);
 
-        itemConsultaT.setText("Consulta por temática");
-        itemConsultaT.addActionListener(new java.awt.event.ActionListener() {
+        consultaPorTematica.setText("Consulta por temática");
+        consultaPorTematica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemConsultaTActionPerformed(evt);
+                consultaPorTematicaActionPerformed(evt);
             }
         });
-        jMenu3.add(itemConsultaT);
+        jMenu3.add(consultaPorTematica);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Puestos");
 
-        itemRegistroPuesto.setText("Registro de puesto");
-        itemRegistroPuesto.addActionListener(new java.awt.event.ActionListener() {
+        registroPuesto.setText("Registro de puesto");
+        registroPuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegistroPuestoActionPerformed(evt);
+                registroPuestoActionPerformed(evt);
             }
         });
-        jMenu4.add(itemRegistroPuesto);
+        jMenu4.add(registroPuesto);
 
-        itemConsultaPuesto.setText("Consulta para puesto");
-        itemConsultaPuesto.addActionListener(new java.awt.event.ActionListener() {
+        consultaParaPuesto.setText("Consulta para puesto");
+        consultaParaPuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemConsultaPuestoActionPerformed(evt);
+                consultaParaPuestoActionPerformed(evt);
             }
         });
-        jMenu4.add(itemConsultaPuesto);
+        jMenu4.add(consultaParaPuesto);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Entrevista");
 
-        itemEntrevista.setText("Ingreso de entrevista");
-        itemEntrevista.addActionListener(new java.awt.event.ActionListener() {
+        ingresoEntrevista.setText("Ingreso de entrevista");
+        ingresoEntrevista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemEntrevistaActionPerformed(evt);
+                ingresoEntrevistaActionPerformed(evt);
             }
         });
-        jMenu5.add(itemEntrevista);
+        jMenu5.add(ingresoEntrevista);
 
         jMenuBar1.add(jMenu5);
 
@@ -168,53 +166,75 @@ public class Inicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemBajaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBajaPActionPerformed
-        new BajaDePostulante().setVisible(true);
-    }//GEN-LAST:event_itemBajaPActionPerformed
+    private void bajaPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaPostulanteActionPerformed
+        if (Sistema.getInstance().getListaPostulantes().size() > 0) {
+            new BajaDePostulante().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No existen postulantes cargados al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_bajaPostulanteActionPerformed
 
-    private void itemConsultaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaTActionPerformed
-        new ConsultaPorTematica().setVisible(true);
-    }//GEN-LAST:event_itemConsultaTActionPerformed
+    private void consultaPorTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaPorTematicaActionPerformed
+        boolean sigue = true;
+        if (Sistema.getInstance().getListaTematicas().size() > 0 && Sistema.getInstance().getListaPostulantes().size() > 0) {
+            new ConsultaPorTematica().setVisible(true);
+        } else {
+            if (Sistema.getInstance().getListaTematicas().size() == 0 && Sistema.getInstance().getListaPostulantes().size() == 0) {
+                JOptionPane.showMessageDialog(this, "No existen temáticas ni postulantes cargados al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+                sigue = false;
+            }
+            if (Sistema.getInstance().getListaTematicas().size() == 0 && sigue) {
+                JOptionPane.showMessageDialog(this, "No existen temáticas cargadas al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+                sigue = false;
+            }
+            if (Sistema.getInstance().getListaPostulantes().size() == 0 && sigue) {
+                JOptionPane.showMessageDialog(this, "No existen postulantes cargados al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_consultaPorTematicaActionPerformed
 
-    private void itemAltaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAltaPActionPerformed
-        if (Sistema.getInstance().getListaTematicas().size() >= 1) {
+    private void altaPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaPostulanteActionPerformed
+        if (Sistema.getInstance().getListaTematicas().size() > 0) {
             new AltaDePostulante1().setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "No existen temáticas cargadas en la que asignar postulantes", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos una temática al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_itemAltaPActionPerformed
+    }//GEN-LAST:event_altaPostulanteActionPerformed
 
-    private void itemHistorialPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemHistorialPActionPerformed
-        new HistorialDePostulante().setVisible(true);
-    }//GEN-LAST:event_itemHistorialPActionPerformed
+    private void historialPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialPostulanteActionPerformed
+        if (Sistema.getInstance().getListaPostulantes().size() > 0) {
+            new HistorialDePostulante().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No existen postulantes cargados al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_historialPostulanteActionPerformed
 
-    private void itemRegistroEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroEActionPerformed
+    private void registroEvaluadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroEvaluadorActionPerformed
         new RegistroDeEvaluador().setVisible(true);
-    }//GEN-LAST:event_itemRegistroEActionPerformed
+    }//GEN-LAST:event_registroEvaluadorActionPerformed
 
-    private void itemRegistroTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroTActionPerformed
+    private void registroTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroTematicaActionPerformed
         new RegistroDeTematica().setVisible(true);
-    }//GEN-LAST:event_itemRegistroTActionPerformed
+    }//GEN-LAST:event_registroTematicaActionPerformed
 
-    private void itemRegistroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistroPuestoActionPerformed
-
-        if (Sistema.getInstance().getListaTematicas().size() >= 1) {
+    private void registroPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroPuestoActionPerformed
+        if (Sistema.getInstance().getListaTematicas().size() > 0) {
             new RegistroDePuesto().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar al menos una temática al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_itemRegistroPuestoActionPerformed
+    }//GEN-LAST:event_registroPuestoActionPerformed
 
-    private void itemConsultaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultaPuestoActionPerformed
+    private void consultaParaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaParaPuestoActionPerformed
 
-        if (Sistema.getInstance().getListaPuestos().size() >= 1) {
+        if (Sistema.getInstance().getListaPuestos().size() > 0) {
             new ConsultaParaPuesto().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar al menos un puesto al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_itemConsultaPuestoActionPerformed
+    }//GEN-LAST:event_consultaParaPuestoActionPerformed
 
-    private void itemEntrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntrevistaActionPerformed
+    private void ingresoEntrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoEntrevistaActionPerformed
 
         if (Sistema.getInstance().getListaEvaluadores().size() > 0 && Sistema.getInstance().getListaPostulantes().size() > 0) {
             new IngresoDeEntrevista().setVisible(true);
@@ -229,7 +249,7 @@ public class Inicio extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Debe ingresar al menos un postulante y un evaluador al sistema", "ALERTA", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }//GEN-LAST:event_itemEntrevistaActionPerformed
+    }//GEN-LAST:event_ingresoEntrevistaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
@@ -237,17 +257,13 @@ public class Inicio extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JMenuItem altaPostulante;
+    private javax.swing.JMenuItem bajaPostulante;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JMenuItem itemAltaP;
-    private javax.swing.JMenuItem itemBajaP;
-    private javax.swing.JMenuItem itemConsultaPuesto;
-    private javax.swing.JMenuItem itemConsultaT;
-    private javax.swing.JMenuItem itemEntrevista;
-    private javax.swing.JMenuItem itemHistorialP;
-    private javax.swing.JMenuItem itemRegistroE;
-    private javax.swing.JMenuItem itemRegistroPuesto;
-    private javax.swing.JMenuItem itemRegistroT;
+    private javax.swing.JMenuItem consultaParaPuesto;
+    private javax.swing.JMenuItem consultaPorTematica;
+    private javax.swing.JMenuItem historialPostulante;
+    private javax.swing.JMenuItem ingresoEntrevista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -257,5 +273,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem registroEvaluador;
+    private javax.swing.JMenuItem registroPuesto;
+    private javax.swing.JMenuItem registroTematica;
     // End of variables declaration//GEN-END:variables
 }

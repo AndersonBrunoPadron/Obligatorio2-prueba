@@ -1,13 +1,10 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
-import Dominio.Tematica;
-import Dominio.Sistema;
-import java.util.Observable;
-import java.util.Observer;
+import Dominio.*;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 public class RegistroDeTematica extends javax.swing.JFrame implements Observer {
@@ -102,16 +99,14 @@ public class RegistroDeTematica extends javax.swing.JFrame implements Observer {
                 txtNombre.setText("");
                 txtDescripcion.setText("");
                 System.out.println();
-            } else if(Sistema.getInstance().existeTematica(nombre)){
+            } else if (Sistema.getInstance().existeTematica(nombre)) {
                 JOptionPane.showMessageDialog(this, "La temática ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
 
                 txtNombre.setText("");
                 txtDescripcion.setText("");
                 System.out.println();
             }
-
         }
-
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

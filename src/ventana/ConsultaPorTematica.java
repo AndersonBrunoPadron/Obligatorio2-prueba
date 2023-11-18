@@ -1,15 +1,11 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
-import Dominio.Sistema;
-import Dominio.Tematica;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import Dominio.*;
+import java.util.*;
+import javax.swing.event.*;
 
 public class ConsultaPorTematica extends javax.swing.JFrame implements Observer {
 
@@ -38,6 +34,7 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
     private void objetoAPantalla() {
         Sistema sistema = Sistema.getInstance();
         listaPantallaTematica.setListData(sistema.getListaTematicas().toArray());
+
     }
 
     private void estadisticaAPantalla() {
@@ -49,6 +46,7 @@ public class ConsultaPorTematica extends javax.swing.JFrame implements Observer 
     }
 
     private void actualizarEstadisticas(int cantidadPuestos, int cantidadPostulantes, Tematica tematicaSeleccionada) {
+
         if (cantidadPuestos == 0) {
             labelCantPuestos.setText("Aún no existen puestos que buscan conocimiento en " + tematicaSeleccionada.getNombre());
         }

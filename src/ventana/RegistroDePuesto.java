@@ -1,7 +1,6 @@
 // AUTORES: 
 //ANDERSON BRUNO (314202)
 //CRISTHIAN GRIBAUSKAS (309715)
-
 package ventana;
 
 import Dominio.*;
@@ -19,7 +18,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
     }
 
     private void cargarTemasEnComboBox() {
-        comboBoxTema.removeAllItems(); 
+        comboBoxTema.removeAllItems();
         ArrayList<Tematica> temas = Sistema.getInstance().getListaTematicas();
         for (Tematica tematica : temas) {
             comboBoxTema.addItem(tematica.getNombre());
@@ -274,7 +273,7 @@ public class RegistroDePuesto extends javax.swing.JFrame implements Observer {
         btnRemoto.setSelected(false);
         btnPresencial.setSelected(false);
         btnMixto.setSelected(false);
-        temasRequeridos.clear(); 
+        temasRequeridos.clear();
         listaTemasRequeridos.setListData(temasRequeridos.toArray());
     }
 

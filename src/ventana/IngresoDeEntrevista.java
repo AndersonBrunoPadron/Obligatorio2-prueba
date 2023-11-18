@@ -4,8 +4,7 @@
 package ventana;
 
 import Dominio.*;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer {
