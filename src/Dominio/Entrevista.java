@@ -13,6 +13,14 @@ public class Entrevista implements Serializable {
     private String comentarios;
     private int idEntrevista;
 
+    public Entrevista(Evaluador evaluador, Postulante postulante, int puntaje, String comentarios, int idEntrevista) {
+        this.evaluador = evaluador;
+        this.postulante = postulante;
+        this.puntaje = puntaje;
+        this.comentarios = comentarios;
+        this.idEntrevista = idEntrevista;
+    }
+
     @Override
     public String toString() {
         return "Nombre " + postulante.toString() + " puntaje " + puntaje + " comentario " + comentarios;

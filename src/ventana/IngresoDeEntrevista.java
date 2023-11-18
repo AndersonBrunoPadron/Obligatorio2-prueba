@@ -132,20 +132,15 @@ public class IngresoDeEntrevista extends javax.swing.JFrame implements Observer 
                         // Obtiene los objetos correspondientes a los índices seleccionados
                         Postulante selectedPostulante = Sistema.getInstance().getListaPostulantes().get(selectedIndexPostulantes);
                         Evaluador selectedEvaluador = Sistema.getInstance().getListaEvaluadores().get(selectedIndexEvaluadores);
-
-                        Entrevista entrevista = new Entrevista();
-                        entrevista.setPostulante(selectedPostulante);
-                        entrevista.setEvaluador(selectedEvaluador);
-                        entrevista.setComentarios(comentario);
-                        entrevista.setPuntaje(puntajeValue);
-                        entrevista.setIdEntrevista(Sistema.getInstance().idUltimaEntrevista());
+                        int idEntrevista = Sistema.getInstance().idUltimaEntrevista();
+                        Entrevista entrevista = new Entrevista(selectedEvaluador, selectedPostulante, puntajeValue, comentario, idEntrevista);
 
                         Sistema.getInstance().getListaEntrevistas().add(entrevista);
 
                         String mensaje = "Entrevista registrada con éxito:\n"
-                                + "Postulante: " + selectedPostulante.getNombre() + "-" + selectedPostulante.getCedula() + "-" + selectedPostulante.getDireccion() + "-" + selectedPostulante.getTipo() + "-" + selectedPostulante.getLinkedin() + "\n"
+                                + "Postulante: " + selectedPostulante.getNombre() + " - CI: " + selectedPostulante.getCedula() + " - Dirección: " + selectedPostulante.getDireccion() + "  - Tipo: " + selectedPostulante.getTipo() + " - Linkedin: " + selectedPostulante.getLinkedin() + "\n"
                                 + "Evaluador: " + selectedEvaluador.getNombre()
-                                + " Id entrevista: " + Sistema.getInstance().idUltimaEntrevista();
+                                + " - Id entrevista: " + idEntrevista;
                         JOptionPane.showMessageDialog(this, mensaje, "Entrevista Registrada", JOptionPane.INFORMATION_MESSAGE);
 
                         txtComentario.setText("");

@@ -89,9 +89,7 @@ public class RegistroDeTematica extends javax.swing.JFrame implements Observer {
             sigue = false;
         } else {
             if (!Sistema.getInstance().existeTematica(nombre) && sigue) {
-                Tematica nuevaTematica = new Tematica();
-                nuevaTematica.setNombre(nombre);
-                nuevaTematica.setDescripcion(descripcion);
+                Tematica nuevaTematica = new Tematica(nombre, descripcion);
                 Sistema.getInstance().agregarTematica(nuevaTematica);
 
                 JOptionPane.showMessageDialog(this, "La temática se ha guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);

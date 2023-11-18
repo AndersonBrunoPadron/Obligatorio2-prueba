@@ -10,6 +10,11 @@ public class Tematica implements Serializable {
     private String nombre;
     private String descripcion;
 
+    public Tematica(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     //=================Sets y Gets============================
     public String getNombre() {
         return nombre;
