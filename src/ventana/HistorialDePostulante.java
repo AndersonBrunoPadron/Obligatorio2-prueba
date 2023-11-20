@@ -197,7 +197,7 @@ public class HistorialDePostulante extends javax.swing.JFrame implements Observe
         jScrollPane1.setBounds(20, 430, 910, 240);
 
         labelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelTitulo.setText("Historial del postulante");
+        labelTitulo.setText("Historial postulante");
         getContentPane().add(labelTitulo);
         labelTitulo.setBounds(370, 0, 230, 30);
 
